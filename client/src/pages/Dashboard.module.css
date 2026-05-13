@@ -9,25 +9,27 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
-  padding: 32px 28px 24px;
+  padding: 28px 28px 20px;
   flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--card-bg);
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 1.625rem;
   color: var(--text-dark);
-  line-height: 1.1;
   font-weight: 700;
+  line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-top: 3px;
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+  margin-top: 2px;
 }
 
 .content {
-  padding: 24px 28px 40px;
+  padding: 24px 28px 48px;
   flex: 1;
 }

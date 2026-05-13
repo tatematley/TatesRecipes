@@ -1,25 +1,21 @@
 .container {
-  background: linear-gradient(135deg, #FEF3ED 0%, #FFF0E8 100%);
-  border: 1.5px solid #FDDDD4;
-  border-left: 4px solid var(--coral);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--coral);
   border-radius: var(--radius-md);
-  padding: 18px 20px;
+  background: var(--coral-pale);
+  padding: 16px 18px;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin-bottom: 10px;
 }
 
-.icon { font-size: 1.1rem; }
-
-.title {
-  font-family: var(--font-heading);
-  font-size: 1.0625rem;
-  color: var(--text-dark);
-  font-weight: 600;
+.label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--coral);
 }
 
 .tips {
@@ -32,20 +28,20 @@
 .textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1.5px solid #FDDDD4;
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.65);
   font-family: var(--font-body);
   font-size: 0.9375rem;
   color: var(--text-dark);
-  line-height: 1.6;
+  line-height: 1.65;
   resize: vertical;
   outline: none;
   transition: var(--transition);
 }
 .textarea:focus {
   border-color: var(--coral);
-  box-shadow: 0 0 0 3px rgba(242, 140, 122, 0.15);
-  background: #fff;
+  box-shadow: 0 0 0 2px rgba(200, 88, 74, 0.12);
+  background: rgba(255,255,255,0.9);
 }
 .textarea::placeholder { color: var(--text-faint); }

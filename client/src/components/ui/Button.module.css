@@ -2,30 +2,24 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
   font-family: var(--font-body);
   font-weight: 600;
-  border-radius: var(--radius-full);
-  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
   cursor: pointer;
   transition: var(--transition);
   white-space: nowrap;
   line-height: 1;
-  text-decoration: none;
+  letter-spacing: 0.01em;
 }
 
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
 
-/* Sizes */
-.sm { padding: 6px 14px; font-size: 0.8125rem; }
-.md { padding: 10px 20px; font-size: 0.9375rem; }
-.lg { padding: 13px 28px; font-size: 1rem; }
+.sm { padding: 6px 12px;  font-size: 0.8125rem; }
+.md { padding: 9px 18px;  font-size: 0.875rem; }
+.lg { padding: 11px 24px; font-size: 0.9375rem; }
 
-/* Variants */
 .primary {
   background: var(--green);
   color: #fff;
@@ -34,8 +28,6 @@
 .primary:hover:not(:disabled) {
   background: var(--green-hover);
   border-color: var(--green-hover);
-  box-shadow: 0 4px 12px rgba(111, 168, 93, 0.35);
-  transform: translateY(-1px);
 }
 
 .secondary {
@@ -44,9 +36,8 @@
   border-color: var(--border);
 }
 .secondary:hover:not(:disabled) {
-  background: var(--cream);
   border-color: var(--text-muted);
-  transform: translateY(-1px);
+  background: var(--cream);
 }
 
 .ghost {
@@ -55,40 +46,24 @@
   border-color: transparent;
 }
 .ghost:hover:not(:disabled) {
-  background: var(--green-pale);
-  color: var(--green);
-}
-
-.coral {
-  background: var(--coral);
-  color: #fff;
-  border-color: var(--coral);
-}
-.coral:hover:not(:disabled) {
-  background: var(--coral-hover);
-  border-color: var(--coral-hover);
-  box-shadow: 0 4px 12px rgba(242, 140, 122, 0.35);
-  transform: translateY(-1px);
+  background: var(--border-light);
+  color: var(--text-dark);
 }
 
 .danger {
   background: transparent;
-  color: #c0392b;
-  border-color: #f5c6c2;
+  color: var(--coral);
+  border-color: var(--border);
 }
 .danger:hover:not(:disabled) {
-  background: #fdf0ef;
-  border-color: #c0392b;
+  background: var(--coral-pale);
+  border-color: var(--coral);
 }
 
-.fullWidth {
-  width: 100%;
-}
+.fullWidth { width: 100%; }
 
-.icon,
-.iconRight {
+.icon {
   display: flex;
   align-items: center;
-  font-size: 1.1em;
   flex-shrink: 0;
 }

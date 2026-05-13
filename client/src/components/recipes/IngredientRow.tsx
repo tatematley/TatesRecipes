@@ -11,27 +11,25 @@ interface IngredientRowProps {
 export function IngredientRow({ ingredient, index, onChange, onRemove }: IngredientRowProps) {
   return (
     <div className={styles.row}>
-      <div className={styles.number}>{index + 1}</div>
+      <span className={styles.index}>{index + 1}</span>
 
       <input
         type="text"
         value={ingredient.quantity}
         onChange={(e) => onChange(ingredient.id, 'quantity', e.target.value)}
         placeholder="Qty"
-        className={[styles.input, styles.qty].join(' ')}
+        className={[styles.cell, styles.qty].join(' ')}
         aria-label="Quantity"
       />
 
       <select
         value={ingredient.measurement}
         onChange={(e) => onChange(ingredient.id, 'measurement', e.target.value)}
-        className={[styles.input, styles.measure].join(' ')}
+        className={[styles.cell, styles.measure].join(' ')}
         aria-label="Measurement"
       >
         {MEASUREMENTS.map((m) => (
-          <option key={m} value={m}>
-            {m || '—'}
-          </option>
+          <option key={m} value={m}>{m || '—'}</option>
         ))}
       </select>
 
@@ -39,8 +37,8 @@ export function IngredientRow({ ingredient, index, onChange, onRemove }: Ingredi
         type="text"
         value={ingredient.name}
         onChange={(e) => onChange(ingredient.id, 'name', e.target.value)}
-        placeholder="Ingredient name"
-        className={[styles.input, styles.name].join(' ')}
+        placeholder="Ingredient"
+        className={[styles.cell, styles.name].join(' ')}
         aria-label="Ingredient name"
       />
 
@@ -48,8 +46,8 @@ export function IngredientRow({ ingredient, index, onChange, onRemove }: Ingredi
         type="text"
         value={ingredient.preparation}
         onChange={(e) => onChange(ingredient.id, 'preparation', e.target.value)}
-        placeholder="Prep note (optional)"
-        className={[styles.input, styles.prep].join(' ')}
+        placeholder="Prep note"
+        className={[styles.cell, styles.prep].join(' ')}
         aria-label="Preparation note"
       />
 
@@ -59,7 +57,7 @@ export function IngredientRow({ ingredient, index, onChange, onRemove }: Ingredi
         className={styles.removeBtn}
         aria-label="Remove ingredient"
       >
-        ✕
+        ×
       </button>
     </div>
   )

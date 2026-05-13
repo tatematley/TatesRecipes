@@ -1,34 +1,21 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './Sidebar.module.css'
 import { ALL_CATEGORIES } from '../../types'
+import {
+  BookOpenIcon, StarIcon, UserIcon, LeafIcon,
+  ShoppingBagIcon, FolderIcon, CalendarIcon, SparkleIcon, PlusIcon,
+} from '../ui/Icons'
 
 const NAV_ITEMS = [
-  { to: '/',            label: 'Recipe Box',       icon: '📖' },
-  { to: '/favorites',   label: 'Favorites',        icon: '★' },
-  { to: '/created',     label: 'Created by Tate',  icon: '👨‍🍳' },
-  { to: '/pantry',      label: 'Pantry Mode',      icon: '🥕' },
-  { to: '/grocery',     label: 'Grocery Lists',    icon: '🛒' },
-  { to: '/collections', label: 'Collections',      icon: '📂' },
-  { to: '/planner',     label: 'Meal Planner',     icon: '📅' },
-  { to: '/assistant',   label: 'AI Assistant',     icon: '✨' },
+  { to: '/',            label: 'Recipe Box',      Icon: BookOpenIcon },
+  { to: '/favorites',   label: 'Favorites',       Icon: StarIcon },
+  { to: '/created',     label: 'Created by Tate', Icon: UserIcon },
+  { to: '/pantry',      label: 'Pantry Mode',     Icon: LeafIcon },
+  { to: '/grocery',     label: 'Grocery Lists',   Icon: ShoppingBagIcon },
+  { to: '/collections', label: 'Collections',     Icon: FolderIcon },
+  { to: '/planner',     label: 'Meal Planner',    Icon: CalendarIcon },
+  { to: '/assistant',   label: 'AI Assistant',    Icon: SparkleIcon },
 ]
-
-const CATEGORY_ICONS: Record<string, string> = {
-  Breakfast:         '🍳',
-  Lunch:             '🥗',
-  Dinner:            '🍽️',
-  Desserts:          '🍰',
-  Breads:            '🍞',
-  Sides:             '🥦',
-  Appetizers:        '🧆',
-  Soups:             '🍲',
-  Salads:            '🥙',
-  Snacks:            '🍿',
-  Drinks:            '🍹',
-  Sauces:            '🫙',
-  'Holiday Recipes': '🎄',
-  'Family Favorites':'❤️',
-}
 
 export function Sidebar() {
   const navigate = useNavigate()
@@ -36,16 +23,12 @@ export function Sidebar() {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.brand} onClick={() => navigate('/')}>
-        <div className={styles.brandIcon}>🍴</div>
-        <div>
-          <div className={styles.brandName}>Tate's Recipes</div>
-          <div className={styles.brandTagline}>My digital kitchen</div>
-        </div>
+        <span className={styles.brandName}>Tate's Recipes</span>
       </div>
 
       <nav className={styles.nav}>
         <ul className={styles.navList}>
-          {NAV_ITEMS.map(({ to, label, icon }) => (
+          {NAV_ITEMS.map(({ to, label, Icon }) => (
             <li key={to}>
               <NavLink
                 to={to}
@@ -54,7 +37,7 @@ export function Sidebar() {
                   [styles.navLink, isActive ? styles.active : ''].join(' ')
                 }
               >
-                <span className={styles.navIcon}>{icon}</span>
+                <Icon size={15} strokeWidth={1.75} className={styles.navIcon} />
                 <span>{label}</span>
               </NavLink>
             </li>
@@ -62,19 +45,20 @@ export function Sidebar() {
         </ul>
       </nav>
 
+      <div className={styles.divider} />
+
       <div className={styles.section}>
-        <div className={styles.sectionTitle}>Categories</div>
+        <p className={styles.sectionLabel}>Categories</p>
         <ul className={styles.categoryList}>
           <li>
             <NavLink
               to="/"
               end
               className={({ isActive }) =>
-                [styles.categoryLink, isActive ? styles.active : ''].join(' ')
+                [styles.categoryLink, isActive ? styles.categoryActive : ''].join(' ')
               }
             >
-              <span>🍴</span>
-              <span>All Recipes</span>
+              All Recipes
             </NavLink>
           </li>
           {ALL_CATEGORIES.map((cat) => (
@@ -82,20 +66,21 @@ export function Sidebar() {
               <NavLink
                 to={`/?category=${encodeURIComponent(cat)}`}
                 className={({ isActive }) =>
-                  [styles.categoryLink, isActive ? styles.active : ''].join(' ')
+                  [styles.categoryLink, isActive ? styles.categoryActive : ''].join(' ')
                 }
               >
-                <span>{CATEGORY_ICONS[cat] ?? '🍴'}</span>
-                <span>{cat}</span>
+                {cat}
               </NavLink>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className={styles.addBtn} onClick={() => navigate('/add')}>
-        <span>+</span>
-        <span>Add Recipe</span>
+      <div className={styles.addWrap}>
+        <button className={styles.addBtn} onClick={() => navigate('/add')}>
+          <PlusIcon size={14} strokeWidth={2} />
+          Add Recipe
+        </button>
       </div>
     </aside>
   )

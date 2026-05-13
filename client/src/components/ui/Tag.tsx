@@ -1,17 +1,15 @@
 import styles from './Tag.module.css'
-import { getTagColor } from '../../utils/helpers'
 
 interface TagProps {
   label: string
   onRemove?: () => void
   size?: 'sm' | 'md'
+  variant?: 'default' | 'green' | 'outlined'
 }
 
-export function Tag({ label, onRemove, size = 'md' }: TagProps) {
-  const colorClass = styles[getTagColor(label)] ?? styles.default
-
+export function Tag({ label, onRemove, size = 'md', variant = 'default' }: TagProps) {
   return (
-    <span className={[styles.tag, colorClass, styles[size]].join(' ')}>
+    <span className={[styles.tag, styles[size], styles[variant]].join(' ')}>
       {label}
       {onRemove && (
         <button

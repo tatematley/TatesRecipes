@@ -80,12 +80,3 @@ export function slugify(text: string): string {
     .replace(/[^a-z0-9-]/g, '')
 }
 
-export function getTagColor(tag: string): string {
-  const dietary = ['Gluten Free', 'Dairy Free', 'Vegetarian', 'Vegan', 'Nut Free', 'High Protein', 'Low Sugar']
-  const occasion = ['Weeknight Dinner', 'Sunday Dinner', 'BBQ', 'Holiday', 'Party', 'Cozy Meal']
-  if (dietary.includes(tag)) return 'dietary'
-  if (occasion.includes(tag)) return 'occasion'
-  if (tag === 'Family Favorite') return 'family'
-  if (tag === 'Crowd Pleaser' || tag === 'Worth the Effort') return 'special'
-  return 'default'
-}

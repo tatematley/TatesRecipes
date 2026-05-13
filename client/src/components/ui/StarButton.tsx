@@ -1,3 +1,4 @@
+import { StarIcon } from './Icons'
 import styles from './StarButton.module.css'
 
 interface StarButtonProps {
@@ -7,15 +8,20 @@ interface StarButtonProps {
 }
 
 export function StarButton({ isFavorite, onToggle, size = 'md' }: StarButtonProps) {
+  const iconSize = size === 'sm' ? 14 : size === 'md' ? 16 : 20
+
   return (
     <button
       className={[styles.star, styles[size], isFavorite ? styles.active : ''].join(' ')}
       onClick={onToggle}
       aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       type="button"
-      title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
     >
-      {isFavorite ? '★' : '☆'}
+      <StarIcon
+        size={iconSize}
+        strokeWidth={isFavorite ? 0 : 1.5}
+        className={isFavorite ? styles.filledIcon : styles.emptyIcon}
+      />
     </button>
   )
 }

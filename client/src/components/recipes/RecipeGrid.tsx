@@ -12,7 +12,6 @@ export function RecipeGrid({ recipes, onAddRecipe }: RecipeGridProps) {
   if (recipes.length === 0) {
     return (
       <EmptyState
-        emoji="🍳"
         title="No recipes found"
         message="Try adjusting your filters, or add your first recipe to get started."
         action={onAddRecipe ? { label: 'Add a Recipe', onClick: onAddRecipe } : undefined}

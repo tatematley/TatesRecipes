@@ -12,14 +12,13 @@ export function TatesTips({ tips, editable, onChange }: TatesTipsProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span className={styles.icon}>💡</span>
-        <h3 className={styles.title}>Tate's Tips</h3>
+        <span className={styles.label}>Tate's Tips</span>
       </div>
       {editable ? (
         <textarea
           value={tips}
           onChange={(e) => onChange?.(e.target.value)}
-          placeholder="Add your personal notes, alterations, or reminders... e.g. 'Use less sugar next time' or 'Mom loved this one!'"
+          placeholder="Add personal notes, alterations, or reminders — e.g. 'Use less sugar next time' or 'Mom loved this one.'"
           className={styles.textarea}
           rows={4}
         />

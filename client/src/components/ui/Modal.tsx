@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import styles from './Modal.module.css'
 import { Button } from './Button'
+import { XIcon } from './Icons'
 
 interface ModalProps {
   isOpen: boolean
@@ -13,20 +14,14 @@ interface ModalProps {
 
 export function Modal({ isOpen, onClose, title, children, footer, size = 'md' }: ModalProps) {
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) onClose()
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
+    const fn = (e: KeyboardEvent) => { if (e.key === 'Escape' && isOpen) onClose() }
+    window.addEventListener('keydown', fn)
+    return () => window.removeEventListener('keydown', fn)
   }, [isOpen, onClose])
 
   if (!isOpen) return null
@@ -40,15 +35,9 @@ export function Modal({ isOpen, onClose, title, children, footer, size = 'md' }:
         aria-modal="true"
       >
         <div className={styles.header}>
-          <h2 className={styles.title}>{title}</h2>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            aria-label="Close"
-            className={styles.closeBtn}
-          >
-            ✕
+          <h3 className={styles.title}>{title}</h3>
+          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close" className={styles.closeBtn}>
+            <XIcon size={14} />
           </Button>
         </div>
         <div className={styles.body}>{children}</div>

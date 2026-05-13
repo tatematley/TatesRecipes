@@ -1,41 +1,34 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  border-radius: var(--radius-full);
+  gap: 4px;
+  border-radius: var(--radius-xs);
   font-weight: 600;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   line-height: 1;
 }
 
-.sm { padding: 3px 8px; font-size: 0.6875rem; }
-.md { padding: 4px 10px; font-size: 0.75rem; }
+.sm { padding: 2px 6px;  font-size: 0.6875rem; }
+.md { padding: 3px 8px;  font-size: 0.75rem; }
 
-/* Colors */
-.dietary  { background: var(--green-pale);  color: var(--green-hover); }
-.occasion { background: var(--blue-pale);   color: #5080a8; }
-.family   { background: var(--coral-pale);  color: var(--coral-hover); }
-.special  { background: #f3f0ff;            color: #7c5cbf; }
 .default  { background: var(--border-light); color: var(--text-body); }
+.green    { background: var(--green-pale);  color: var(--green); }
+.outlined { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
 
 .remove {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   line-height: 1;
   cursor: pointer;
   color: inherit;
-  opacity: 0.6;
+  opacity: 0.55;
   transition: var(--transition);
   background: none;
   border: none;
   padding: 0;
+  margin-left: 1px;
 }
-.remove:hover {
-  opacity: 1;
-  background: rgba(0,0,0,0.08);
-}
+.remove:hover { opacity: 1; }

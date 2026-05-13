@@ -1,24 +1,22 @@
 .card {
   background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
   overflow: hidden;
   cursor: pointer;
-  transition: var(--transition-slow);
-  border: 1.5px solid var(--border-light);
+  transition: var(--transition);
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .card:hover {
+  border-color: var(--border);
   box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
-  border-color: var(--green-soft);
+  transform: translateY(-2px);
 }
 
 .card:focus-visible {
-  outline: 2.5px solid var(--green);
+  outline: 2px solid var(--green);
   outline-offset: 2px;
 }
 
@@ -26,7 +24,7 @@
 .imageWrap {
   position: relative;
   width: 100%;
-  padding-top: 62%;
+  padding-top: 58%;
   overflow: hidden;
   background: var(--border-light);
   flex-shrink: 0;
@@ -38,101 +36,73 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.35s ease;
 }
 
-.card:hover .image {
-  transform: scale(1.04);
-}
+.card:hover .image { transform: scale(1.03); }
 
-.imageOverlay {
+.starWrap {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(63,48,40,0.18) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-/* Badges on image */
-.imageWrap :global(.star-btn) {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   background: rgba(255,255,255,0.92);
-  border-radius: 50%;
-  box-shadow: var(--shadow-sm);
-}
-
-:global([class*="StarButton_star"]) {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(255,255,255,0.92) !important;
-  box-shadow: var(--shadow-sm);
-}
-
-.category {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(4px);
-  color: var(--text-dark);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  text-transform: uppercase;
-}
-
-.tatesBadge {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: var(--green);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
 }
 
 /* Body */
 .body {
-  padding: 16px;
+  padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
   flex: 1;
-}
-
-.title {
-  font-family: var(--font-heading);
-  font-size: 1.0625rem;
-  color: var(--text-dark);
-  line-height: 1.3;
-  font-weight: 600;
-}
-
-.description {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 /* Meta row */
 .meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   align-items: center;
+  gap: 6px;
 }
 
-.metaItem {
+.category {
+  font-size: 0.675rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.tatePill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--green-pale);
+  color: var(--green);
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+}
+
+/* Title */
+.title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+/* Time row */
+.timeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.timeItem {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -141,49 +111,21 @@
   font-weight: 500;
 }
 
-.metaTotal {
-  color: var(--text-dark);
-  font-weight: 700;
-}
-
-.metaIcon { font-size: 0.875rem; }
-
-.metaLabel {
-  color: var(--text-faint);
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
+.timeItem + .timeItem {
+  padding-left: 10px;
+  border-left: 1px solid var(--border-light);
 }
 
 /* Tags */
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 4px;
   align-items: center;
-  margin-top: 2px;
 }
 
-.moreTags {
-  font-size: 0.7rem;
-  color: var(--text-muted);
+.moreTag {
+  font-size: 0.675rem;
   font-weight: 600;
+  color: var(--text-faint);
 }
-
-/* Tip preview */
-.tipPreview {
-  display: flex;
-  align-items: flex-start;
-  gap: 5px;
-  font-size: 0.775rem;
-  color: var(--text-muted);
-  font-style: italic;
-  background: var(--coral-pale);
-  padding: 7px 10px;
-  border-radius: var(--radius-sm);
-  border-left: 2.5px solid var(--coral);
-  line-height: 1.4;
-  margin-top: 2px;
-}
-
-.tipIcon { flex-shrink: 0; }

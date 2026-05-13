@@ -4,14 +4,14 @@ import { StarButton } from '../ui/StarButton'
 import { Tag } from '../ui/Tag'
 import { formatTime } from '../../utils/helpers'
 import { useRecipeContext } from '../../context/RecipeContext'
+import { ClockIcon } from '../ui/Icons'
 import styles from './RecipeCard.module.css'
 
 interface RecipeCardProps {
   recipe: Recipe
 }
 
-const PLACEHOLDER =
-  'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80'
+const PLACEHOLDER = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80'
 
 export function RecipeCard({ recipe }: RecipeCardProps) {
   const { toggleFavorite } = useRecipeContext()
@@ -22,8 +22,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
     toggleFavorite(recipe.id)
   }
 
-  const visibleTags = recipe.tags.slice(0, 3)
-  const hasMoreTags = recipe.tags.length > 3
+  const visibleTags = recipe.tags.slice(0, 2)
 
   return (
     <article
@@ -31,7 +30,6 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       onClick={() => navigate(`/recipe/${recipe.id}`)}
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && navigate(`/recipe/${recipe.id}`)}
-      aria-label={recipe.title}
     >
       <div className={styles.imageWrap}>
         <img
@@ -39,54 +37,36 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
           alt={recipe.title}
           className={styles.image}
           loading="lazy"
-          onError={(e) => {
-            e.currentTarget.src = PLACEHOLDER
-          }}
+          onError={(e) => { e.currentTarget.src = PLACEHOLDER }}
         />
-        <div className={styles.imageOverlay} />
-        <StarButton
-          isFavorite={recipe.isFavorite}
-          onToggle={handleFavorite}
-          size="sm"
-        />
-        <div className={styles.category}>{recipe.category}</div>
-        {recipe.createdByTate && (
-          <div className={styles.tatesBadge}>👨‍🍳 Tate's</div>
-        )}
+        <div className={styles.starWrap}>
+          <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" />
+        </div>
       </div>
 
       <div className={styles.body}>
+        <div className={styles.meta}>
+          <span className={styles.category}>{recipe.category}</span>
+          {recipe.createdByTate && (
+            <span className={styles.tatePill}>Tate's</span>
+          )}
+        </div>
+
         <h3 className={styles.title}>{recipe.title}</h3>
 
-        {recipe.description && (
-          <p className={styles.description}>{recipe.description}</p>
-        )}
-
-        <div className={styles.meta}>
-          {recipe.prepTime != null && (
-            <span className={styles.metaItem} title="Prep time">
-              <span className={styles.metaIcon}>⏱</span>
-              <span className={styles.metaLabel}>Prep</span>
-              {formatTime(recipe.prepTime)}
-            </span>
-          )}
-          {recipe.cookTime != null && (
-            <span className={styles.metaItem} title="Cook time">
-              <span className={styles.metaIcon}>🔥</span>
-              <span className={styles.metaLabel}>Cook</span>
-              {formatTime(recipe.cookTime)}
-            </span>
-          )}
+        <div className={styles.timeRow}>
           {recipe.totalTime != null && (
-            <span className={[styles.metaItem, styles.metaTotal].join(' ')} title="Total time">
-              <span className={styles.metaIcon}>⏰</span>
+            <span className={styles.timeItem}>
+              <ClockIcon size={12} strokeWidth={1.75} />
               {formatTime(recipe.totalTime)}
             </span>
           )}
           {recipe.servings != null && (
-            <span className={styles.metaItem} title="Servings">
-              <span className={styles.metaIcon}>🍽</span>
-              {recipe.servings}
+            <span className={styles.timeItem}>Serves {recipe.servings}</span>
+          )}
+          {recipe.difficulty && (
+            <span className={styles.timeItem} style={{ textTransform: 'capitalize' }}>
+              {recipe.difficulty}
             </span>
           )}
         </div>
@@ -96,19 +76,10 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             {visibleTags.map((tag) => (
               <Tag key={tag} label={tag} size="sm" />
             ))}
-            {hasMoreTags && (
-              <span className={styles.moreTags}>+{recipe.tags.length - 3}</span>
+            {recipe.tags.length > 2 && (
+              <span className={styles.moreTag}>+{recipe.tags.length - 2}</span>
             )}
           </div>
-        )}
-
-        {recipe.tatesTips && (
-          <p className={styles.tipPreview}>
-            <span className={styles.tipIcon}>💡</span>
-            {recipe.tatesTips.length > 80
-              ? recipe.tatesTips.slice(0, 80) + '…'
-              : recipe.tatesTips}
-          </p>
         )}
       </div>
     </article>

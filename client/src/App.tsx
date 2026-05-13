@@ -25,7 +25,6 @@ export default function App() {
               path="/pantry"
               element={
                 <PlaceholderPage
-                  emoji="🥕"
                   title="Pantry Mode"
                   phase={4}
                   description="Enter ingredients you have on hand and get recipe recommendations from your collection, sorted by best match and fewest missing ingredients."
@@ -36,10 +35,9 @@ export default function App() {
               path="/grocery"
               element={
                 <PlaceholderPage
-                  emoji="🛒"
                   title="Grocery Lists"
                   phase={3}
-                  description="Select one or more recipes and generate a combined grocery list, grouped by store section with satisfying check-off functionality."
+                  description="Select one or more recipes and generate a combined grocery list, grouped by store section with check-off functionality."
                 />
               }
             />
@@ -47,10 +45,9 @@ export default function App() {
               path="/collections"
               element={
                 <PlaceholderPage
-                  emoji="📂"
                   title="Collections"
                   phase={7}
-                  description="Organize your recipes into custom collections like Summer BBQ, Christmas Baking, Sunday Dinners, or whatever fits your life."
+                  description="Organize your recipes into custom collections — Summer BBQ, Christmas Baking, Sunday Dinners, or anything else."
                 />
               }
             />
@@ -58,10 +55,9 @@ export default function App() {
               path="/planner"
               element={
                 <PlaceholderPage
-                  emoji="📅"
                   title="Meal Planner"
                   phase={7}
-                  description="Plan your meals for the week by dragging recipes onto a calendar view, then generate a combined grocery list for the whole week."
+                  description="Plan your meals for the week by assigning recipes to days, then generate a combined grocery list for everything."
                 />
               }
             />
@@ -69,10 +65,9 @@ export default function App() {
               path="/assistant"
               element={
                 <PlaceholderPage
-                  emoji="✨"
-                  title="AI Cooking Assistant"
+                  title="AI Assistant"
                   phase={6}
-                  description="Chat with an AI that knows your recipe collection. Scale recipes, find substitutions, get meal recommendations, and more."
+                  description="Chat with an AI that knows your recipe collection — scale recipes, find substitutions, get meal recommendations, and more."
                 />
               }
             />
