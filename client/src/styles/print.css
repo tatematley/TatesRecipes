@@ -1,0 +1,136 @@
+@media print {
+  /* Hide everything except the recipe content */
+  .sidebar,
+  .filter-bar,
+  .recipe-actions,
+  .no-print,
+  nav,
+  header {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    font-family: Georgia, serif;
+    font-size: 12pt;
+    color: #000;
+  }
+
+  .print-recipe {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Simple print layout */
+  .print-simple h1 {
+    font-size: 22pt;
+    border-bottom: 2px solid #000;
+    padding-bottom: 8pt;
+    margin-bottom: 12pt;
+  }
+
+  .print-simple .recipe-meta {
+    display: flex;
+    gap: 24pt;
+    margin-bottom: 16pt;
+    font-size: 10pt;
+  }
+
+  .print-simple .ingredients-list {
+    float: left;
+    width: 40%;
+    margin-right: 5%;
+  }
+
+  .print-simple .instructions-list {
+    float: left;
+    width: 55%;
+  }
+
+  /* Cute recipe card layout */
+  .print-card {
+    border: 3px solid #6FA85D;
+    border-radius: 12pt;
+    padding: 24pt;
+    background: #FFF8EC !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-card h1 {
+    font-size: 20pt;
+    color: #3F3028;
+    text-align: center;
+    margin-bottom: 6pt;
+  }
+
+  .print-card .print-divider {
+    border: none;
+    border-top: 2px solid #C7D9B7;
+    margin: 12pt 0;
+  }
+
+  .print-card .recipe-hero {
+    width: 100%;
+    max-height: 180pt;
+    object-fit: cover;
+    border-radius: 8pt;
+    margin-bottom: 12pt;
+  }
+
+  .print-card .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 20pt;
+    font-size: 10pt;
+    color: #5a4a40;
+    margin-bottom: 14pt;
+  }
+
+  .print-card .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20pt;
+  }
+
+  .print-card h3 {
+    font-size: 12pt;
+    color: #6FA85D;
+    margin-bottom: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .print-card li {
+    font-size: 10pt;
+    margin-bottom: 4pt;
+    line-height: 1.4;
+  }
+
+  .print-card .tates-tips {
+    background: #FEF0ED !important;
+    border-left: 3px solid #F28C7A;
+    padding: 8pt 12pt;
+    margin-top: 12pt;
+    border-radius: 0 6pt 6pt 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-card .footer-note {
+    text-align: center;
+    font-size: 9pt;
+    color: #9a8880;
+    margin-top: 12pt;
+    font-style: italic;
+  }
+
+  a::after {
+    content: '';
+  }
+
+  * {
+    page-break-inside: avoid;
+  }
+}

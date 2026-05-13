@@ -1,0 +1,219 @@
+/* ─── Design Tokens ─────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --cream:          #FFF8EC;
+  --card-bg:        #FFFCF6;
+  --green:          #6FA85D;
+  --green-hover:    #5d9249;
+  --green-soft:     #C7D9B7;
+  --green-pale:     #EEF5E9;
+  --coral:          #F28C7A;
+  --coral-hover:    #e07565;
+  --coral-pale:     #FEF0ED;
+  --blue-soft:      #A7C7E7;
+  --blue-pale:      #EBF4FB;
+  --text-dark:      #3F3028;
+  --text-body:      #5a4a40;
+  --text-muted:     #9a8880;
+  --text-faint:     #c4b6b0;
+  --border:         #EDE5DC;
+  --border-light:   #F4EDE5;
+  --shadow-sm:      0 1px 3px rgba(63, 48, 40, 0.06);
+  --shadow-md:      0 4px 16px rgba(63, 48, 40, 0.08);
+  --shadow-lg:      0 8px 32px rgba(63, 48, 40, 0.12);
+  --shadow-card:    0 2px 12px rgba(63, 48, 40, 0.07), 0 1px 3px rgba(63, 48, 40, 0.05);
+  --shadow-hover:   0 8px 28px rgba(63, 48, 40, 0.14), 0 2px 6px rgba(63, 48, 40, 0.08);
+
+  /* Typography */
+  --font-heading:   'Fraunces', Georgia, serif;
+  --font-body:      'Nunito Sans', system-ui, sans-serif;
+
+  /* Sizing */
+  --sidebar-width:  260px;
+  --radius-sm:      8px;
+  --radius-md:      12px;
+  --radius-lg:      16px;
+  --radius-xl:      24px;
+  --radius-full:    9999px;
+
+  /* Transitions */
+  --transition:     all 0.2s ease;
+  --transition-slow: all 0.3s ease;
+}
+
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--cream);
+  color: var(--text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── Typography ─────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-dark);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.375rem; }
+h4 { font-size: 1.125rem; }
+
+p {
+  color: var(--text-body);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--green);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--green-hover);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-faint);
+}
+
+/* ─── Utilities ──────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ─── Form Base ──────────────────────────────────────────────── */
+.field-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.field-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  color: var(--text-dark);
+  font-size: 0.9375rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+.field-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(111, 168, 93, 0.15);
+}
+
+.field-input::placeholder {
+  color: var(--text-faint);
+}
+
+textarea.field-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+select.field-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a8880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* ─── Animations ─────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.15); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease both;
+}

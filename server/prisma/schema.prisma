@@ -1,0 +1,162 @@
+// Tate's Recipes — Prisma Schema (Phase 2)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Recipe {
+  id              String             @id @default(cuid())
+  title           String
+  description     String?
+  category        String
+  prepTime        Int?
+  cookTime        Int?
+  totalTime       Int?
+  servings        Int?
+  difficulty      String?
+  heroImage       String?
+  sourceUrl       String?
+  sourceName      String?
+  createdByTate   Boolean            @default(false)
+  tatesTips       String?
+  isFavorite      Boolean            @default(false)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  ingredients     Ingredient[]
+  instructions    Instruction[]
+  tags            RecipeTag[]
+  photos          Photo[]
+  madeItHistory   MadeItHistory[]
+  collections     CollectionRecipe[]
+  groceryItems    GroceryListItem[]
+  mealSlots       MealPlanRecipe[]
+}
+
+model Ingredient {
+  id          String  @id @default(cuid())
+  quantity    String?
+  measurement String?
+  name        String
+  preparation String?
+  order       Int
+  recipeId    String
+  recipe      Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+model Instruction {
+  id       String @id @default(cuid())
+  step     Int
+  text     String
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id      String      @id @default(cuid())
+  name    String      @unique
+  type    String      // dietary | occasion | custom
+  recipes RecipeTag[]
+}
+
+model RecipeTag {
+  recipeId String
+  tagId    String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  tag      Tag    @relation(fields: [tagId], references: [id])
+  @@id([recipeId, tagId])
+}
+
+model Photo {
+  id          String    @id @default(cuid())
+  url         String
+  caption     String?
+  dateMade    DateTime?
+  notes       String?
+  rating      Int?
+  whatChanged String?
+  makeAgain   Boolean?
+  recipeId    String
+  recipe      Recipe    @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+}
+
+model MadeItHistory {
+  id          String    @id @default(cuid())
+  dateMade    DateTime
+  madeFor     String?
+  rating      Int?
+  notes       String?
+  whatChanged String?
+  makeAgain   Boolean?
+  recipeId    String
+  recipe      Recipe    @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+}
+
+model Collection {
+  id          String             @id @default(cuid())
+  name        String
+  description String?
+  coverImage  String?
+  recipes     CollectionRecipe[]
+  createdAt   DateTime           @default(now())
+}
+
+model CollectionRecipe {
+  collectionId String
+  recipeId     String
+  addedAt      DateTime   @default(now())
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  @@id([collectionId, recipeId])
+}
+
+model PantryItem {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model GroceryList {
+  id        String            @id @default(cuid())
+  name      String
+  items     GroceryListItem[]
+  createdAt DateTime          @default(now())
+}
+
+model GroceryListItem {
+  id          String      @id @default(cuid())
+  quantity    String?
+  measurement String?
+  name        String
+  section     String?     // produce | dairy | meat | baking | pantry | frozen | spices | other
+  checked     Boolean     @default(false)
+  alreadyHave Boolean     @default(false)
+  listId      String
+  list        GroceryList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  recipeId    String?
+  recipe      Recipe?     @relation(fields: [recipeId], references: [id])
+}
+
+model MealPlan {
+  id        String           @id @default(cuid())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  slots     MealPlanRecipe[]
+  createdAt DateTime         @default(now())
+}
+
+model MealPlanRecipe {
+  id         String   @id @default(cuid())
+  date       DateTime
+  mealType   String   // breakfast | lunch | dinner | snack
+  mealPlanId String
+  mealPlan   MealPlan @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
+  recipeId   String
+  recipe     Recipe   @relation(fields: [recipeId], references: [id])
+}

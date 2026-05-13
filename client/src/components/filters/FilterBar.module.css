@@ -1,0 +1,126 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 28px;
+  background: var(--card-bg);
+  border-bottom: 1.5px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.searchWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 200px;
+  max-width: 380px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 11px;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 9px 36px 9px 34px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background: var(--cream);
+  outline: none;
+  transition: var(--transition);
+  font-family: var(--font-body);
+}
+
+.searchInput:focus {
+  border-color: var(--green);
+  background: var(--card-bg);
+  box-shadow: 0 0 0 3px rgba(111, 168, 93, 0.12);
+}
+
+.searchInput::placeholder { color: var(--text-faint); }
+
+.clearSearch {
+  position: absolute;
+  right: 10px;
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+.clearSearch:hover { background: var(--border); color: var(--text-body); }
+
+/* Quick filter chips */
+.quickFilters {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.quickChip {
+  padding: 6px 13px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+.quickChip:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-pale);
+}
+.quickChip.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* Right side */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.count {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.filterBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-left: 2px;
+}

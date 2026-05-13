@@ -1,0 +1,166 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(63, 48, 40, 0.3);
+  z-index: 200;
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 340px;
+  background: var(--card-bg);
+  box-shadow: -4px 0 32px rgba(63, 48, 40, 0.14);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.panel.open {
+  transform: translateX(0);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1.5px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  color: var(--text-dark);
+}
+
+.closeBtn {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.closeBtn:hover { background: var(--border-light); }
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section {}
+
+.sectionTitle {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.chipGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chipGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+}
+.chip:hover { border-color: var(--green); color: var(--green); }
+.chipActive {
+  background: var(--green) !important;
+  border-color: var(--green) !important;
+  color: #fff !important;
+}
+
+.dietaryChip.chipActive {
+  background: var(--green) !important;
+}
+
+.occasionChip.chipActive {
+  background: var(--blue-soft) !important;
+  border-color: var(--blue-soft) !important;
+  color: var(--text-dark) !important;
+}
+
+/* Toggle */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-body);
+  font-weight: 500;
+  padding: 6px 0;
+}
+.toggle input { display: none; }
+
+.toggleTrack {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: var(--border);
+  border-radius: 99px;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.toggleTrack::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: var(--transition);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle input:checked ~ .toggleTrack {
+  background: var(--green);
+}
+.toggle input:checked ~ .toggleTrack::after {
+  left: 19px;
+}
+
+.footer {
+  padding: 14px 20px 20px;
+  border-top: 1.5px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

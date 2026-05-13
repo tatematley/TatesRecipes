@@ -1,0 +1,41 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.sm { padding: 3px 8px; font-size: 0.6875rem; }
+.md { padding: 4px 10px; font-size: 0.75rem; }
+
+/* Colors */
+.dietary  { background: var(--green-pale);  color: var(--green-hover); }
+.occasion { background: var(--blue-pale);   color: #5080a8; }
+.family   { background: var(--coral-pale);  color: var(--coral-hover); }
+.special  { background: #f3f0ff;            color: #7c5cbf; }
+.default  { background: var(--border-light); color: var(--text-body); }
+
+.remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  transition: var(--transition);
+  background: none;
+  border: none;
+  padding: 0;
+}
+.remove:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.08);
+}
