@@ -10,7 +10,7 @@ import { PlusIcon } from '../components/ui/Icons'
 import styles from './Dashboard.module.css'
 
 export function Dashboard() {
-  const { recipes } = useRecipeContext()
+  const { recipes, loading, error } = useRecipeContext()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const filters = useFilters()
@@ -27,15 +27,24 @@ export function Dashboard() {
       <div className={styles.header}>
         <div>
           <h1 className={styles.title}>Recipe Box</h1>
-          <p className={styles.subtitle}>{recipes.length} saved recipes</p>
+          <p className={styles.subtitle}>
+            {loading ? 'Loading…' : `${recipes.length} saved recipes`}
+          </p>
         </div>
         <Button
           onClick={() => navigate('/add')}
           icon={<PlusIcon size={14} strokeWidth={2} />}
+          disabled={loading}
         >
           Add Recipe
         </Button>
       </div>
+
+      {error && (
+        <div className={styles.errorBanner}>
+          <strong>Connection error:</strong> {error} — check your Supabase credentials in .env.local
+        </div>
+      )}
 
       <FilterBar
         filters={filters}
@@ -44,7 +53,15 @@ export function Dashboard() {
       />
 
       <div className={styles.content}>
-        <RecipeGrid recipes={filtered} onAddRecipe={() => navigate('/add')} />
+        {loading ? (
+          <div className={styles.loadingGrid}>
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className={styles.skeleton} />
+            ))}
+          </div>
+        ) : (
+          <RecipeGrid recipes={filtered} onAddRecipe={() => navigate('/add')} />
+        )}
       </div>
     </div>
   )

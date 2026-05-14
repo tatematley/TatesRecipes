@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRecipeContext } from '../context/RecipeContext'
 import { StarButton } from '../components/ui/StarButton'
 import { Tag } from '../components/ui/Tag'
@@ -7,9 +7,11 @@ import { Button } from '../components/ui/Button'
 import { TatesTips } from '../components/recipes/TatesTips'
 import { Modal } from '../components/ui/Modal'
 import { formatTime } from '../utils/helpers'
+import { uploadPhoto } from '../lib/db'
+import { Photo } from '../types'
 import {
   ArrowLeftIcon, PencilIcon, TrashIcon, PrinterIcon,
-  ClockIcon, FlameIcon, UsersIcon, BarChartIcon, LinkIcon,
+  ClockIcon, FlameIcon, UsersIcon, BarChartIcon, LinkIcon, PlusIcon,
 } from '../components/ui/Icons'
 import styles from './RecipeDetailPage.module.css'
 
@@ -18,9 +20,12 @@ const PLACEHOLDER = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae3
 export function RecipeDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { getRecipe, toggleFavorite, deleteRecipe } = useRecipeContext()
+  const { getRecipe, toggleFavorite, deleteRecipe, updateRecipe } = useRecipeContext()
   const [scale, setScale] = useState(1)
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const fileRef = useRef<HTMLInputElement>(null)
 
   const recipe = getRecipe(id!)
 
@@ -33,9 +38,32 @@ export function RecipeDetailPage() {
     )
   }
 
-  function handleDelete() {
-    deleteRecipe(recipe!.id)
+  async function handleDelete() {
+    setDeleting(true)
+    await deleteRecipe(recipe!.id)
     navigate('/')
+  }
+
+  async function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const url = await uploadPhoto(recipe!.id, file)
+      const newPhoto: Photo = {
+        id: crypto.randomUUID(),
+        url,
+        dateMade: new Date().toISOString().split('T')[0],
+      }
+      await updateRecipe(recipe!.id, {
+        photos: [...recipe!.photos, newPhoto],
+      })
+    } catch (err) {
+      console.error('Photo upload failed:', err)
+    } finally {
+      setUploading(false)
+      if (fileRef.current) fileRef.current.value = ''
+    }
   }
 
   function scaleQty(qty: string): string {
@@ -51,10 +79,10 @@ export function RecipeDetailPage() {
       }
     }
     const result = value * scale
-    const fractions: [number, string][] = [[0.25,'¼'],[0.33,'⅓'],[0.5,'½'],[0.67,'⅔'],[0.75,'¾']]
+    const fracs: [number, string][] = [[0.25,'¼'],[0.33,'⅓'],[0.5,'½'],[0.67,'⅔'],[0.75,'¾']]
     const whole = Math.floor(result)
-    const frac = result - whole
-    const match = fractions.find(([f]) => Math.abs(frac - f) < 0.05)
+    const frac  = result - whole
+    const match = fracs.find(([f]) => Math.abs(frac - f) < 0.05)
     if (match) return whole > 0 ? `${whole} ${match[1]}` : match[1]
     if (result === Math.floor(result)) return String(result)
     return result.toFixed(2).replace(/\.?0+$/, '')
@@ -92,7 +120,7 @@ export function RecipeDetailPage() {
       </div>
 
       {/* Content */}
-      <div className={styles.content}>
+      <div className={styles.content + ' print-recipe'}>
         {/* Title block */}
         <div className={styles.titleBlock}>
           <div className={styles.titleMeta}>
@@ -160,7 +188,7 @@ export function RecipeDetailPage() {
           </div>
         )}
 
-        {/* Scale control */}
+        {/* Scale */}
         <div className={styles.scaleRow + ' no-print'}>
           <span className={styles.scaleLabel}>Scale:</span>
           {[0.5, 1, 2, 3].map((s) => (
@@ -234,18 +262,65 @@ export function RecipeDetailPage() {
             </a>
           </div>
         )}
+
+        {/* My Photos */}
+        <div className={styles.divider + ' no-print'} />
+        <div className={styles.photosSection + ' no-print'}>
+          <div className={styles.photosSectionHeader}>
+            <h2 className={styles.sectionTitle} style={{ marginBottom: 0 }}>My Photos</h2>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => fileRef.current?.click()}
+              disabled={uploading}
+              icon={<PlusIcon size={12} strokeWidth={2} />}
+            >
+              {uploading ? 'Uploading…' : 'Add Photo'}
+            </Button>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handlePhotoUpload}
+            />
+          </div>
+
+          {recipe.photos.length === 0 ? (
+            <p className={styles.noPhotos}>
+              No photos yet — add one each time you make this recipe.
+            </p>
+          ) : (
+            <div className={styles.photosGrid}>
+              {recipe.photos.map((photo) => (
+                <div key={photo.id} className={styles.photoCard}>
+                  <img src={photo.url} alt={photo.caption || 'Recipe photo'} className={styles.photoImg} />
+                  {(photo.caption || photo.dateMade) && (
+                    <div className={styles.photoMeta}>
+                      {photo.dateMade && <span className={styles.photoDate}>{new Date(photo.dateMade).toLocaleDateString()}</span>}
+                      {photo.caption && <span>{photo.caption}</span>}
+                      {photo.rating && <span>{'★'.repeat(photo.rating)}</span>}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Delete modal */}
       <Modal
         isOpen={deleteOpen}
-        onClose={() => setDeleteOpen(false)}
+        onClose={() => !deleting && setDeleteOpen(false)}
         title="Delete recipe"
         size="sm"
         footer={
           <>
-            <Button variant="secondary" onClick={() => setDeleteOpen(false)}>Cancel</Button>
-            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+            <Button variant="secondary" onClick={() => setDeleteOpen(false)} disabled={deleting}>Cancel</Button>
+            <Button variant="danger" onClick={handleDelete} disabled={deleting}>
+              {deleting ? 'Deleting…' : 'Delete'}
+            </Button>
           </>
         }
       >

@@ -34,6 +34,7 @@ export function AddRecipePage() {
   const { addRecipe } = useRecipeContext()
   const [form, setForm] = useState<FormData>(defaultForm)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [saving, setSaving] = useState(false)
 
   function set<K extends keyof FormData>(field: K, value: FormData[K]) {
     setForm((f) => ({ ...f, [field]: value }))
@@ -49,14 +50,20 @@ export function AddRecipePage() {
     return Object.keys(e).length === 0
   }
 
-  function handleSubmit(ev: React.FormEvent) {
+  async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     if (!validate()) return
-    const ingredients = form.ingredients.filter((i) => i.name.trim()).map((i, idx) => ({ ...i, order: idx }))
-    const instructions = form.instructions.filter((i) => i.text.trim()).map((i, idx) => ({ ...i, step: idx + 1 }))
-    const totalTime = form.totalTime ?? ((form.prepTime ?? 0) + (form.cookTime ?? 0) || null)
-    addRecipe({ ...form, ingredients, instructions, totalTime })
-    navigate('/')
+    setSaving(true)
+    try {
+      const ingredients = form.ingredients.filter((i) => i.name.trim()).map((i, idx) => ({ ...i, order: idx }))
+      const instructions = form.instructions.filter((i) => i.text.trim()).map((i, idx) => ({ ...i, step: idx + 1 }))
+      const totalTime = form.totalTime ?? ((form.prepTime ?? 0) + (form.cookTime ?? 0) || null)
+      const saved = await addRecipe({ ...form, ingredients, instructions, totalTime })
+      navigate(`/recipe/${saved.id}`)
+    } catch (err) {
+      console.error(err)
+      setSaving(false)
+    }
   }
 
   function addIngredient() { set('ingredients', [...form.ingredients, newIngredient()]) }
@@ -210,8 +217,8 @@ export function AddRecipePage() {
         </section>
 
         <div className={styles.footer}>
-          <Button type="button" variant="secondary" onClick={() => navigate(-1)}>Cancel</Button>
-          <Button type="submit">Save Recipe</Button>
+          <Button type="button" variant="secondary" onClick={() => navigate(-1)} disabled={saving}>Cancel</Button>
+          <Button type="submit" disabled={saving}>{saving ? 'Saving…' : 'Save Recipe'}</Button>
         </div>
       </form>
     </div>

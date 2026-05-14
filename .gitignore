@@ -8,7 +8,7 @@ dist/
 build/
 .vite/
 
-# Environment
+# Environment — never commit credentials
 .env
 .env.local
 .env.*.local

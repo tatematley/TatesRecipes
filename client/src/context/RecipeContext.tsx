@@ -1,50 +1,42 @@
-import React, { createContext, useContext, useEffect, useReducer } from 'react'
+import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { Recipe } from '../types'
 import { mockRecipes } from '../data/mockRecipes'
-import { generateId, now } from '../utils/helpers'
-
-const STORAGE_KEY = 'tates-recipes'
+import {
+  fetchRecipes, insertRecipe, patchRecipe, removeRecipe, seedIfEmpty,
+} from '../lib/db'
 
 interface State {
   recipes: Recipe[]
+  loading: boolean
+  error: string | null
 }
 
 type Action =
-  | { type: 'ADD_RECIPE'; recipe: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'> }
-  | { type: 'UPDATE_RECIPE'; id: string; updates: Partial<Recipe> }
-  | { type: 'DELETE_RECIPE'; id: string }
+  | { type: 'SET_LOADING' }
+  | { type: 'SET_RECIPES'; recipes: Recipe[] }
+  | { type: 'SET_ERROR'; message: string }
+  | { type: 'ADD'; recipe: Recipe }
+  | { type: 'UPDATE'; id: string; recipe: Recipe }
+  | { type: 'DELETE'; id: string }
   | { type: 'TOGGLE_FAVORITE'; id: string }
-  | { type: 'LOAD'; recipes: Recipe[] }
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'LOAD':
-      return { ...state, recipes: action.recipes }
-
-    case 'ADD_RECIPE': {
-      const recipe: Recipe = {
-        ...action.recipe,
-        id: generateId(),
-        createdAt: now(),
-        updatedAt: now(),
-      }
-      return { ...state, recipes: [recipe, ...state.recipes] }
-    }
-
-    case 'UPDATE_RECIPE':
+    case 'SET_LOADING':
+      return { ...state, loading: true, error: null }
+    case 'SET_RECIPES':
+      return { ...state, recipes: action.recipes, loading: false, error: null }
+    case 'SET_ERROR':
+      return { ...state, loading: false, error: action.message }
+    case 'ADD':
+      return { ...state, recipes: [action.recipe, ...state.recipes] }
+    case 'UPDATE':
       return {
         ...state,
-        recipes: state.recipes.map((r) =>
-          r.id === action.id ? { ...r, ...action.updates, updatedAt: now() } : r
-        ),
+        recipes: state.recipes.map((r) => r.id === action.id ? action.recipe : r),
       }
-
-    case 'DELETE_RECIPE':
-      return {
-        ...state,
-        recipes: state.recipes.filter((r) => r.id !== action.id),
-      }
-
+    case 'DELETE':
+      return { ...state, recipes: state.recipes.filter((r) => r.id !== action.id) }
     case 'TOGGLE_FAVORITE':
       return {
         ...state,
@@ -52,7 +44,6 @@ function reducer(state: State, action: Action): State {
           r.id === action.id ? { ...r, isFavorite: !r.isFavorite } : r
         ),
       }
-
     default:
       return state
   }
@@ -60,55 +51,90 @@ function reducer(state: State, action: Action): State {
 
 interface ContextValue {
   recipes: Recipe[]
-  addRecipe: (recipe: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>) => void
-  updateRecipe: (id: string, updates: Partial<Recipe>) => void
-  deleteRecipe: (id: string) => void
-  toggleFavorite: (id: string) => void
+  loading: boolean
+  error: string | null
+  addRecipe: (recipe: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>) => Promise<Recipe>
+  updateRecipe: (id: string, updates: Partial<Recipe>) => Promise<void>
+  deleteRecipe: (id: string) => Promise<void>
+  toggleFavorite: (id: string) => Promise<void>
   getRecipe: (id: string) => Recipe | undefined
+  refreshRecipes: () => Promise<void>
 }
 
 const RecipeContext = createContext<ContextValue | null>(null)
 
 export function RecipeProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, { recipes: [] })
+  const [state, dispatch] = useReducer(reducer, {
+    recipes: [],
+    loading: true,
+    error: null,
+  })
 
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      try {
-        dispatch({ type: 'LOAD', recipes: JSON.parse(stored) })
-      } catch {
-        dispatch({ type: 'LOAD', recipes: mockRecipes })
-      }
-    } else {
-      dispatch({ type: 'LOAD', recipes: mockRecipes })
+  const load = useCallback(async () => {
+    dispatch({ type: 'SET_LOADING' })
+    try {
+      // On very first load, seed the mock recipes if the table is empty
+      await seedIfEmpty(mockRecipes)
+      const recipes = await fetchRecipes()
+      dispatch({ type: 'SET_RECIPES', recipes })
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to load recipes'
+      dispatch({ type: 'SET_ERROR', message: msg })
     }
   }, [])
 
-  useEffect(() => {
-    if (state.recipes.length > 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.recipes))
+  useEffect(() => { load() }, [load])
+
+  const addRecipe = useCallback(
+    async (data: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>) => {
+      const recipe = await insertRecipe(data)
+      dispatch({ type: 'ADD', recipe })
+      return recipe
+    },
+    []
+  )
+
+  const updateRecipe = useCallback(async (id: string, updates: Partial<Recipe>) => {
+    const recipe = await patchRecipe(id, updates)
+    dispatch({ type: 'UPDATE', id, recipe })
+  }, [])
+
+  const deleteRecipe = useCallback(async (id: string) => {
+    await removeRecipe(id)
+    dispatch({ type: 'DELETE', id })
+  }, [])
+
+  const toggleFavorite = useCallback(async (id: string) => {
+    const recipe = state.recipes.find((r) => r.id === id)
+    if (!recipe) return
+    // Optimistic update — flip immediately, sync in background
+    dispatch({ type: 'TOGGLE_FAVORITE', id })
+    try {
+      await patchRecipe(id, { isFavorite: !recipe.isFavorite })
+    } catch {
+      // Revert on failure
+      dispatch({ type: 'TOGGLE_FAVORITE', id })
     }
   }, [state.recipes])
 
-  const addRecipe = (recipe: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>) =>
-    dispatch({ type: 'ADD_RECIPE', recipe })
-
-  const updateRecipe = (id: string, updates: Partial<Recipe>) =>
-    dispatch({ type: 'UPDATE_RECIPE', id, updates })
-
-  const deleteRecipe = (id: string) =>
-    dispatch({ type: 'DELETE_RECIPE', id })
-
-  const toggleFavorite = (id: string) =>
-    dispatch({ type: 'TOGGLE_FAVORITE', id })
-
-  const getRecipe = (id: string) =>
-    state.recipes.find((r) => r.id === id)
+  const getRecipe = useCallback(
+    (id: string) => state.recipes.find((r) => r.id === id),
+    [state.recipes]
+  )
 
   return (
     <RecipeContext.Provider
-      value={{ recipes: state.recipes, addRecipe, updateRecipe, deleteRecipe, toggleFavorite, getRecipe }}
+      value={{
+        recipes:        state.recipes,
+        loading:        state.loading,
+        error:          state.error,
+        addRecipe,
+        updateRecipe,
+        deleteRecipe,
+        toggleFavorite,
+        getRecipe,
+        refreshRecipes: load,
+      }}
     >
       {children}
     </RecipeContext.Provider>
