@@ -10,7 +10,7 @@
 }
 
 .card:hover {
-  border-color: var(--green-soft);      /* soft green border on hover */
+  border-color: var(--border);
   box-shadow: var(--shadow-hover);
   transform: translateY(-2px);
 }
@@ -26,7 +26,7 @@
   width: 100%;
   padding-top: 58%;
   overflow: hidden;
-  background: var(--green-faint);       /* faint green placeholder bg */
+  background: var(--cream);
   flex-shrink: 0;
 }
 
@@ -57,7 +57,6 @@
   flex-direction: column;
   gap: 7px;
   flex: 1;
-  border-top: 2px solid var(--green-faint); /* faint green top accent */
 }
 
 /* Meta row */
@@ -69,10 +68,10 @@
 
 .category {
   font-size: 0.675rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--green-mid);              /* herb green — category label */
+  color: var(--green-mid);             /* green accent — category only */
 }
 
 .tatePill {
@@ -80,8 +79,8 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: var(--green-pale);        /* pale green bg */
-  color: var(--green-dark);            /* dark green text */
+  background: var(--green-pale);
+  color: var(--green-dark);
   padding: 1px 6px;
   border-radius: var(--radius-xs);
 }
@@ -89,7 +88,7 @@
 /* Title */
 .title {
   font-family: var(--font-heading);
-  font-size: 1.25rem;                   /* Cormorant reads well at larger sizes */
+  font-size: 1.25rem;
   color: var(--text-dark);
   line-height: 1.25;
   font-weight: 600;
@@ -114,7 +113,7 @@
 
 .timeItem + .timeItem {
   padding-left: 10px;
-  border-left: 1px solid var(--border);
+  border-left: 1px solid var(--border-light);
 }
 
 /* Tags */
@@ -128,5 +127,5 @@
 .moreTag {
   font-size: 0.675rem;
   font-weight: 600;
-  color: var(--green-sage);             /* sage — overflow count */
+  color: var(--text-faint);
 }

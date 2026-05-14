@@ -9,15 +9,15 @@
   align-items: center;
   gap: 14px;
   padding: 20px 0 16px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);
   margin-bottom: 28px;
 }
 
 .pageTitle {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--green-dark);            /* dark green — form title */
-  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
 .form {
@@ -38,17 +38,16 @@
 
 .sectionTitle {
   font-family: var(--font-heading);
-  font-size: 0.9375rem;
-  color: var(--green-dark);            /* dark green — section titles */
-  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text-dark);
+  font-weight: 600;
   padding-bottom: 10px;
-  border-bottom: 1.5px solid var(--green-soft); /* soft green divider */
-  letter-spacing: 0.01em;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .hint {
   font-size: 0.8125rem;
-  color: var(--green-sage);            /* sage — helper text */
+  color: var(--text-faint);
   margin-top: -6px;
 }
 
@@ -61,14 +60,11 @@
   .grid2, .grid3 { grid-template-columns: 1fr; }
 }
 
-/* Error */
 .err { border-color: var(--coral) !important; }
 .errMsg { display: block; font-size: 0.8rem; color: var(--coral); font-weight: 600; margin-top: -6px; }
 
-/* Rows */
 .rows { display: flex; flex-direction: column; gap: 6px; }
 
-/* Instruction row */
 .instrRow {
   display: flex;
   gap: 8px;
@@ -79,10 +75,10 @@
   min-width: 24px;
   height: 24px;
   border-radius: var(--radius-sm);
-  background: var(--green);            /* primary green — step numbers */
+  background: var(--green);
   color: #fff;
   font-size: 0.6875rem;
-  font-weight: 800;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +94,7 @@
   height: 24px;
   border: none;
   background: transparent;
-  color: var(--green-sage);
+  color: var(--text-faint);
   font-size: 1.125rem;
   cursor: pointer;
   display: flex;
@@ -110,35 +106,25 @@
 }
 .removeBtn:hover { background: var(--coral-pale); color: var(--coral); }
 
-/* Tags */
 .tagGrid { display: flex; flex-wrap: wrap; gap: 5px; }
 
 .tagBtn {
   padding: 4px 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--green-faint);
+  background: transparent;
   font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--green-mid);
+  font-weight: 500;
+  color: var(--text-muted);
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-body);
 }
-.tagBtn:hover {
-  border-color: var(--green-soft);
-  background: var(--green-pale);
-  color: var(--green-dark);
-}
-.tagOn {
-  background: var(--green-dark);
-  border-color: var(--green-dark);
-  color: #fff;
-}
+.tagBtn:hover { border-color: var(--text-muted); color: var(--text-dark); }
+.tagOn { background: var(--green); border-color: var(--green); color: #fff; }
 
 .selectedTags { display: flex; flex-wrap: wrap; gap: 5px; }
 
-/* Toggles */
 .toggles { display: flex; flex-direction: column; gap: 8px; }
 
 .toggle {
@@ -157,7 +143,7 @@
   position: relative;
   width: 32px;
   height: 18px;
-  background: var(--green-soft);        /* soft green — toggle off state */
+  background: var(--border);
   border-radius: 99px;
   transition: var(--transition);
   flex-shrink: 0;
@@ -175,7 +161,6 @@
 .toggle input:checked ~ .track { background: var(--green); }
 .toggle input:checked ~ .track::after { left: 16px; }
 
-/* Footer */
 .footer {
   display: flex;
   justify-content: flex-end;

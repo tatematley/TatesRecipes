@@ -12,23 +12,21 @@
 .sm { padding: 2px 6px;  font-size: 0.6875rem; }
 .md { padding: 3px 8px;  font-size: 0.75rem; }
 
-.default  { background: var(--green-pale); color: var(--green-dark); }
-.green    { background: var(--green-mist); color: var(--green-dark); }
-.outlined { background: transparent; color: var(--green-mid); border: 1px solid var(--border); }
+.default  { background: var(--cream);      color: var(--text-body); border: 1px solid var(--border-light); }
+.green    { background: var(--green-pale); color: var(--green-dark); }
+.outlined { background: transparent;       color: var(--text-muted); border: 1px solid var(--border); }
 
 .remove {
   display: flex;
   align-items: center;
-  justify-content: center;
   font-size: 0.8125rem;
   line-height: 1;
   cursor: pointer;
   color: inherit;
-  opacity: 0.55;
+  opacity: 0.5;
   transition: var(--transition);
   background: none;
   border: none;
   padding: 0;
-  margin-left: 1px;
 }
 .remove:hover { opacity: 1; }

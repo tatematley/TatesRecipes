@@ -32,28 +32,28 @@
 
 .secondary {
   background: var(--card-bg);
-  color: var(--green-dark);
+  color: var(--text-dark);
   border-color: var(--border);
 }
 .secondary:hover:not(:disabled) {
-  border-color: var(--green-soft);
-  background: var(--green-faint);
+  border-color: var(--text-muted);
+  background: var(--cream);
 }
 
 .ghost {
   background: transparent;
-  color: var(--green-mid);
+  color: var(--text-muted);
   border-color: transparent;
 }
 .ghost:hover:not(:disabled) {
-  background: var(--green-pale);
-  color: var(--green-dark);
+  background: var(--cream);
+  color: var(--text-dark);
 }
 
 .danger {
   background: transparent;
   color: var(--coral);
-  border-color: var(--border-neutral);
+  border-color: var(--border);
 }
 .danger:hover:not(:disabled) {
   background: var(--coral-pale);

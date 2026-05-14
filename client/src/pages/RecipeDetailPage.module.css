@@ -1,4 +1,4 @@
-.page { min-height: 100vh; background: var(--green-faint); }
+.page { min-height: 100vh; background: var(--page-bg); }
 
 .notFound {
   display: flex; flex-direction: column; align-items: center;
@@ -12,7 +12,7 @@
   justify-content: space-between;
   padding: 10px 20px;
   background: var(--card-bg);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);
   gap: 12px;
 }
 
@@ -28,7 +28,7 @@
   width: 100%;
   height: 380px;
   overflow: hidden;
-  background: var(--green-pale);        /* pale green image placeholder */
+  background: var(--cream);
 }
 
 .heroImage {
@@ -53,11 +53,11 @@
 .titleMeta { display: flex; align-items: center; gap: 8px; }
 
 .categoryLabel {
-  font-size: 0.6875rem;
-  font-weight: 800;
+  font-size: 0.675rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--green-mid);             /* herb — category label */
+  color: var(--green-mid);
 }
 
 .tatePill {
@@ -66,14 +66,14 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   background: var(--green-pale);
-  color: var(--green-dark);            /* dark green — tate badge */
+  color: var(--green-dark);
   padding: 2px 7px;
   border-radius: var(--radius-xs);
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: 2.75rem;                   /* Cormorant shines at display sizes */
+  font-size: 2.75rem;
   color: var(--text-dark);
   font-weight: 600;
   line-height: 1.1;
@@ -82,23 +82,23 @@
 
 .description {
   font-size: 1.0625rem;
-  font-style: italic;                   /* Cormorant italic for descriptions */
+  font-style: italic;
   font-family: var(--font-heading);
-  color: var(--green-mid);
+  color: var(--text-muted);
   line-height: 1.65;
   max-width: 640px;
   font-weight: 400;
 }
 
-.divider { height: 1px; background: var(--border); }
+.divider { height: 1px; background: var(--border-light); }
 
 /* Stats strip */
 .statsStrip {
   display: flex;
   gap: 0;
   flex-wrap: wrap;
-  background: var(--green-pale);        /* pale green — stats bg */
-  border: 1px solid var(--border);
+  background: var(--cream);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   padding: 14px 20px;
 }
@@ -109,23 +109,20 @@
   gap: 8px;
   padding: 0 20px 0 0;
   margin-right: 20px;
-  border-right: 1px solid var(--green-soft); /* soft green dividers */
+  border-right: 1px solid var(--border-light);
 }
 .stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
 
-.statTotal .statValue {
-  color: var(--green-dark);            /* dark green — total time */
-  font-weight: 700;
-}
+.statTotal .statValue { color: var(--green-dark); font-weight: 700; }
 
-.statIcon { color: var(--green-sage);  flex-shrink: 0; } /* sage icons */
+.statIcon { color: var(--green-sage); flex-shrink: 0; }
 
 .statLabel {
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--green-sage);            /* sage — stat labels */
+  color: var(--text-faint);
   line-height: 1;
   margin-bottom: 2px;
 }
@@ -150,8 +147,8 @@
 
 .scaleLabel {
   font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--green-mid);             /* herb — scale label */
+  font-weight: 600;
+  color: var(--text-muted);
   margin-right: 2px;
 }
 
@@ -159,28 +156,24 @@
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--green-faint);
+  background: transparent;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--green-mid);
+  color: var(--text-muted);
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-body);
 }
-.scaleBtn:hover {
-  border-color: var(--green-soft);
-  background: var(--green-pale);
-  color: var(--green-dark);
-}
+.scaleBtn:hover { border-color: var(--text-muted); color: var(--text-dark); }
 .scaleActive {
-  background: var(--green-dark);
-  border-color: var(--green-dark);
+  background: var(--green);
+  border-color: var(--green);
   color: #fff;
 }
 
 .servingNote {
   font-size: 0.8125rem;
-  color: var(--green-sage);
+  color: var(--text-faint);
   padding-left: 6px;
 }
 
@@ -196,16 +189,14 @@
   .twoCol { grid-template-columns: 1fr; gap: 28px; }
 }
 
-.ingredientsCol, .instructionsCol {}
-
 .sectionTitle {
   font-family: var(--font-heading);
-  font-size: 1.125rem;
-  color: var(--green-dark);            /* dark green — section titles */
+  font-size: 1.25rem;
+  color: var(--text-dark);
   font-weight: 600;
   margin-bottom: 14px;
   padding-bottom: 8px;
-  border-bottom: 1.5px solid var(--green-soft); /* soft green divider */
+  border-bottom: 1px solid var(--border-light);
 }
 
 /* Ingredients */
@@ -221,18 +212,18 @@
 }
 
 .ingredientBullet {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--green-mid);        /* herb green — ingredient bullets */
+  background: var(--green);
   flex-shrink: 0;
   margin-top: 8px;
 }
 
 .prep {
-  color: var(--green-sage);
+  color: var(--text-muted);
   font-style: italic;
-  font-family: var(--font-heading);     /* Cormorant italic for prep notes */
+  font-family: var(--font-heading);
   font-size: 1rem;
 }
 
@@ -245,10 +236,10 @@
   min-width: 26px;
   height: 26px;
   border-radius: var(--radius-sm);
-  background: var(--green);            /* primary green — step numbers */
+  background: var(--green);
   color: #fff;
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,7 +260,7 @@
   align-items: center;
   gap: 6px;
   font-size: 0.8125rem;
-  color: var(--green-sage);
+  color: var(--text-faint);
   padding-top: 4px;
 }
 .source a { color: var(--green); }

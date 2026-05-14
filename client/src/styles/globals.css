@@ -1,20 +1,20 @@
 /* ─── Design Tokens ─────────────────────────────────────────── */
 :root {
-  /* ── Green Scale ───────────────────────────────────────────── */
-  --green-deep:    #183B0C;   /* pine — brand, prominent text accents  */
-  --green-dark:    #2D5A1A;   /* forest — strong labels, step numbers  */
-  --green:         #4A7C35;   /* primary — buttons, main interactions  */
-  --green-mid:     #6A9C52;   /* herb — category labels, icons         */
-  --green-sage:    #8CAF78;   /* sage — decorative, subtle strokes     */
-  --green-soft:    #B4D09C;   /* soft — green-tinted dividers, borders */
-  --green-mist:    #D1E8BB;   /* mist — hover backgrounds, highlights  */
-  --green-pale:    #E4F1D8;   /* pale — badge fills, section tints     */
-  --green-faint:   #F0F7E8;   /* faint — page bg, sidebar bg           */
+  /* ── Green Scale — keep the tokens, use them sparingly ───── */
+  --green-deep:    #183B0C;
+  --green-dark:    #2D5A1A;
+  --green:         #4A7C35;
+  --green-mid:     #6A9C52;
+  --green-sage:    #8CAF78;
+  --green-soft:    #B4D09C;
+  --green-mist:    #D1E8BB;
+  --green-pale:    #E4F1D8;
+  --green-faint:   #F0F7E8;
 
-  /* ── Warm Neutrals ─────────────────────────────────────────── */
-  --cream:         #FBF6EE;
-  --card-bg:       #FFFFFF;
-  --page-bg:       var(--green-faint);
+  /* ── Warm Neutrals — the actual canvas ─────────────────────  */
+  --page-bg:       #F7F2EB;   /* warm cream — page background        */
+  --card-bg:       #FFFFFF;   /* white — cards                       */
+  --cream:         #FBF7F1;   /* off-white — subtle fills            */
 
   /* ── Accent ─────────────────────────────────────────────────── */
   --coral:         #C8584A;
@@ -22,22 +22,21 @@
 
   /* ── Text ───────────────────────────────────────────────────── */
   --text-dark:     #1C1410;
-  --text-body:     #48392E;
+  --text-body:     #4A3C34;
   --text-muted:    #8C7B72;
   --text-faint:    #B8ADA6;
 
-  /* ── Borders — now carry a green tint ─────────────────────── */
-  --border:        #C8DDB8;   /* green-tinted border                   */
-  --border-light:  #DEF0CC;   /* very light green-tinted border        */
-  --border-neutral:#DDD4C9;   /* warm neutral, used sparingly          */
+  /* ── Borders — warm neutral, not green ─────────────────────── */
+  --border:        #E2D8CE;
+  --border-light:  #EDE5DC;
 
   /* ── Shadows ─────────────────────────────────────────────────── */
-  --shadow-sm:    0 1px 2px rgba(30, 60, 15, 0.06);
-  --shadow-md:    0 2px 8px rgba(30, 60, 15, 0.08);
-  --shadow-card:  0 1px 3px rgba(30, 60, 15, 0.07);
-  --shadow-hover: 0 6px 20px rgba(30, 60, 15, 0.12);
+  --shadow-sm:    0 1px 2px rgba(0,0,0,0.05);
+  --shadow-card:  0 1px 4px rgba(0,0,0,0.07);
+  --shadow-hover: 0 6px 20px rgba(0,0,0,0.10);
 
   /* ── Typography ─────────────────────────────────────────────── */
+  --font-display:  'Pacifico', cursive;              /* brand name only */
   --font-heading:  'Cormorant Garamond', Georgia, serif;
   --font-body:     'DM Sans', system-ui, sans-serif;
 
@@ -77,11 +76,11 @@ h1, h2, h3, h4 {
   line-height: 1.12;
   font-weight: 600;
 }
-/* Cormorant needs slightly larger sizes to read well */
 h1 { font-size: 2.5rem; }
 h2 { font-size: 1.875rem; }
 h3 { font-size: 1.375rem; }
 h4 { font-size: 1.125rem; }
+
 p  { color: var(--text-body); line-height: 1.7; }
 a  { color: var(--green); text-decoration: none; transition: var(--transition); }
 a:hover { color: var(--green-dark); }
@@ -93,17 +92,17 @@ input, textarea, select { font-family: var(--font-body); font-size: 1rem; }
 /* ─── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--green-soft); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--green-sage); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
 
 /* ─── Form Base ──────────────────────────────────────────────── */
 .field-label {
   display: block;
   font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--green-mid);
+  color: var(--text-muted);
   margin-bottom: 5px;
 }
 
@@ -121,7 +120,7 @@ input, textarea, select { font-family: var(--font-body); font-size: 1rem; }
 
 .field-input:focus {
   border-color: var(--green);
-  box-shadow: 0 0 0 2px rgba(74, 124, 53, 0.14);
+  box-shadow: 0 0 0 2px rgba(74, 124, 53, 0.12);
 }
 
 .field-input::placeholder { color: var(--text-faint); }
@@ -130,7 +129,7 @@ textarea.field-input { resize: vertical; min-height: 90px; }
 select.field-input {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238CAF78' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238C7B72' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 11px center;
   padding-right: 32px;
