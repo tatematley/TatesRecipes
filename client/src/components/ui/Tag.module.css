@@ -12,9 +12,9 @@
 .sm { padding: 2px 6px;  font-size: 0.6875rem; }
 .md { padding: 3px 8px;  font-size: 0.75rem; }
 
-.default  { background: var(--border-light); color: var(--text-body); }
-.green    { background: var(--green-pale);  color: var(--green); }
-.outlined { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+.default  { background: var(--green-pale); color: var(--green-dark); }
+.green    { background: var(--green-mist); color: var(--green-dark); }
+.outlined { background: transparent; color: var(--green-mid); border: 1px solid var(--border); }
 
 .remove {
   display: flex;

@@ -1,4 +1,4 @@
-.page { min-height: 100vh; background: var(--page-bg); }
+.page { min-height: 100vh; background: var(--green-faint); }
 
 .notFound {
   display: flex; flex-direction: column; align-items: center;
@@ -12,7 +12,7 @@
   justify-content: space-between;
   padding: 10px 20px;
   background: var(--card-bg);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border);
   gap: 12px;
 }
 
@@ -28,7 +28,7 @@
   width: 100%;
   height: 380px;
   overflow: hidden;
-  background: var(--border-light);
+  background: var(--green-pale);        /* pale green image placeholder */
 }
 
 .heroImage {
@@ -57,7 +57,7 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--green-mid);             /* herb — category label */
 }
 
 .tatePill {
@@ -66,33 +66,41 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   background: var(--green-pale);
-  color: var(--green);
+  color: var(--green-dark);            /* dark green — tate badge */
   padding: 2px 7px;
   border-radius: var(--radius-xs);
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 2.75rem;                   /* Cormorant shines at display sizes */
   color: var(--text-dark);
-  font-weight: 700;
-  line-height: 1.15;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 .description {
-  font-size: 1rem;
-  color: var(--text-muted);
+  font-size: 1.0625rem;
+  font-style: italic;                   /* Cormorant italic for descriptions */
+  font-family: var(--font-heading);
+  color: var(--green-mid);
   line-height: 1.65;
   max-width: 640px;
+  font-weight: 400;
 }
 
-.divider { height: 1px; background: var(--border-light); }
+.divider { height: 1px; background: var(--border); }
 
 /* Stats strip */
 .statsStrip {
   display: flex;
   gap: 0;
   flex-wrap: wrap;
+  background: var(--green-pale);        /* pale green — stats bg */
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
 }
 
 .stat {
@@ -101,21 +109,23 @@
   gap: 8px;
   padding: 0 20px 0 0;
   margin-right: 20px;
-  border-right: 1px solid var(--border-light);
+  border-right: 1px solid var(--green-soft); /* soft green dividers */
 }
 .stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
 
-.statTotal { font-weight: 700; }
-.statTotal .statValue { color: var(--text-dark); font-weight: 700; }
+.statTotal .statValue {
+  color: var(--green-dark);            /* dark green — total time */
+  font-weight: 700;
+}
 
-.statIcon { color: var(--text-faint); flex-shrink: 0; }
+.statIcon { color: var(--green-sage);  flex-shrink: 0; } /* sage icons */
 
 .statLabel {
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--green-sage);            /* sage — stat labels */
   line-height: 1;
   margin-bottom: 2px;
 }
@@ -140,8 +150,8 @@
 
 .scaleLabel {
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: var(--green-mid);             /* herb — scale label */
   margin-right: 2px;
 }
 
@@ -149,24 +159,28 @@
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: transparent;
+  background: var(--green-faint);
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--green-mid);
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-body);
 }
-.scaleBtn:hover { border-color: var(--text-muted); color: var(--text-dark); }
+.scaleBtn:hover {
+  border-color: var(--green-soft);
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
 .scaleActive {
-  background: var(--text-dark);
-  border-color: var(--text-dark);
+  background: var(--green-dark);
+  border-color: var(--green-dark);
   color: #fff;
 }
 
 .servingNote {
   font-size: 0.8125rem;
-  color: var(--text-faint);
+  color: var(--green-sage);
   padding-left: 6px;
 }
 
@@ -187,11 +201,11 @@
 .sectionTitle {
   font-family: var(--font-heading);
   font-size: 1.125rem;
-  color: var(--text-dark);
+  color: var(--green-dark);            /* dark green — section titles */
   font-weight: 600;
   margin-bottom: 14px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1.5px solid var(--green-soft); /* soft green divider */
 }
 
 /* Ingredients */
@@ -207,15 +221,20 @@
 }
 
 .ingredientBullet {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--green-mid);        /* herb green — ingredient bullets */
   flex-shrink: 0;
   margin-top: 8px;
 }
 
-.prep { color: var(--text-muted); font-style: italic; }
+.prep {
+  color: var(--green-sage);
+  font-style: italic;
+  font-family: var(--font-heading);     /* Cormorant italic for prep notes */
+  font-size: 1rem;
+}
 
 /* Instructions */
 .instructionList { display: flex; flex-direction: column; gap: 16px; }
@@ -226,7 +245,7 @@
   min-width: 26px;
   height: 26px;
   border-radius: var(--radius-sm);
-  background: var(--text-dark);
+  background: var(--green);            /* primary green — step numbers */
   color: #fff;
   font-size: 0.75rem;
   font-weight: 800;
@@ -250,8 +269,8 @@
   align-items: center;
   gap: 6px;
   font-size: 0.8125rem;
-  color: var(--text-muted);
+  color: var(--green-sage);
   padding-top: 4px;
 }
 .source a { color: var(--green); }
-.source a:hover { text-decoration: underline; }
+.source a:hover { color: var(--green-dark); text-decoration: underline; }

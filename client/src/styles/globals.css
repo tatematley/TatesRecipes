@@ -1,37 +1,57 @@
 /* ─── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --cream:          #FBF6EE;
-  --page-bg:        #F6F0E8;
-  --card-bg:        #FFFFFF;
-  --green:          #4E7C3F;
-  --green-hover:    #3d6330;
-  --green-pale:     #EDF3E8;
-  --coral:          #C8584A;
-  --coral-pale:     #FDF2F0;
-  --text-dark:      #1C1410;
-  --text-body:      #48392E;
-  --text-muted:     #8C7B72;
-  --text-faint:     #B8ADA6;
-  --border:         #DDD4C9;
-  --border-light:   #EBE4DC;
-  --shadow-sm:      0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md:      0 2px 8px rgba(0,0,0,0.07);
-  --shadow-card:    0 1px 3px rgba(0,0,0,0.06);
-  --shadow-hover:   0 6px 20px rgba(0,0,0,0.09);
+  /* ── Green Scale ───────────────────────────────────────────── */
+  --green-deep:    #183B0C;   /* pine — brand, prominent text accents  */
+  --green-dark:    #2D5A1A;   /* forest — strong labels, step numbers  */
+  --green:         #4A7C35;   /* primary — buttons, main interactions  */
+  --green-mid:     #6A9C52;   /* herb — category labels, icons         */
+  --green-sage:    #8CAF78;   /* sage — decorative, subtle strokes     */
+  --green-soft:    #B4D09C;   /* soft — green-tinted dividers, borders */
+  --green-mist:    #D1E8BB;   /* mist — hover backgrounds, highlights  */
+  --green-pale:    #E4F1D8;   /* pale — badge fills, section tints     */
+  --green-faint:   #F0F7E8;   /* faint — page bg, sidebar bg           */
 
-  --font-heading:   'Fraunces', Georgia, serif;
-  --font-body:      'Nunito Sans', system-ui, sans-serif;
+  /* ── Warm Neutrals ─────────────────────────────────────────── */
+  --cream:         #FBF6EE;
+  --card-bg:       #FFFFFF;
+  --page-bg:       var(--green-faint);
 
-  --sidebar-width:  236px;
+  /* ── Accent ─────────────────────────────────────────────────── */
+  --coral:         #C8584A;
+  --coral-pale:    #FDF2F0;
 
-  /* Corners — restrained, professional */
-  --radius-xs:      2px;
-  --radius-sm:      3px;
-  --radius-md:      4px;
-  --radius-lg:      6px;
-  --radius-xl:      8px;
+  /* ── Text ───────────────────────────────────────────────────── */
+  --text-dark:     #1C1410;
+  --text-body:     #48392E;
+  --text-muted:    #8C7B72;
+  --text-faint:    #B8ADA6;
 
-  --transition:     all 0.14s ease;
+  /* ── Borders — now carry a green tint ─────────────────────── */
+  --border:        #C8DDB8;   /* green-tinted border                   */
+  --border-light:  #DEF0CC;   /* very light green-tinted border        */
+  --border-neutral:#DDD4C9;   /* warm neutral, used sparingly          */
+
+  /* ── Shadows ─────────────────────────────────────────────────── */
+  --shadow-sm:    0 1px 2px rgba(30, 60, 15, 0.06);
+  --shadow-md:    0 2px 8px rgba(30, 60, 15, 0.08);
+  --shadow-card:  0 1px 3px rgba(30, 60, 15, 0.07);
+  --shadow-hover: 0 6px 20px rgba(30, 60, 15, 0.12);
+
+  /* ── Typography ─────────────────────────────────────────────── */
+  --font-heading:  'Cormorant Garamond', Georgia, serif;
+  --font-body:     'DM Sans', system-ui, sans-serif;
+
+  /* ── Layout ─────────────────────────────────────────────────── */
+  --sidebar-width: 236px;
+
+  /* ── Corners ─────────────────────────────────────────────────── */
+  --radius-xs:     2px;
+  --radius-sm:     3px;
+  --radius-md:     4px;
+  --radius-lg:     6px;
+  --radius-xl:     8px;
+
+  --transition:    all 0.14s ease;
 }
 
 /* ─── Reset ─────────────────────────────────────────────────── */
@@ -54,16 +74,17 @@ body {
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   color: var(--text-dark);
-  line-height: 1.15;
+  line-height: 1.12;
   font-weight: 600;
 }
-h1 { font-size: 2.125rem; }
-h2 { font-size: 1.625rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.0625rem; }
+/* Cormorant needs slightly larger sizes to read well */
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.375rem; }
+h4 { font-size: 1.125rem; }
 p  { color: var(--text-body); line-height: 1.7; }
 a  { color: var(--green); text-decoration: none; transition: var(--transition); }
-a:hover { color: var(--green-hover); }
+a:hover { color: var(--green-dark); }
 img { display: block; max-width: 100%; }
 ul, ol { list-style: none; }
 button { font-family: var(--font-body); cursor: pointer; border: none; background: none; }
@@ -72,15 +93,8 @@ input, textarea, select { font-family: var(--font-body); font-size: 1rem; }
 /* ─── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
-
-/* ─── Utilities ──────────────────────────────────────────────── */
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0;
-  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
-  white-space: nowrap; border-width: 0;
-}
+::-webkit-scrollbar-thumb { background: var(--green-soft); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green-sage); }
 
 /* ─── Form Base ──────────────────────────────────────────────── */
 .field-label {
@@ -89,7 +103,7 @@ input, textarea, select { font-family: var(--font-body); font-size: 1rem; }
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--green-mid);
   margin-bottom: 5px;
 }
 
@@ -107,7 +121,7 @@ input, textarea, select { font-family: var(--font-body); font-size: 1rem; }
 
 .field-input:focus {
   border-color: var(--green);
-  box-shadow: 0 0 0 2px rgba(78, 124, 63, 0.12);
+  box-shadow: 0 0 0 2px rgba(74, 124, 53, 0.14);
 }
 
 .field-input::placeholder { color: var(--text-faint); }
@@ -116,17 +130,10 @@ textarea.field-input { resize: vertical; min-height: 90px; }
 select.field-input {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238C7B72' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238CAF78' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 11px center;
   padding-right: 32px;
-}
-
-/* ─── Divider ────────────────────────────────────────────────── */
-.divider {
-  border: none;
-  border-top: 1px solid var(--border-light);
-  margin: 0;
 }
 
 /* ─── Animations ─────────────────────────────────────────────── */

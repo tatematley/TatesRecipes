@@ -11,21 +11,22 @@
   gap: 16px;
   padding: 28px 28px 20px;
   flex-wrap: wrap;
-  border-bottom: 1px solid var(--border-light);
   background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: 1.625rem;
-  color: var(--text-dark);
-  font-weight: 700;
+  font-size: 2rem;
+  color: var(--green-dark);
+  font-weight: 600;
   line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
   font-size: 0.8125rem;
-  color: var(--text-faint);
+  color: var(--green-sage);            /* sage — subtitle */
   margin-top: 2px;
 }
 

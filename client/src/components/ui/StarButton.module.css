@@ -11,14 +11,14 @@
   padding: 4px;
 }
 
-.star:hover { background: var(--border-light); }
+.star:hover { background: var(--green-pale); }
 
 .sm { width: 26px; height: 26px; }
 .md { width: 32px; height: 32px; }
 .lg { width: 38px; height: 38px; }
 
 .emptyIcon {
-  color: var(--text-faint);
+  color: var(--green-soft);
   transition: var(--transition);
 }
 .star:hover .emptyIcon { color: #c8942a; }

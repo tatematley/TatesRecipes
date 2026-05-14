@@ -3,9 +3,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 28px;
+  padding: 11px 28px;
   background: var(--card-bg);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -33,7 +33,7 @@
 .searchIcon {
   position: absolute;
   left: 10px;
-  color: var(--text-faint);
+  color: var(--green-sage);             /* sage — search icon */
   pointer-events: none;
   flex-shrink: 0;
 }
@@ -45,7 +45,7 @@
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
   color: var(--text-dark);
-  background: var(--page-bg);
+  background: var(--green-faint);       /* faint green — search bg */
   outline: none;
   transition: var(--transition);
   font-family: var(--font-body);
@@ -54,7 +54,7 @@
 .searchInput:focus {
   border-color: var(--green);
   background: var(--card-bg);
-  box-shadow: 0 0 0 2px rgba(78,124,63,0.1);
+  box-shadow: 0 0 0 2px rgba(74, 124, 53, 0.12);
 }
 
 .searchInput::placeholder { color: var(--text-faint); }
@@ -62,7 +62,7 @@
 .clearBtn {
   position: absolute;
   right: 8px;
-  color: var(--text-faint);
+  color: var(--green-sage);
   cursor: pointer;
   background: none;
   border: none;
@@ -73,7 +73,7 @@
   border-radius: var(--radius-xs);
   transition: var(--transition);
 }
-.clearBtn:hover { color: var(--text-body); background: var(--border-light); }
+.clearBtn:hover { color: var(--green-dark); background: var(--green-mist); }
 
 /* Chips */
 .chips {
@@ -86,16 +86,20 @@
   padding: 5px 11px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: transparent;
+  background: var(--green-faint);       /* faint green — chip default */
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--green-mid);             /* herb — chip text */
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-body);
   white-space: nowrap;
 }
-.chip:hover { border-color: var(--text-muted); color: var(--text-dark); }
+.chip:hover {
+  border-color: var(--green-soft);
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
 .chipActive {
   background: var(--green);
   border-color: var(--green);
@@ -112,7 +116,7 @@
 
 .count {
   font-size: 0.8125rem;
-  color: var(--text-faint);
+  color: var(--green-sage);             /* sage — count text */
   white-space: nowrap;
 }
 

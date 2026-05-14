@@ -1,7 +1,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(28, 20, 16, 0.35);
+  background: rgba(28, 56, 14, 0.3);   /* green-tinted backdrop */
   z-index: 200;
 }
 
@@ -11,7 +11,7 @@
   right: 0;
   bottom: 0;
   width: 320px;
-  background: var(--card-bg);
+  background: var(--green-faint);       /* faint green — panel bg */
   border-left: 1px solid var(--border);
   z-index: 201;
   display: flex;
@@ -27,14 +27,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 18px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  background: var(--card-bg);
 }
 
 .title {
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(--green-dark);             /* dark green — panel title */
   letter-spacing: 0.01em;
 }
 
@@ -44,14 +45,18 @@
   justify-content: center;
   width: 26px;
   height: 26px;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: none;
-  color: var(--text-muted);
+  color: var(--green-sage);
   cursor: pointer;
   transition: var(--transition);
 }
-.closeBtn:hover { border-color: var(--border); color: var(--text-dark); background: var(--page-bg); }
+.closeBtn:hover {
+  border-color: var(--green-soft);
+  color: var(--green-dark);
+  background: var(--green-pale);
+}
 
 .body {
   flex: 1;
@@ -69,7 +74,7 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--green-sage);             /* sage — section labels */
   margin-bottom: 8px;
 }
 
@@ -83,18 +88,22 @@
   padding: 4px 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: transparent;
+  background: var(--card-bg);
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--green-mid);             /* herb — chip text */
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-body);
 }
-.chip:hover { border-color: var(--text-muted); color: var(--text-dark); }
+.chip:hover {
+  border-color: var(--green-soft);
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
 .chipOn {
-  background: var(--text-dark);
-  border-color: var(--text-dark);
+  background: var(--green-dark);        /* dark green — active chip */
+  border-color: var(--green-dark);
   color: #fff;
 }
 
@@ -116,7 +125,7 @@
   position: relative;
   width: 32px;
   height: 18px;
-  background: var(--border);
+  background: var(--green-soft);        /* soft green — toggle off */
   border-radius: 99px;
   transition: var(--transition);
   flex-shrink: 0;
@@ -138,8 +147,9 @@
 
 .footer {
   padding: 12px 18px 16px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 6px;
+  background: var(--card-bg);
 }

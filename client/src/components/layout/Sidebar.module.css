@@ -4,7 +4,7 @@
   height: 100vh;
   position: sticky;
   top: 0;
-  background: var(--card-bg);
+  background: var(--green-faint);         /* faint green — whole sidebar */
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -17,15 +17,16 @@
 /* Brand */
 .brand {
   padding: 20px 16px 16px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
 }
 
 .brandName {
   font-family: var(--font-heading);
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--text-dark);
+  font-size: 1.375rem;
+  font-weight: 600;
+  font-style: italic;                   /* Cormorant italic — brand mark */
+  color: var(--green-dark);
   letter-spacing: -0.01em;
 }
 
@@ -47,26 +48,30 @@
   transition: var(--transition);
 }
 .navLink:hover {
-  background: var(--page-bg);
-  color: var(--text-dark);
+  background: var(--green-mist);         /* mist — hover bg */
+  color: var(--green-dark);
 }
 .navLink.active {
-  background: var(--green-pale);
-  color: var(--green);
+  background: var(--green-pale);         /* pale — active bg */
+  color: var(--green-dark);              /* dark green — active text */
 }
-.navLink.active .navIcon { color: var(--green); }
+.navLink.active .navIcon {
+  color: var(--green);                   /* primary — active icon */
+}
 
 .navIcon {
   flex-shrink: 0;
-  color: var(--text-faint);
+  color: var(--green-sage);              /* sage — resting icon color */
   transition: var(--transition);
 }
-.navLink:hover .navIcon { color: var(--text-muted); }
+.navLink:hover .navIcon {
+  color: var(--green-mid);              /* herb — hover icon */
+}
 
 /* Divider */
 .divider {
   height: 1px;
-  background: var(--border-light);
+  background: var(--border);
   margin: 4px 0;
 }
 
@@ -81,7 +86,7 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--green-sage);             /* sage — section label */
   padding: 4px 8px 6px;
 }
 
@@ -105,18 +110,18 @@
   text-overflow: ellipsis;
 }
 .categoryLink:hover {
-  background: var(--page-bg);
-  color: var(--text-dark);
+  background: var(--green-mist);        /* mist — hover */
+  color: var(--green-dark);
 }
 .categoryActive {
   color: var(--green) !important;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Add button */
 .addWrap {
   padding: 10px 10px 14px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border);
   margin-top: auto;
 }
 
@@ -127,7 +132,7 @@
   justify-content: center;
   gap: 7px;
   padding: 9px 16px;
-  background: var(--green);
+  background: var(--green-dark);        /* dark green — add button */
   color: #fff;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
@@ -139,9 +144,8 @@
   letter-spacing: 0.01em;
 }
 .addBtn:hover {
-  background: var(--green-hover);
+  background: var(--green-deep);        /* deep green — hover */
 }
 
-/* Scrollbar */
 .sidebar::-webkit-scrollbar { width: 3px; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--border); }
+.sidebar::-webkit-scrollbar-thumb { background: var(--green-soft); }

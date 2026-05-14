@@ -26,34 +26,34 @@
   border-color: var(--green);
 }
 .primary:hover:not(:disabled) {
-  background: var(--green-hover);
-  border-color: var(--green-hover);
+  background: var(--green-dark);
+  border-color: var(--green-dark);
 }
 
 .secondary {
   background: var(--card-bg);
-  color: var(--text-dark);
+  color: var(--green-dark);
   border-color: var(--border);
 }
 .secondary:hover:not(:disabled) {
-  border-color: var(--text-muted);
-  background: var(--cream);
+  border-color: var(--green-soft);
+  background: var(--green-faint);
 }
 
 .ghost {
   background: transparent;
-  color: var(--text-body);
+  color: var(--green-mid);
   border-color: transparent;
 }
 .ghost:hover:not(:disabled) {
-  background: var(--border-light);
-  color: var(--text-dark);
+  background: var(--green-pale);
+  color: var(--green-dark);
 }
 
 .danger {
   background: transparent;
   color: var(--coral);
-  border-color: var(--border);
+  border-color: var(--border-neutral);
 }
 .danger:hover:not(:disabled) {
   background: var(--coral-pale);
