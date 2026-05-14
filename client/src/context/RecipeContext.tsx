@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { Recipe } from '../types'
-import { mockRecipes } from '../data/mockRecipes'
 import {
-  fetchRecipes, insertRecipe, patchRecipe, removeRecipe, seedIfEmpty,
+  fetchRecipes, insertRecipe, patchRecipe, removeRecipe,
 } from '../lib/db'
 
 interface State {
@@ -73,8 +72,6 @@ export function RecipeProvider({ children }: { children: React.ReactNode }) {
   const load = useCallback(async () => {
     dispatch({ type: 'SET_LOADING' })
     try {
-      // On very first load, seed the mock recipes if the table is empty
-      await seedIfEmpty(mockRecipes)
       const recipes = await fetchRecipes()
       dispatch({ type: 'SET_RECIPES', recipes })
     } catch (err) {

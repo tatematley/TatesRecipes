@@ -46,6 +46,7 @@ export interface Ingredient {
   name: string
   preparation: string
   order: number
+  group?: string
 }
 
 export interface Instruction {
@@ -114,19 +115,31 @@ export const ALL_OCCASION_TAGS = [
   'Weeknight Dinner',
   'Sunday Dinner',
   'BBQ',
-  'Holiday',
   'Party',
   'Cozy Meal',
 ] as const
 
+export const ALL_HOLIDAY_TAGS = [
+  'Christmas',
+  'Thanksgiving',
+  'Easter',
+  '4th of July',
+  'Halloween',
+  'New Year\'s Eve',
+  'Valentine\'s Day',
+  'Mother\'s Day',
+  'Father\'s Day',
+  'St. Patrick\'s Day',
+] as const
+
 export const ALL_CUSTOM_TAGS = [
+  'Devyn',
   'Family Favorite',
   'Quick',
   'Comfort Food',
   'Fancy',
   'Cozy',
   'Summer',
-  'Holiday',
   'BBQ',
   'Meal Prep',
   'Crowd Pleaser',

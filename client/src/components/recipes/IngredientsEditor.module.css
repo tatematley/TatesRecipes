@@ -1,0 +1,85 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.groupInput {
+  flex: 1;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--green-faint);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  outline: none;
+  transition: var(--transition);
+}
+.groupInput:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(74,124,53,0.12); }
+
+.ungroupedLabel {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.removeGroupBtn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.removeGroupBtn:hover { background: var(--coral-pale); color: var(--coral); }
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.errMsg {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--coral);
+  font-weight: 600;
+}
+
+.addGroupBtn {
+  align-self: flex-start;
+  padding: 5px 12px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.addGroupBtn:hover { border-color: var(--green); color: var(--green); }

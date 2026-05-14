@@ -11,7 +11,6 @@ interface RecipeCardProps {
   recipe: Recipe
 }
 
-const PLACEHOLDER = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80'
 
 export function RecipeCard({ recipe }: RecipeCardProps) {
   const { toggleFavorite } = useRecipeContext()
@@ -32,13 +31,9 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       onKeyDown={(e) => e.key === 'Enter' && navigate(`/recipe/${recipe.id}`)}
     >
       <div className={styles.imageWrap}>
-        <img
-          src={recipe.heroImage || PLACEHOLDER}
-          alt={recipe.title}
-          className={styles.image}
-          loading="lazy"
-          onError={(e) => { e.currentTarget.src = PLACEHOLDER }}
-        />
+        {recipe.heroImage && (
+          <img src={recipe.heroImage} alt={recipe.title} className={styles.image} loading="lazy" />
+        )}
         <div className={styles.starWrap}>
           <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" />
         </div>

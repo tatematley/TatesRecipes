@@ -15,7 +15,6 @@ import {
 } from '../components/ui/Icons'
 import styles from './RecipeDetailPage.module.css'
 
-const PLACEHOLDER = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&q=80'
 
 export function RecipeDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -92,8 +91,8 @@ export function RecipeDetailPage() {
     <div className={styles.page}>
       {/* Top bar */}
       <div className={styles.topBar + ' no-print'}>
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} icon={<ArrowLeftIcon size={13} strokeWidth={2} />}>
-          Back
+        <Button variant="ghost" size="sm" onClick={() => navigate('/')} icon={<ArrowLeftIcon size={13} strokeWidth={2} />}>
+          All Recipes
         </Button>
         <div className={styles.topActions}>
           <StarButton isFavorite={recipe.isFavorite} onToggle={() => toggleFavorite(recipe.id)} size="sm" />
@@ -111,12 +110,9 @@ export function RecipeDetailPage() {
 
       {/* Hero */}
       <div className={styles.hero}>
-        <img
-          src={recipe.heroImage || PLACEHOLDER}
-          alt={recipe.title}
-          className={styles.heroImage}
-          onError={(e) => { e.currentTarget.src = PLACEHOLDER }}
-        />
+        {recipe.heroImage && (
+          <img src={recipe.heroImage} alt={recipe.title} className={styles.heroImage} />
+        )}
       </div>
 
       {/* Content */}
@@ -211,22 +207,34 @@ export function RecipeDetailPage() {
         <div className={styles.twoCol}>
           <div className={styles.ingredientsCol}>
             <h2 className={styles.sectionTitle}>Ingredients</h2>
-            <ul className={styles.ingredientList}>
-              {recipe.ingredients
-                .slice()
-                .sort((a, b) => a.order - b.order)
-                .map((ing) => (
-                  <li key={ing.id} className={styles.ingredient}>
-                    <span className={styles.ingredientBullet} />
-                    <span>
-                      {scaleQty(ing.quantity)}
-                      {ing.measurement && ` ${ing.measurement}`}{' '}
-                      <strong>{ing.name}</strong>
-                      {ing.preparation && <em className={styles.prep}>, {ing.preparation}</em>}
-                    </span>
-                  </li>
-                ))}
-            </ul>
+            {(() => {
+              const sorted = recipe.ingredients.slice().sort((a, b) => a.order - b.order)
+              const groups: { name: string; items: typeof sorted }[] = []
+              for (const ing of sorted) {
+                const g = ing.group ?? ''
+                const existing = groups.find((x) => x.name === g)
+                if (existing) existing.items.push(ing)
+                else groups.push({ name: g, items: [ing] })
+              }
+              return groups.map((group) => (
+                <div key={group.name || '__default__'} className={styles.ingredientGroup}>
+                  {group.name && <p className={styles.ingredientGroupLabel}>{group.name}</p>}
+                  <ul className={styles.ingredientList}>
+                    {group.items.map((ing) => (
+                      <li key={ing.id} className={styles.ingredient}>
+                        <span className={styles.ingredientBullet} />
+                        <span>
+                          {scaleQty(ing.quantity)}
+                          {ing.measurement && ` ${ing.measurement}`}{' '}
+                          <strong>{ing.name}</strong>
+                          {ing.preparation && <em className={styles.prep}>, {ing.preparation}</em>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            })()}
           </div>
 
           <div className={styles.instructionsCol}>

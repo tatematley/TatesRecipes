@@ -1,0 +1,165 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  background: var(--green-faint);
+  border: 1px solid var(--green-soft);
+  border-radius: var(--radius-md);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.sub {
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.tab {
+  padding: 5px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: var(--transition);
+}
+.tab:hover { border-color: var(--green); color: var(--green); }
+.tabActive { background: var(--green); border-color: var(--green); color: #fff; }
+.tabActive:hover { color: #fff; }
+
+.dropzone {
+  border: 2px dashed var(--green-soft);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.6);
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  overflow: hidden;
+}
+.dropzone:hover { border-color: var(--green); background: rgba(255,255,255,0.85); }
+.hasPreview { min-height: 200px; }
+
+.dropPrompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px;
+  text-align: center;
+}
+
+.dropIcon { font-size: 2rem; }
+
+.dropPrompt span:nth-child(2) {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-body);
+}
+
+.dropHint {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.previewThumb {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--green-soft);
+}
+
+.thumbImg {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  display: block;
+}
+
+.pageLabel {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 3px 6px;
+  background: var(--green-faint);
+}
+
+.removeThumb {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.removeThumb:hover { background: var(--coral); }
+
+.hidden { display: none; }
+
+.error {
+  font-size: 0.8125rem;
+  color: var(--coral);
+  font-weight: 500;
+  margin: 0;
+}
+
+.successMsg {
+  font-size: 0.8125rem;
+  color: var(--green-dark);
+  font-weight: 600;
+  margin: 0;
+}
+
+.importBtn {
+  align-self: flex-start;
+  padding: 8px 20px;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.importBtn:hover:not(:disabled) { background: var(--green-dark); }
+.importBtn:disabled { opacity: 0.5; cursor: default; }

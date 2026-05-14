@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecipeContext } from '../context/RecipeContext'
-import { Recipe, Ingredient, Category, Difficulty, ALL_CATEGORIES, ALL_DIETARY_TAGS, ALL_OCCASION_TAGS, ALL_CUSTOM_TAGS, Measurement } from '../types'
-import { IngredientRow } from '../components/recipes/IngredientRow'
+import { Recipe, Ingredient, Category, Difficulty, ALL_CATEGORIES, ALL_DIETARY_TAGS, ALL_OCCASION_TAGS, ALL_HOLIDAY_TAGS, ALL_CUSTOM_TAGS, Measurement, Photo } from '../types'
+import { IngredientsEditor } from '../components/recipes/IngredientsEditor'
 import { TatesTips } from '../components/recipes/TatesTips'
+import { ImportRecipe } from '../components/recipes/ImportRecipe'
 import { Button } from '../components/ui/Button'
 import { Tag } from '../components/ui/Tag'
 import { ArrowLeftIcon, PlusIcon } from '../components/ui/Icons'
 import { generateId } from '../utils/helpers'
+import { uploadPhoto } from '../lib/db'
 import styles from './AddRecipePage.module.css'
 
 type FormData = Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>
@@ -27,7 +29,14 @@ const defaultForm: FormData = {
   photos: [], isFavorite: false,
 }
 
-const ALL_TAGS = [...ALL_DIETARY_TAGS, ...ALL_OCCASION_TAGS, ...ALL_CUSTOM_TAGS]
+const ALL_TAGS = [...ALL_DIETARY_TAGS, ...ALL_OCCASION_TAGS, ...ALL_HOLIDAY_TAGS, ...ALL_CUSTOM_TAGS]
+
+interface PendingPhoto {
+  id: string
+  file: File
+  preview: string
+  caption: string
+}
 
 export function AddRecipePage() {
   const navigate = useNavigate()
@@ -36,9 +45,66 @@ export function AddRecipePage() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
 
+  const [heroFile, setHeroFile] = useState<File | null>(null)
+  const [heroPreview, setHeroPreview] = useState<string | null>(null)
+  const heroInputRef = useRef<HTMLInputElement>(null)
+
+  const [pendingPhotos, setPendingPhotos] = useState<PendingPhoto[]>([])
+  const photosInputRef = useRef<HTMLInputElement>(null)
+
+  const folderId = useRef(crypto.randomUUID())
+
   function set<K extends keyof FormData>(field: K, value: FormData[K]) {
     setForm((f) => ({ ...f, [field]: value }))
     if (errors[field]) setErrors((e) => ({ ...e, [field]: '' }))
+  }
+
+  function handleHeroFile(file: File) {
+    setHeroFile(file)
+    const reader = new FileReader()
+    reader.onload = (e) => setHeroPreview(e.target?.result as string)
+    reader.readAsDataURL(file)
+    set('heroImage', '')
+  }
+
+  function handlePhotosAdd(files: FileList) {
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setPendingPhotos((prev) => [...prev, {
+          id: generateId(),
+          file,
+          preview: e.target?.result as string,
+          caption: '',
+        }])
+      }
+      reader.readAsDataURL(file)
+    })
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleImport(parsed: any) {
+    setForm((f) => ({
+      ...f,
+      title: parsed.title ?? f.title,
+      description: parsed.description ?? f.description,
+      category: (parsed.category as Category) ?? f.category,
+      prepTime: parsed.prepTime ?? f.prepTime,
+      cookTime: parsed.cookTime ?? f.cookTime,
+      totalTime: parsed.totalTime ?? f.totalTime,
+      servings: parsed.servings ?? f.servings,
+      difficulty: (parsed.difficulty as Difficulty) ?? f.difficulty,
+      sourceUrl: parsed.sourceUrl ?? f.sourceUrl,
+      sourceName: parsed.sourceName ?? f.sourceName,
+      tatesTips: parsed.tatesTips ?? f.tatesTips,
+      tags: parsed.tags?.length ? parsed.tags : f.tags,
+      ingredients: parsed.ingredients?.length
+        ? parsed.ingredients.map((ing: any, i: number) => ({ ...newIngredient(), ...ing, order: i }))
+        : f.ingredients,
+      instructions: parsed.instructions?.length
+        ? parsed.instructions.map((inst: any) => ({ id: generateId(), step: inst.step, text: inst.text }))
+        : f.instructions,
+    }))
   }
 
   function validate(): boolean {
@@ -55,20 +121,32 @@ export function AddRecipePage() {
     if (!validate()) return
     setSaving(true)
     try {
+      const id = folderId.current
+
+      let heroImage = form.heroImage
+      if (heroFile) {
+        heroImage = await uploadPhoto(id, heroFile)
+      }
+
+      const uploadedPhotos: Photo[] = await Promise.all(
+        pendingPhotos.map(async (p) => {
+          const url = await uploadPhoto(id, p.file)
+          return { id: p.id, url, caption: p.caption || undefined }
+        })
+      )
+
       const ingredients = form.ingredients.filter((i) => i.name.trim()).map((i, idx) => ({ ...i, order: idx }))
       const instructions = form.instructions.filter((i) => i.text.trim()).map((i, idx) => ({ ...i, step: idx + 1 }))
       const totalTime = form.totalTime ?? ((form.prepTime ?? 0) + (form.cookTime ?? 0) || null)
-      const saved = await addRecipe({ ...form, ingredients, instructions, totalTime })
-      navigate(`/recipe/${saved.id}`)
+
+      const saved = await addRecipe({ ...form, heroImage, photos: uploadedPhotos, ingredients, instructions, totalTime })
+      navigate(`/recipe/${saved.id}`, { replace: true })
     } catch (err) {
       console.error(err)
       setSaving(false)
     }
   }
 
-  function addIngredient() { set('ingredients', [...form.ingredients, newIngredient()]) }
-  function removeIngredient(id: string) { if (form.ingredients.length > 1) set('ingredients', form.ingredients.filter((i) => i.id !== id)) }
-  function changeIngredient(id: string, field: keyof Ingredient, value: string) { set('ingredients', form.ingredients.map((i) => i.id === id ? { ...i, [field]: value } : i)) }
   function addInstruction() { set('instructions', [...form.instructions, { id: generateId(), step: 1, text: '' }]) }
   function removeInstruction(id: string) { if (form.instructions.length > 1) set('instructions', form.instructions.filter((i) => i.id !== id)) }
   function changeInstruction(id: string, text: string) { set('instructions', form.instructions.map((i) => i.id === id ? { ...i, text } : i)) }
@@ -82,6 +160,8 @@ export function AddRecipePage() {
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
+
+        <ImportRecipe onImport={handleImport} />
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Basic Info</h2>
@@ -117,8 +197,21 @@ export function AddRecipePage() {
               <input type="number" min={1} value={form.servings ?? ''} onChange={(e) => set('servings', e.target.value ? parseInt(e.target.value) : null)} placeholder="4" className="field-input" />
             </div>
             <div>
-              <label className="field-label">Hero Image URL</label>
-              <input type="url" value={form.heroImage} onChange={(e) => set('heroImage', e.target.value)} placeholder="https://…" className="field-input" />
+              <label className="field-label">Hero Image</label>
+              <div
+                className={`${styles.heroUpload} ${heroPreview ? styles.heroHasImage : ''}`}
+                onClick={() => heroInputRef.current?.click()}
+                onDrop={(e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f?.type.startsWith('image/')) handleHeroFile(f) }}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                {heroPreview ? (
+                  <img src={heroPreview} className={styles.heroPreviewImg} alt="Hero" />
+                ) : (
+                  <span className={styles.heroPlaceholder}>Click or drop an image</span>
+                )}
+                <input ref={heroInputRef} type="file" accept="image/*" className={styles.hidden}
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) handleHeroFile(f) }} />
+              </div>
             </div>
           </div>
         </section>
@@ -138,15 +231,11 @@ export function AddRecipePage() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Ingredients</h2>
           <p className={styles.hint}>Quantity · Measurement · Ingredient · Prep note (optional)</p>
-          {errors.ingredients && <span className={styles.errMsg}>{errors.ingredients}</span>}
-          <div className={styles.rows}>
-            {form.ingredients.map((ing, idx) => (
-              <IngredientRow key={ing.id} ingredient={ing} index={idx} onChange={changeIngredient} onRemove={removeIngredient} />
-            ))}
-          </div>
-          <Button type="button" variant="ghost" size="sm" onClick={addIngredient} icon={<PlusIcon size={12} strokeWidth={2} />}>
-            Add Ingredient
-          </Button>
+          <IngredientsEditor
+            ingredients={form.ingredients}
+            onChange={(ings) => set('ingredients', ings)}
+            error={errors.ingredients}
+          />
         </section>
 
         <section className={styles.section}>
@@ -214,6 +303,35 @@ export function AddRecipePage() {
               <span>Add to Favorites</span>
             </label>
           </div>
+        </section>
+
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Photos</h2>
+          <p className={styles.hint}>Add extra photos of the finished dish</p>
+          <div className={styles.photoGrid}>
+            {pendingPhotos.map((p) => (
+              <div key={p.id} className={styles.photoThumb}>
+                <img src={p.preview} alt="" className={styles.thumbImg} />
+                <input
+                  type="text"
+                  className={`field-input ${styles.captionInput}`}
+                  placeholder="Caption (optional)"
+                  value={p.caption}
+                  onChange={(e) => setPendingPhotos((prev) => prev.map((x) => x.id === p.id ? { ...x, caption: e.target.value } : x))}
+                />
+                <button type="button" className={styles.removePhotoBtn}
+                  onClick={() => setPendingPhotos((prev) => prev.filter((x) => x.id !== p.id))}>
+                  ×
+                </button>
+              </div>
+            ))}
+            <button type="button" className={styles.addPhotoBtn} onClick={() => photosInputRef.current?.click()}>
+              <span className={styles.addPhotoIcon}>+</span>
+              <span>Add Photo</span>
+            </button>
+          </div>
+          <input ref={photosInputRef} type="file" accept="image/*" multiple className={styles.hidden}
+            onChange={(e) => { if (e.target.files) handlePhotosAdd(e.target.files) }} />
         </section>
 
         <div className={styles.footer}>

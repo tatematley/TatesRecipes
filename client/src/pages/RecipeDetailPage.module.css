@@ -28,7 +28,7 @@
   width: 100%;
   height: 380px;
   overflow: hidden;
-  background: var(--cream);
+  background: linear-gradient(135deg, var(--green-mist) 0%, var(--green-pale) 100%);
 }
 
 .heroImage {
@@ -200,6 +200,17 @@
 }
 
 /* Ingredients */
+.ingredientGroup { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.ingredientGroup:last-child { margin-bottom: 0; }
+.ingredientGroupLabel {
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  margin: 0;
+}
 .ingredientList { display: flex; flex-direction: column; gap: 9px; }
 
 .ingredient {

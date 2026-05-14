@@ -1,8 +1,8 @@
 .container {
   border: 1px solid var(--border-neutral);
-  border-left: 3px solid var(--coral);
+  border-left: 3px solid var(--green);
   border-radius: var(--radius-md);
-  background: var(--coral-pale);
+  background: var(--green-faint);
   padding: 16px 18px;
 }
 
@@ -13,7 +13,7 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--coral);
+  color: var(--green-dark);
 }
 
 .tips {
@@ -38,8 +38,8 @@
   transition: var(--transition);
 }
 .textarea:focus {
-  border-color: var(--coral);
-  box-shadow: 0 0 0 2px rgba(200, 88, 74, 0.12);
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgba(74, 124, 53, 0.12);
   background: rgba(255,255,255,0.9);
 }
 .textarea::placeholder { color: var(--text-faint); }

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import styles from './FilterPanel.module.css'
 import { useFilters } from '../../hooks/useFilters'
-import { ALL_DIETARY_TAGS, ALL_OCCASION_TAGS, ALL_CATEGORIES } from '../../types'
+import { ALL_DIETARY_TAGS, ALL_OCCASION_TAGS, ALL_HOLIDAY_TAGS, ALL_CATEGORIES } from '../../types'
 import { Button } from '../ui/Button'
 import { XIcon } from '../ui/Icons'
 
@@ -103,6 +103,19 @@ export function FilterPanel({ isOpen, onClose, filters }: FilterPanelProps) {
             <p className={styles.label}>Occasion</p>
             <div className={styles.chips}>
               {ALL_OCCASION_TAGS.map((tag) => (
+                <button
+                  key={tag}
+                  className={[styles.chip, filters.filters.occasionTags.includes(tag) ? styles.chipOn : ''].join(' ')}
+                  onClick={() => filters.toggleOccasionTag(tag)}
+                >{tag}</button>
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.section}>
+            <p className={styles.label}>Holidays</p>
+            <div className={styles.chips}>
+              {ALL_HOLIDAY_TAGS.map((tag) => (
                 <button
                   key={tag}
                   className={[styles.chip, filters.filters.occasionTags.includes(tag) ? styles.chipOn : ''].join(' ')}

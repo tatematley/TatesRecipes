@@ -145,12 +145,9 @@ export async function removeRecipe(id: string): Promise<void> {
 }
 
 // ─── Photo Upload ─────────────────────────────────────────────
-export async function uploadPhoto(
-  recipeId: string,
-  file: File
-): Promise<string> {
+export async function uploadPhoto(folderId: string, file: File): Promise<string> {
   const ext  = file.name.split('.').pop() ?? 'jpg'
-  const path = `${recipeId}/${Date.now()}.${ext}`
+  const path = `${folderId}/${Date.now()}.${ext}`
 
   const { error: uploadError } = await supabase.storage
     .from(PHOTOS_BUCKET)
@@ -163,22 +160,6 @@ export async function uploadPhoto(
     .getPublicUrl(path)
 
   return data.publicUrl
-}
-
-// ─── Seed ─────────────────────────────────────────────────────
-// Imports the mock recipes if the table is empty on first load.
-export async function seedIfEmpty(
-  mockRecipes: Omit<Recipe, 'createdAt' | 'updatedAt'>[]
-): Promise<void> {
-  const { count } = await supabase
-    .from('recipes')
-    .select('id', { count: 'exact', head: true })
-
-  if ((count ?? 0) > 0) return
-
-  const rows = mockRecipes.map(({ id: _id, ...rest }) => toRow(rest))
-  const { error } = await supabase.from('recipes').insert(rows)
-  if (error) throw error
 }
 
 // ─── Ingredient / Instruction helpers (used in JSONB data) ───

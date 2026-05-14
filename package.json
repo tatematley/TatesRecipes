@@ -1,0 +1,10 @@
+{
+  "name": "tates-recipes",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n client,server -c green,blue \"npm run dev --prefix client\" \"npm run dev --prefix server\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
