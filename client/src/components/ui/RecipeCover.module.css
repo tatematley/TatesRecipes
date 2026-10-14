@@ -41,7 +41,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) rotate(-6deg);
-  filter: drop-shadow(0 10px 14px rgba(40, 25, 10, 0.22));
+  filter: drop-shadow(0 10px 14px rgba(10, 25, 50, 0.2));
   z-index: 1;
 }
 

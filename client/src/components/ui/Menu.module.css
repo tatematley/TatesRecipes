@@ -28,4 +28,4 @@
 }
 .item svg { color: var(--ink-3); }
 .item:hover { background: var(--bg-hover); }
-.danger, .danger svg { color: var(--terracotta); }
+.danger, .danger svg { color: var(--danger); }

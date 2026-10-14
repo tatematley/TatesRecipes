@@ -39,7 +39,7 @@
 }
 .textarea:focus {
   border-color: var(--green);
-  box-shadow: 0 0 0 2px rgba(74, 124, 53, 0.12);
+  box-shadow: 0 0 0 2px rgba(31, 78, 140, 0.12);
   background: rgba(255,255,255,0.9);
 }
 .textarea::placeholder { color: var(--text-faint); }

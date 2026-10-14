@@ -1,44 +1,49 @@
 /* ─── Tate & Thyme — Design Tokens ──────────────────────────────
-   Warm, editorial cookbook feel: paper, ink, herb green, terracotta.
+   Clean, editorial cookbook feel: white, navy ink and shades of blue.
+   (Token names like --herb and --terracotta are historical; they hold blues now.)
    Every color is a token so the whole app flips to dark mode.
    ─────────────────────────────────────────────────────────────── */
 :root {
   color-scheme: light;
 
   /* Surfaces */
-  --bg:            #F6F1E9;   /* paper */
-  --bg-raised:     #FFFCF7;   /* cards */
-  --bg-sunken:     #EFE8DC;   /* wells, inputs at rest */
-  --bg-hover:      #F1EADF;
-  --bg-overlay:    rgba(28, 22, 17, 0.48);
+  --bg:            #F7F9FC;   /* cool white */
+  --bg-raised:     #FFFFFF;   /* cards */
+  --bg-sunken:     #EDF2F8;   /* wells, inputs at rest */
+  --bg-hover:      #F0F4FA;
+  --bg-overlay:    rgba(10, 22, 40, 0.48);
 
   /* Ink */
-  --ink:           #1E1915;
-  --ink-2:         #4B4038;
-  --ink-3:         #857669;
-  --ink-4:         #B5A99D;
-  --ink-inverse:   #FFFCF7;
+  --ink:           #0F1B2D;
+  --ink-2:         #34435A;
+  --ink-3:         #6B7A90;
+  --ink-4:         #A3AFC0;
+  --ink-inverse:   #FFFFFF;
 
   /* Brand */
-  --herb:          #3F6B3A;   /* thyme green */
-  --herb-strong:   #2E5129;
-  --herb-soft:     #E3EBD8;
-  --herb-faint:    #EEF3E7;
-  --terracotta:    #C4623F;
-  --terracotta-soft:#F7E2D7;
-  --saffron:       #D99A2B;
-  --saffron-soft:  #F8EBCF;
-  --berry:         #A43E5B;
+  --herb:          #1F4E8C;   /* navy blue */
+  --herb-strong:   #163A6B;
+  --herb-soft:     #DCE7F5;
+  --herb-faint:    #EDF3FB;
+  --terracotta:    #2F7DE1;
+  --terracotta-soft:#DDEAFB;
+  --saffron:       #3F9BD6;
+  --saffron-soft:  #E3F1FA;
+  --berry:         #3B5BA9;
 
   /* Lines */
-  --line:          #E4DACC;
-  --line-strong:   #CFC2B1;
+  --line:          #DFE6EF;
+  --line-strong:   #C6D1DF;
+
+  /* Feedback */
+  --danger:        #C2413A;
+  --danger-soft:   #FBE4E2;
 
   /* Elevation */
-  --shadow-1: 0 1px 2px rgba(48, 35, 22, 0.06), 0 1px 1px rgba(48, 35, 22, 0.04);
-  --shadow-2: 0 4px 14px -4px rgba(48, 35, 22, 0.14), 0 2px 4px rgba(48, 35, 22, 0.05);
-  --shadow-3: 0 22px 48px -18px rgba(48, 35, 22, 0.32), 0 6px 14px rgba(48, 35, 22, 0.06);
-  --ring:     0 0 0 3px rgba(63, 107, 58, 0.22);
+  --shadow-1: 0 1px 2px rgba(15, 35, 70, 0.06), 0 1px 1px rgba(15, 35, 70, 0.04);
+  --shadow-2: 0 4px 14px -4px rgba(15, 35, 70, 0.14), 0 2px 4px rgba(15, 35, 70, 0.05);
+  --shadow-3: 0 22px 48px -18px rgba(15, 35, 70, 0.32), 0 6px 14px rgba(15, 35, 70, 0.06);
+  --ring:     0 0 0 3px rgba(31, 78, 140, 0.22);
 
   /* Type */
   --font-display: 'Fraunces Variable', 'Fraunces', 'Cormorant Garamond', Georgia, serif;
@@ -81,7 +86,7 @@
   --green-dark: var(--herb-strong);
   --green-deep: var(--herb-strong);
   --green-mid: var(--herb);
-  --green-sage: #8CAF78;
+  --green-sage: #7FA6D6;
   --green-soft: var(--herb-soft);
   --green-mist: var(--herb-soft);
   --green-pale: var(--herb-soft);
@@ -102,58 +107,62 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg:            #161311;
-    --bg-raised:     #201C19;
-    --bg-sunken:     #121010;
-    --bg-hover:      #2A2521;
+    --bg:            #0D1420;
+    --bg-raised:     #141D2B;
+    --bg-sunken:     #0A101A;
+    --bg-hover:      #1B2636;
     --bg-overlay:    rgba(0, 0, 0, 0.62);
-    --ink:           #F3ECE3;
-    --ink-2:         #CFC3B6;
-    --ink-3:         #9A8D80;
-    --ink-4:         #6A5F55;
-    --ink-inverse:   #161311;
-    --herb:          #8DBA7E;
-    --herb-strong:   #A9D19B;
-    --herb-soft:     #263321;
-    --herb-faint:    #1D241A;
-    --terracotta:    #E58A66;
-    --terracotta-soft:#3A2419;
-    --saffron:       #F0B850;
-    --saffron-soft:  #3A2E16;
-    --line:          #2F2924;
-    --line-strong:   #433A33;
+    --ink:           #EAF0F8;
+    --ink-2:         #BCC8D8;
+    --ink-3:         #8392A8;
+    --ink-4:         #56647A;
+    --ink-inverse:   #0D1420;
+    --herb:          #7FB0F0;
+    --herb-strong:   #A6C9F7;
+    --herb-soft:     #1A2B44;
+    --herb-faint:    #132036;
+    --terracotta:    #5AA0FF;
+    --terracotta-soft:#172C4A;
+    --saffron:       #7CC4F0;
+    --saffron-soft:  #14304A;
+    --line:          #223047;
+    --line-strong:   #31415A;
+    --danger:        #F07B72;
+    --danger-soft:   #3A1C1B;
     --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
     --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
     --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
-    --ring:     0 0 0 3px rgba(141, 186, 126, 0.3);
+    --ring:     0 0 0 3px rgba(127, 176, 240, 0.3);
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg:            #161311;
-  --bg-raised:     #201C19;
-  --bg-sunken:     #121010;
-  --bg-hover:      #2A2521;
+  --bg:            #0D1420;
+  --bg-raised:     #141D2B;
+  --bg-sunken:     #0A101A;
+  --bg-hover:      #1B2636;
   --bg-overlay:    rgba(0, 0, 0, 0.62);
-  --ink:           #F3ECE3;
-  --ink-2:         #CFC3B6;
-  --ink-3:         #9A8D80;
-  --ink-4:         #6A5F55;
-  --ink-inverse:   #161311;
-  --herb:          #8DBA7E;
-  --herb-strong:   #A9D19B;
-  --herb-soft:     #263321;
-  --herb-faint:    #1D241A;
-  --terracotta:    #E58A66;
-  --terracotta-soft:#3A2419;
-  --saffron:       #F0B850;
-  --saffron-soft:  #3A2E16;
-  --line:          #2F2924;
-  --line-strong:   #433A33;
+  --ink:           #EAF0F8;
+  --ink-2:         #BCC8D8;
+  --ink-3:         #8392A8;
+  --ink-4:         #56647A;
+  --ink-inverse:   #0D1420;
+  --herb:          #7FB0F0;
+  --herb-strong:   #A6C9F7;
+  --herb-soft:     #1A2B44;
+  --herb-faint:    #132036;
+  --terracotta:    #5AA0FF;
+  --terracotta-soft:#172C4A;
+  --saffron:       #7CC4F0;
+  --saffron-soft:  #14304A;
+  --line:          #223047;
+  --line-strong:   #31415A;
+  --danger:        #F07B72;
+  --danger-soft:   #3A1C1B;
   --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
   --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
-  --ring:     0 0 0 3px rgba(141, 186, 126, 0.3);
+  --ring:     0 0 0 3px rgba(127, 176, 240, 0.3);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────── */

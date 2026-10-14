@@ -183,7 +183,7 @@
 .notAgain { background: var(--bg-sunken); color: var(--ink-3); }
 .entryDelete { margin-left: auto; color: var(--ink-4); width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; opacity: 0; transition: opacity var(--t-fast) ease; }
 .entry:hover .entryDelete { opacity: 1; }
-.entryDelete:hover { color: var(--terracotta); background: var(--terracotta-soft); }
+.entryDelete:hover { color: var(--danger); background: var(--danger-soft); }
 .entryNotes { font-size: 0.9375rem; color: var(--ink-2); }
 
 .more { display: flex; flex-direction: column; gap: 20px; }

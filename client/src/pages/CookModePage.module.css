@@ -1,30 +1,30 @@
 /* Cook mode is always dark and high-contrast: easier to read across a kitchen. */
 .shell {
-  --bg: #13110F;
-  --bg-raised: #1E1A17;
-  --bg-sunken: #0E0C0B;
-  --bg-hover: #28231F;
-  --ink: #F6EFE6;
-  --ink-2: #D6CABD;
-  --ink-3: #9C8F82;
-  --ink-4: #6A5F55;
-  --ink-inverse: #13110F;
-  --herb: #9CC98B;
-  --herb-strong: #B7DDA8;
-  --herb-soft: #26331F;
-  --saffron: #F2B84B;
-  --saffron-soft: #3A2E16;
-  --terracotta: #E88B66;
-  --line: #2F2924;
-  --line-strong: #463C34;
+  --bg: #0B1220;
+  --bg-raised: #131D2E;
+  --bg-sunken: #080D17;
+  --bg-hover: #1B2740;
+  --ink: #EEF3FA;
+  --ink-2: #C3CFE0;
+  --ink-3: #8696AE;
+  --ink-4: #56647A;
+  --ink-inverse: #0B1220;
+  --herb: #7FB0F0;
+  --herb-strong: #A6C9F7;
+  --herb-soft: #18294A;
+  --saffron: #7CC4F0;
+  --saffron-soft: #14304A;
+  --terracotta: #5AA0FF;
+  --line: #223047;
+  --line-strong: #31415A;
 
   position: fixed;
   inset: 0;
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(90% 60% at 80% 0%, rgba(156, 201, 139, 0.10), transparent 60%),
-    radial-gradient(70% 50% at 0% 100%, rgba(242, 184, 75, 0.08), transparent 60%),
+    radial-gradient(90% 60% at 80% 0%, rgba(127, 176, 240, 0.10), transparent 60%),
+    radial-gradient(70% 50% at 0% 100%, rgba(90, 160, 255, 0.07), transparent 60%),
     var(--bg);
   color: var(--ink);
   z-index: 100;
@@ -158,7 +158,7 @@
   height: 60px; border-radius: var(--r-pill);
   background: var(--herb); color: var(--ink-inverse);
   font-weight: 700; font-size: 1.0625rem;
-  box-shadow: 0 10px 30px -10px rgba(156, 201, 139, 0.55);
+  box-shadow: 0 10px 30px -10px rgba(127, 176, 240, 0.55);
   transition: transform var(--t-fast) ease, background var(--t-fast) ease;
 }
 .nextBtn:hover { background: var(--herb-strong); }

@@ -52,10 +52,10 @@
 
 .danger {
   background: transparent;
-  color: var(--terracotta);
+  color: var(--danger);
   border-color: var(--line);
 }
-.danger:hover:not(:disabled) { background: var(--terracotta-soft); border-color: var(--terracotta); }
+.danger:hover:not(:disabled) { background: var(--danger-soft); border-color: var(--danger); }
 
 .fullWidth { width: 100%; }
 .iconOnly.sm { width: 34px; padding: 0; }

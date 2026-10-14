@@ -18,8 +18,8 @@
 }
 .menu button:hover:not(:disabled) { background: var(--bg-hover); color: var(--ink); }
 .menu button:disabled { opacity: 0.45; cursor: default; }
-.menu .danger { color: var(--terracotta); }
-.menu .danger:hover { background: var(--terracotta-soft) !important; color: var(--terracotta) !important; }
+.menu .danger { color: var(--danger); }
+.menu .danger:hover { background: var(--danger-soft) !important; color: var(--danger) !important; }
 
 /* ── Quick add ─────────────────────────────────── */
 .quick {
@@ -184,7 +184,7 @@ a.groupTitle:hover { color: var(--herb); }
   transition: opacity var(--t-fast) ease, background var(--t-fast) ease, color var(--t-fast) ease;
 }
 .item:hover .remove, .remove:focus-visible { opacity: 1; }
-.remove:hover { background: var(--terracotta-soft); color: var(--terracotta); }
+.remove:hover { background: var(--danger-soft); color: var(--danger); }
 @media (hover: none) { .remove { opacity: 1; } }
 
 .fresh { animation: freshIn 1.1s var(--ease) both; }

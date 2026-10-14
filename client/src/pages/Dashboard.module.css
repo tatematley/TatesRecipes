@@ -56,7 +56,7 @@
   line-height: 1.5;
   margin-top: -24px;
 }
-.errorBanner { background: var(--terracotta-soft); color: var(--ink); border: 1px solid var(--terracotta); }
+.errorBanner { background: var(--danger-soft); color: var(--ink); border: 1px solid var(--danger); }
 .demoBanner { background: var(--saffron-soft); color: var(--ink-2); }
 .errorBanner code, .demoBanner code { font-family: var(--font-mono); font-size: 0.8em; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 1px 6px; border-radius: 6px; }
 

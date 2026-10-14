@@ -132,13 +132,13 @@
   justify-content: center;
   line-height: 1;
 }
-.removeThumb:hover { background: var(--coral); }
+.removeThumb:hover { background: var(--danger); }
 
 .hidden { display: none; }
 
 .error {
   font-size: 0.8125rem;
-  color: var(--coral);
+  color: var(--danger);
   font-weight: 500;
   margin: 0;
 }
