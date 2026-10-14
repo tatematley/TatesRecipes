@@ -1,0 +1,44 @@
+.recipe {
+  font-family: var(--font-heading); font-size: 1.05rem; font-style: italic; color: var(--ink-2);
+  margin: -6px 0 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.week { margin-bottom: 14px; }
+.weekLabel {
+  display: block; margin-bottom: 8px;
+  font-size: 0.6875rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3);
+}
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.day {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 8px 0 6px; border-radius: var(--r-sm);
+  border: 1px solid var(--line); background: var(--bg);
+  transition: background var(--t-fast) ease, border-color var(--t-fast) ease, transform var(--t-fast) ease, color var(--t-fast) ease;
+}
+.day:hover { border-color: var(--line-strong); background: var(--bg-hover); }
+.day:active { transform: scale(0.94); }
+.day:focus-visible { outline: none; box-shadow: var(--ring); }
+.dow { font-size: 0.625rem; font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.num { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 560; color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.dots { display: flex; gap: 2px; height: 4px; }
+.dots i { width: 4px; height: 4px; border-radius: 50%; background: var(--ink-4); }
+.today .dow { color: var(--herb); }
+.on, .on:hover { background: var(--herb); border-color: var(--herb); animation: pop 260ms var(--ease-spring); }
+.on .dow, .on .num { color: var(--ink-inverse); }
+.on .dots i { background: var(--ink-inverse); opacity: 0.7; }
+
+.meals {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 3px;
+  background: var(--bg-sunken); border: 1px solid var(--line); border-radius: var(--r-pill);
+}
+.meals button {
+  padding: 8px 4px; border-radius: var(--r-pill); font-size: 0.8125rem; font-weight: 550; color: var(--ink-3);
+  transition: background var(--t-fast) ease, color var(--t-fast) ease;
+}
+.meals button:hover { color: var(--ink); }
+.meals .mealOn { background: var(--bg-raised); color: var(--ink); box-shadow: var(--shadow-1); }
+.note { margin-top: 12px; font-size: 0.8125rem; color: var(--saffron); }
+
+@media (max-width: 640px) {
+  .days { gap: 4px; }
+  .dow { font-size: 0.5625rem; }
+}

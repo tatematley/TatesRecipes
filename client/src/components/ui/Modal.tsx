@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import styles from './Modal.module.css'
 import { Button } from './Button'
 import { XIcon } from './Icons'
@@ -14,35 +15,36 @@ interface ModalProps {
 
 export function Modal({ isOpen, onClose, title, children, footer, size = 'md' }: ModalProps) {
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [isOpen])
-
-  useEffect(() => {
-    const fn = (e: KeyboardEvent) => { if (e.key === 'Escape' && isOpen) onClose() }
+    if (!isOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const fn = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', fn)
-    return () => window.removeEventListener('keydown', fn)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', fn)
+    }
   }, [isOpen, onClose])
 
   if (!isOpen) return null
 
-  return (
-    <div className={styles.overlay} onClick={onClose}>
+  return createPortal(
+    <div className={styles.overlay} onMouseDown={onClose}>
       <div
         className={[styles.modal, styles[size]].join(' ')}
-        onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
+        aria-label={title}
       >
         <div className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
-          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close" className={styles.closeBtn}>
-            <XIcon size={14} />
-          </Button>
+          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close" icon={<XIcon size={16} />} />
         </div>
         <div className={styles.body}>{children}</div>
         {footer && <div className={styles.footer}>{footer}</div>}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

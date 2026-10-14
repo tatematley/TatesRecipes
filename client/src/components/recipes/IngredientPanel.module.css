@@ -1,0 +1,68 @@
+.panel { display: flex; flex-direction: column; gap: 18px; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--r-pill);
+  background: var(--bg-sunken);
+}
+.stepper button {
+  width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--bg-raised); color: var(--ink); box-shadow: var(--shadow-1);
+  transition: transform var(--t-fast) ease;
+}
+.stepper button:active { transform: scale(0.9); }
+.stepperValue { min-width: 104px; text-align: center; font-size: 0.875rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.stepperValue strong { color: var(--ink); font-weight: 700; }
+
+.units { display: inline-flex; padding: 3px; gap: 2px; border-radius: var(--r-pill); background: var(--bg-sunken); }
+.units button { height: 30px; padding: 0 11px; border-radius: var(--r-pill); font-size: 0.75rem; font-weight: 600; color: var(--ink-3); }
+.units .unitOn { background: var(--bg-raised); color: var(--ink); box-shadow: var(--shadow-1); }
+
+.group { display: flex; flex-direction: column; gap: 4px; }
+.groupLabel {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--herb);
+  padding: 6px 0 4px;
+}
+.list { display: flex; flex-direction: column; }
+.item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 9px 8px;
+  margin: 0 -8px;
+  border-radius: var(--r-sm);
+  text-align: left;
+  font-size: 0.975rem;
+  line-height: 1.45;
+  color: var(--ink);
+  transition: background var(--t-fast) ease, opacity var(--t-fast) ease;
+  border-bottom: 1px dashed var(--line);
+}
+.item:hover { background: var(--bg-hover); }
+.box {
+  flex-shrink: 0;
+  width: 20px; height: 20px; margin-top: 1px;
+  border-radius: 6px;
+  border: 1.5px solid var(--line-strong);
+  display: grid; place-items: center;
+  color: var(--ink-inverse);
+  transition: all var(--t-fast) ease;
+}
+.on .box { background: var(--herb); border-color: var(--herb); animation: pop 0.3s var(--ease-spring); }
+.on .text { opacity: 0.45; text-decoration: line-through; text-decoration-color: var(--ink-4); }
+.amount { font-weight: 700; font-variant-numeric: tabular-nums; }
+.name { font-weight: 500; }
+.prep { color: var(--ink-3); font-style: italic; }
+.hl { background: var(--saffron-soft); }
+.hl .name { font-weight: 700; }
+
+.compact .item { font-size: 0.9rem; padding: 7px 8px; }

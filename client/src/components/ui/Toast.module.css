@@ -1,0 +1,55 @@
+.stack {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .stack { bottom: calc(var(--mobile-nav-h) + 16px + env(safe-area-inset-bottom)); }
+}
+/* Phones: drop in from the top so toasts never cover bottom sheets */
+@media (max-width: 640px) {
+  .stack { top: calc(12px + env(safe-area-inset-top)); bottom: auto; }
+}
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 12px;
+  background: var(--ink);
+  color: var(--ink-inverse);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-3);
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: scaleIn 0.26s var(--ease-spring);
+  width: max-content;
+  max-width: calc(100vw - 32px);
+}
+.check {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--herb);
+  color: var(--ink-inverse);
+  flex-shrink: 0;
+}
+.msg { padding-right: 4px; }
+.action {
+  font-weight: 650;
+  font-size: 0.8125rem;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--ink-inverse) 16%, transparent);
+  color: var(--ink-inverse);
+}
+.action:hover { background: color-mix(in srgb, var(--ink-inverse) 26%, transparent); }

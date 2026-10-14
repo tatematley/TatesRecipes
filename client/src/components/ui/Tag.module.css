@@ -2,31 +2,20 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  border-radius: var(--radius-xs);
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  border-radius: var(--r-pill);
+  font-weight: 550;
   white-space: nowrap;
   line-height: 1;
 }
+.sm { padding: 4px 9px;  font-size: 0.6875rem; }
+.md { padding: 6px 11px; font-size: 0.75rem; }
 
-.sm { padding: 2px 6px;  font-size: 0.6875rem; }
-.md { padding: 3px 8px;  font-size: 0.75rem; }
-
-.default  { background: var(--cream);      color: var(--text-body); border: 1px solid var(--border-light); }
-.green    { background: var(--green-pale); color: var(--green-dark); }
-.outlined { background: transparent;       color: var(--text-muted); border: 1px solid var(--border); }
+.default  { background: var(--bg-sunken); color: var(--ink-2); }
+.green    { background: var(--herb-soft); color: var(--herb-strong); }
+.outlined { background: transparent; color: var(--ink-2); border: 1px solid var(--line); }
 
 .remove {
-  display: flex;
-  align-items: center;
-  font-size: 0.8125rem;
-  line-height: 1;
-  cursor: pointer;
-  color: inherit;
-  opacity: 0.5;
-  transition: var(--transition);
-  background: none;
-  border: none;
-  padding: 0;
+  display: flex; align-items: center; font-size: 0.9rem; line-height: 1;
+  color: inherit; opacity: 0.5; padding: 0 0 0 2px;
 }
 .remove:hover { opacity: 1; }

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Button.module.css'
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
+type Variant = 'primary' | 'accent' | 'secondary' | 'ghost' | 'danger'
 type Size = 'sm' | 'md' | 'lg'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -20,15 +20,19 @@ export function Button({
   iconRight,
   fullWidth,
   className = '',
+  type = 'button',
   ...props
 }: ButtonProps) {
+  const iconOnly = !children && (icon || iconRight)
   return (
     <button
+      type={type}
       className={[
         styles.btn,
         styles[variant],
         styles[size],
         fullWidth ? styles.fullWidth : '',
+        iconOnly ? styles.iconOnly : '',
         className,
       ].filter(Boolean).join(' ')}
       {...props}

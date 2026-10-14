@@ -1,4 +1,5 @@
-import { supabase, PHOTOS_BUCKET } from './supabase'
+import { supabase as sb, PHOTOS_BUCKET, isDemo } from './supabase'
+import { buildDemoRecipes } from './demoData'
 import { Recipe, Ingredient, Instruction, Photo, Category, Difficulty, Measurement } from '../types'
 
 // ─── DB Row Shape (snake_case from Postgres) ─────────────────
@@ -76,8 +77,27 @@ function toRow(r: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>): Omit<DBRecipe
   }
 }
 
+// ─── Demo store (no Supabase configured) ─────────────────────
+const DEMO_KEY = 'tt:demo-recipes'
+
+function readDemo(): Recipe[] {
+  try {
+    const raw = localStorage.getItem(DEMO_KEY)
+    if (raw) return JSON.parse(raw) as Recipe[]
+  } catch { /* fall through to seed */ }
+  const seeded = buildDemoRecipes()
+  writeDemo(seeded)
+  return seeded
+}
+function writeDemo(recipes: Recipe[]) {
+  try { localStorage.setItem(DEMO_KEY, JSON.stringify(recipes)) } catch { /* storage full or blocked */ }
+}
+
+const supabase = sb!
+
 // ─── CRUD ─────────────────────────────────────────────────────
 export async function fetchRecipes(): Promise<Recipe[]> {
+  if (isDemo) return readDemo()
   const { data, error } = await supabase
     .from('recipes')
     .select('*')
@@ -90,6 +110,12 @@ export async function fetchRecipes(): Promise<Recipe[]> {
 export async function insertRecipe(
   recipe: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<Recipe> {
+  if (isDemo) {
+    const stamp = new Date().toISOString()
+    const created: Recipe = { ...recipe, id: crypto.randomUUID(), createdAt: stamp, updatedAt: stamp }
+    writeDemo([created, ...readDemo()])
+    return created
+  }
   const { data, error } = await supabase
     .from('recipes')
     .insert(toRow(recipe))
@@ -104,6 +130,14 @@ export async function patchRecipe(
   id: string,
   updates: Partial<Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>>
 ): Promise<Recipe> {
+  if (isDemo) {
+    const all = readDemo()
+    const current = all.find((r) => r.id === id)
+    if (!current) throw new Error('Recipe not found')
+    const next: Recipe = { ...current, ...updates, updatedAt: new Date().toISOString() }
+    writeDemo(all.map((r) => (r.id === id ? next : r)))
+    return next
+  }
   // Build only the columns that are being updated
   const patch: Partial<DBRecipe> = {}
   if (updates.title          !== undefined) patch.title           = updates.title
@@ -137,6 +171,10 @@ export async function patchRecipe(
 }
 
 export async function removeRecipe(id: string): Promise<void> {
+  if (isDemo) {
+    writeDemo(readDemo().filter((r) => r.id !== id))
+    return
+  }
   const { error } = await supabase
     .from('recipes')
     .delete()
@@ -146,6 +184,14 @@ export async function removeRecipe(id: string): Promise<void> {
 
 // ─── Photo Upload ─────────────────────────────────────────────
 export async function uploadPhoto(folderId: string, file: File): Promise<string> {
+  if (isDemo) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
+  }
   const ext  = file.name.split('.').pop() ?? 'jpg'
   const path = `${folderId}/${Date.now()}.${ext}`
 

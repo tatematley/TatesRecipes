@@ -1,0 +1,110 @@
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.back:hover { color: var(--herb); }
+
+/* ── Hero ── */
+.hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+  animation: fadeUp 420ms var(--ease) both;
+}
+.emojiTile {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 104px;
+  height: 104px;
+  font-size: 3.25rem;
+  border-radius: var(--r-xl);
+  background:
+    radial-gradient(circle at 30% 25%, var(--herb-soft), transparent 65%),
+    radial-gradient(circle at 80% 85%, var(--saffron-soft), transparent 60%),
+    var(--bg-raised);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+}
+.heroText { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
+.smartTag { display: inline-flex; align-items: center; gap: 5px; color: var(--herb); }
+.title { font-size: clamp(2rem, 4.4vw, 3rem); overflow-wrap: anywhere; }
+.editable {
+  display: inline;
+  text-align: left;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  border-radius: var(--r-xs);
+  transition: background var(--t-fast) ease;
+}
+.editable:hover { background: var(--bg-hover); }
+.pencil { display: inline-block; margin-left: 10px; vertical-align: middle; color: var(--ink-4); opacity: 0; transition: opacity var(--t-fast) ease; }
+.editable:hover .pencil, .editable:focus-visible .pencil { opacity: 1; }
+@media (hover: none) { .pencil { opacity: 1; } }
+.desc { font-size: 1.0625rem; color: var(--ink-2); max-width: 620px; }
+.addDesc { align-self: flex-start; font-size: 0.9375rem; color: var(--ink-4); font-style: italic; }
+.addDesc:hover { color: var(--herb); }
+.stats { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.875rem; color: var(--ink-3); margin-top: 2px; }
+.stats strong { color: var(--ink); font-weight: 650; }
+
+/* ── Toolbar ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 0;
+  margin-bottom: 28px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.toolbarMain, .toolbarSide { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── Grid ── */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 36px 24px; }
+.skel { aspect-ratio: 4 / 3; border-radius: var(--r-lg); }
+.cell { position: relative; min-width: 0; }
+.remove {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+  color: var(--ink);
+  box-shadow: var(--shadow-2);
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  transition: opacity var(--t-fast) ease, transform var(--t-fast) var(--ease-spring), background var(--t-fast) ease, color var(--t-fast) ease;
+}
+.remove:hover { background: var(--terracotta); color: var(--ink-inverse); }
+@media (hover: hover) {
+  .cell:hover .remove, .remove:focus-visible { opacity: 1; transform: scale(1); pointer-events: auto; }
+}
+.managing .remove { opacity: 1; transform: scale(1); pointer-events: auto; }
+.managing .cell { animation: none; }
+
+.confirm { color: var(--ink-2); }
+.confirm strong { color: var(--ink); }
+
+@media (max-width: 640px) {
+  .hero { gap: 16px; flex-direction: column; }
+  .emojiTile { width: 72px; height: 72px; font-size: 2.25rem; border-radius: var(--r-lg); }
+  .toolbar { padding: 12px 0; margin-bottom: 22px; }
+  .toolbarMain { width: 100%; }
+  .toolbarMain > * { flex: 1; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+}

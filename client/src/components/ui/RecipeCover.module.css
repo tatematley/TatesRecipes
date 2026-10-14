@@ -1,0 +1,53 @@
+.img { width: 100%; height: 100%; object-fit: cover; }
+
+.art {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 85% 10%, var(--art-accent) 0%, transparent 55%),
+    radial-gradient(80% 70% at 0% 100%, color-mix(in srgb, var(--art-ink) 14%, transparent) 0%, transparent 60%),
+    var(--art-bg);
+  isolation: isolate;
+}
+/* Paper grain */
+.art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.33 0 0 0 0 0.25 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.letter {
+  position: absolute;
+  right: -0.06em;
+  bottom: -0.3em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 340;
+  line-height: 1;
+  color: var(--art-ink);
+  opacity: 0.18;
+  letter-spacing: -0.04em;
+  font-variation-settings: 'opsz' 144;
+}
+
+.emoji {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-6deg);
+  filter: drop-shadow(0 10px 14px rgba(40, 25, 10, 0.22));
+  z-index: 1;
+}
+
+.sm .letter { font-size: 7rem; }
+.sm .emoji { font-size: 2.1rem; }
+.md .letter { font-size: 13rem; }
+.md .emoji { font-size: 3.4rem; }
+.lg .letter { font-size: clamp(14rem, 34vw, 30rem); }
+.lg .emoji { font-size: clamp(4rem, 9vw, 7rem); left: 70%; }

@@ -8,6 +8,8 @@
   border-radius: var(--radius-md);
 }
 
+.bare { padding: 0; background: none; border: none; border-radius: 0; }
+
 .header {
   display: flex;
   flex-direction: column;
