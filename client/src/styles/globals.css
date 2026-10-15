@@ -112,38 +112,7 @@
   --radius-xl: var(--r-lg);
 }
 
-/* Dark mode: follows the system unless the user picked a theme */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg:            #0F1A2E;
-    --bg-raised:     #18263F;
-    --bg-sunken:     #0B1424;
-    --bg-hover:      #213252;
-    --bg-overlay:    rgba(0, 0, 0, 0.62);
-    --ink:           #F2F6FC;
-    --ink-2:         #C9D5E8;
-    --ink-3:         #8D9CB6;
-    --ink-4:         #5D6C86;
-    --ink-inverse:   #0F1A2E;
-    --herb:          #B0D8FB;
-    --herb-strong:   #D3E9FD;
-    --herb-soft:     #22385C;
-    --herb-faint:    #1A2B48;
-    --terracotta:    #8DB6F0;
-    --terracotta-soft:#22385C;
-    --saffron:       #8DB6F0;
-    --saffron-soft:  #22385C;
-    --line:          #263856;
-    --line-strong:   #34496D;
-    --danger:        #F07B6B;
-    --danger-soft:   #3F2420;
-    --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
-    --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
-    --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
-    --ring:     0 0 0 3px rgba(176, 216, 251, 0.3);
-  }
-}
+/* Dark mode: only when picked with the theme toggle */
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg:            #0F1A2E;
