@@ -15,7 +15,7 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
   const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform)
 
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} forest-surface`}>
       <div className={styles.top}>
         <Brand />
         <button className={styles.search} onClick={onOpenSearch}>

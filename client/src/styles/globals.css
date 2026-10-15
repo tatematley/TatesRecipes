@@ -1,40 +1,40 @@
 /* ─── Made by Tate — Design Tokens ──────────────────────────────
-   Palette: Pearl Oatmilk #F0EDE6, Golden Matcha #B4AD7E, Citrus Spice #D08453,
-   Forest Depth #2A302B. (--herb = forest/primary, --terracotta = citrus accent,
-   --saffron = matcha.)
+   White surfaces, Forest Depth #2A302B for ink, buttons, the sidebar and cook
+   mode, and Citrus Spice #D08453 as the accent. No tan.
+   (--herb = forest/primary, --terracotta = citrus accent, --saffron = sage.)
    Every color is a token so the whole app flips to dark mode.
    ─────────────────────────────────────────────────────────────── */
 :root {
   color-scheme: light;
 
   /* Surfaces */
-  --bg:            #F0EDE6;   /* pearl oatmilk */
+  --bg:            #F6F7F5;   /* soft white */
   --bg-raised:     #FFFFFF;   /* cards */
-  --bg-sunken:     #E7E3DA;   /* wells, inputs at rest */
-  --bg-hover:      #EAE6DE;
+  --bg-sunken:     #EEF0ED;   /* wells, inputs at rest */
+  --bg-hover:      #F0F2EF;
   --bg-overlay:    rgba(30, 34, 31, 0.5);
 
   /* Ink */
   --ink:           #2A302B;
-  --ink-2:         #4C524B;
-  --ink-3:         #7A7D74;
-  --ink-4:         #ABAAA0;
-  --ink-inverse:   #FAF8F4;
+  --ink-2:         #464D47;
+  --ink-3:         #737A73;
+  --ink-4:         #A6ACA6;
+  --ink-inverse:   #FFFFFF;
 
   /* Brand */
   --herb:          #2A302B;   /* forest depth */
   --herb-strong:   #1C211D;
-  --herb-soft:     #E4E1CF;
-  --herb-faint:    #EEECE2;
+  --herb-soft:     #E2E8E1;
+  --herb-faint:    #EEF2ED;
   --terracotta:    #C2703F;
   --terracotta-soft:#F4DFD0;
-  --saffron:       #9C9563;
-  --saffron-soft:  #E9E6D4;
+  --saffron:       #5E7360;
+  --saffron-soft:  #E2E8E1;
   --berry:         #8C5A3C;
 
   /* Lines */
-  --line:          #DDD8CC;
-  --line-strong:   #C9C3B4;
+  --line:          #E1E4E0;
+  --line-strong:   #C8CEC7;
 
   /* Feedback */
   --danger:        #B3392C;
@@ -87,7 +87,7 @@
   --green-dark: var(--herb-strong);
   --green-deep: var(--herb-strong);
   --green-mid: var(--herb);
-  --green-sage: #B4AD7E;
+  --green-sage: #A9BFA5;
   --green-soft: var(--herb-soft);
   --green-mist: var(--herb-soft);
   --green-pale: var(--herb-soft);
@@ -113,19 +113,19 @@
     --bg-sunken:     #181C19;
     --bg-hover:      #333A34;
     --bg-overlay:    rgba(0, 0, 0, 0.62);
-    --ink:           #F0EDE6;
-    --ink-2:         #CFCBC0;
-    --ink-3:         #9A9A8E;
-    --ink-4:         #6A6D64;
+    --ink:           #F2F4F1;
+    --ink-2:         #CDD3CC;
+    --ink-3:         #97A096;
+    --ink-4:         #677066;
     --ink-inverse:   #1F2420;
-    --herb:          #C4BD8E;
-    --herb-strong:   #D8D2A8;
-    --herb-soft:     #3A3D2E;
-    --herb-faint:    #2C3027;
+    --herb:          #A9BFA5;
+    --herb-strong:   #C2D4BE;
+    --herb-soft:     #33402F;
+    --herb-faint:    #283127;
     --terracotta:    #E39462;
     --terracotta-soft:#4A3122;
-    --saffron:       #C4BD8E;
-    --saffron-soft:  #3A3A2C;
+    --saffron:       #A9BFA5;
+    --saffron-soft:  #33402F;
     --line:          #363D37;
     --line-strong:   #4A524B;
     --danger:        #F07B6B;
@@ -143,19 +143,19 @@
   --bg-sunken:     #181C19;
   --bg-hover:      #333A34;
   --bg-overlay:    rgba(0, 0, 0, 0.62);
-  --ink:           #F0EDE6;
-  --ink-2:         #CFCBC0;
-  --ink-3:         #9A9A8E;
-  --ink-4:         #6A6D64;
+  --ink:           #F2F4F1;
+  --ink-2:         #CDD3CC;
+  --ink-3:         #97A096;
+  --ink-4:         #677066;
   --ink-inverse:   #1F2420;
-  --herb:          #C4BD8E;
-  --herb-strong:   #D8D2A8;
-  --herb-soft:     #3A3D2E;
-  --herb-faint:    #2C3027;
+  --herb:          #A9BFA5;
+  --herb-strong:   #C2D4BE;
+  --herb-soft:     #33402F;
+  --herb-faint:    #283127;
   --terracotta:    #E39462;
   --terracotta-soft:#4A3122;
-  --saffron:       #C4BD8E;
-  --saffron-soft:  #3A3A2C;
+  --saffron:       #A9BFA5;
+  --saffron-soft:  #33402F;
   --line:          #363D37;
   --line-strong:   #4A524B;
   --danger:        #F07B6B;
@@ -164,6 +164,28 @@
   --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
   --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
   --ring:     0 0 0 3px rgba(227, 148, 98, 0.32);
+}
+
+/* Always-dark forest surfaces: the sidebar and mobile nav bars */
+.forest-surface {
+  --bg:            #2A302B;
+  --bg-raised:     #343B35;
+  --bg-sunken:     #222723;
+  --bg-hover:      #39413A;
+  --ink:           #F2F4F1;
+  --ink-2:         #CDD3CC;
+  --ink-3:         #97A096;
+  --ink-4:         #6F786E;
+  --ink-inverse:   #2A302B;
+  --herb:          #F2F4F1;
+  --herb-strong:   #FFFFFF;
+  --herb-soft:     #3D463D;
+  --herb-faint:    #343B35;
+  --terracotta:    #E39462;
+  --line:          #3B433C;
+  --line-strong:   #4E574F;
+  color-scheme: dark;
+  color: var(--ink);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────── */
