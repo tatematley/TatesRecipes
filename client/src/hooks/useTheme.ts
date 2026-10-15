@@ -52,7 +52,7 @@ export function useTheme() {
 
   useEffect(() => {
     const meta = document.querySelectorAll('meta[name="theme-color"]')
-    meta.forEach((m) => m.setAttribute('content', isDark ? '#0D1420' : '#F7F9FC'))
+    meta.forEach((m) => m.setAttribute('content', isDark ? '#1F2420' : '#F0EDE6'))
   }, [isDark])
 
   const setChoice = useCallback((c: ThemeChoice) => apply(c), [])

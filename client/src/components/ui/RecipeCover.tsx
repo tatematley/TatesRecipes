@@ -5,13 +5,13 @@ import styles from './RecipeCover.module.css'
 
 /** Curated palettes for recipes without a photo: [background, ink] */
 const PALETTES: [string, string, string][] = [
-  ['#DCE7F5', '#1F4E8C', '#C5D7EE'], // cornflower
-  ['#E3F1FA', '#1F6E9E', '#CBE4F4'], // sky
-  ['#D6E0EE', '#22406B', '#BFCFE5'], // slate
-  ['#E1E6F7', '#3B4FA0', '#CBD3F0'], // periwinkle
-  ['#D9EBF0', '#1D6577', '#C1DDE6'], // harbor
-  ['#E8EEF6', '#3A4D68', '#D3DDEA'], // mist
-  ['#D5E4FA', '#2F6BC4', '#BBD2F4'], // azure
+  ['#E6E3D0', '#5E5A36', '#D7D2B6'], // golden matcha
+  ['#F3DFCF', '#A3582C', '#EACBB2'], // citrus spice
+  ['#DDE0D8', '#2A302B', '#CACFC5'], // forest mist
+  ['#EEE8DC', '#6A5E46', '#E1D9C8'], // pearl oatmilk
+  ['#E9E5CF', '#77703F', '#DBD5B6'], // matcha cream
+  ['#F5E4D6', '#B8653A', '#EDD0BA'], // apricot
+  ['#D9DCD3', '#3D473E', '#C4CABF'], // sage forest
 ]
 
 export function paletteFor(seed: string) {

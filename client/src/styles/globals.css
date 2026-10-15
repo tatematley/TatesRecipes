@@ -1,49 +1,50 @@
 /* ─── Tate & Thyme — Design Tokens ──────────────────────────────
-   Clean, editorial cookbook feel: white, navy ink and shades of blue.
-   (Token names like --herb and --terracotta are historical; they hold blues now.)
+   Palette: Pearl Oatmilk #F0EDE6, Golden Matcha #B4AD7E, Citrus Spice #D08453,
+   Forest Depth #2A302B. (--herb = forest/primary, --terracotta = citrus accent,
+   --saffron = matcha.)
    Every color is a token so the whole app flips to dark mode.
    ─────────────────────────────────────────────────────────────── */
 :root {
   color-scheme: light;
 
   /* Surfaces */
-  --bg:            #F7F9FC;   /* cool white */
-  --bg-raised:     #FFFFFF;   /* cards */
-  --bg-sunken:     #EDF2F8;   /* wells, inputs at rest */
-  --bg-hover:      #F0F4FA;
-  --bg-overlay:    rgba(10, 22, 40, 0.48);
+  --bg:            #F0EDE6;   /* pearl oatmilk */
+  --bg-raised:     #FAF8F4;   /* cards */
+  --bg-sunken:     #E7E3DA;   /* wells, inputs at rest */
+  --bg-hover:      #EAE6DE;
+  --bg-overlay:    rgba(30, 34, 31, 0.5);
 
   /* Ink */
-  --ink:           #0F1B2D;
-  --ink-2:         #34435A;
-  --ink-3:         #6B7A90;
-  --ink-4:         #A3AFC0;
-  --ink-inverse:   #FFFFFF;
+  --ink:           #2A302B;
+  --ink-2:         #4C524B;
+  --ink-3:         #7A7D74;
+  --ink-4:         #ABAAA0;
+  --ink-inverse:   #FAF8F4;
 
   /* Brand */
-  --herb:          #1F4E8C;   /* navy blue */
-  --herb-strong:   #163A6B;
-  --herb-soft:     #DCE7F5;
-  --herb-faint:    #EDF3FB;
-  --terracotta:    #2F7DE1;
-  --terracotta-soft:#DDEAFB;
-  --saffron:       #3F9BD6;
-  --saffron-soft:  #E3F1FA;
-  --berry:         #3B5BA9;
+  --herb:          #2A302B;   /* forest depth */
+  --herb-strong:   #1C211D;
+  --herb-soft:     #E4E1CF;
+  --herb-faint:    #EEECE2;
+  --terracotta:    #C2703F;
+  --terracotta-soft:#F4DFD0;
+  --saffron:       #9C9563;
+  --saffron-soft:  #E9E6D4;
+  --berry:         #8C5A3C;
 
   /* Lines */
-  --line:          #DFE6EF;
-  --line-strong:   #C6D1DF;
+  --line:          #DDD8CC;
+  --line-strong:   #C9C3B4;
 
   /* Feedback */
-  --danger:        #C2413A;
-  --danger-soft:   #FBE4E2;
+  --danger:        #B3392C;
+  --danger-soft:   #F6DED9;
 
   /* Elevation */
-  --shadow-1: 0 1px 2px rgba(15, 35, 70, 0.06), 0 1px 1px rgba(15, 35, 70, 0.04);
-  --shadow-2: 0 4px 14px -4px rgba(15, 35, 70, 0.14), 0 2px 4px rgba(15, 35, 70, 0.05);
-  --shadow-3: 0 22px 48px -18px rgba(15, 35, 70, 0.32), 0 6px 14px rgba(15, 35, 70, 0.06);
-  --ring:     0 0 0 3px rgba(31, 78, 140, 0.22);
+  --shadow-1: 0 1px 2px rgba(42, 48, 43, 0.06), 0 1px 1px rgba(42, 48, 43, 0.04);
+  --shadow-2: 0 4px 14px -4px rgba(42, 48, 43, 0.14), 0 2px 4px rgba(42, 48, 43, 0.05);
+  --shadow-3: 0 22px 48px -18px rgba(42, 48, 43, 0.32), 0 6px 14px rgba(42, 48, 43, 0.06);
+  --ring:     0 0 0 3px rgba(194, 112, 63, 0.28);
 
   /* Type */
   --font-display: 'Fraunces Variable', 'Fraunces', 'Cormorant Garamond', Georgia, serif;
@@ -86,7 +87,7 @@
   --green-dark: var(--herb-strong);
   --green-deep: var(--herb-strong);
   --green-mid: var(--herb);
-  --green-sage: #7FA6D6;
+  --green-sage: #B4AD7E;
   --green-soft: var(--herb-soft);
   --green-mist: var(--herb-soft);
   --green-pale: var(--herb-soft);
@@ -107,62 +108,62 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg:            #0D1420;
-    --bg-raised:     #141D2B;
-    --bg-sunken:     #0A101A;
-    --bg-hover:      #1B2636;
+    --bg:            #1F2420;
+    --bg-raised:     #2A302B;
+    --bg-sunken:     #181C19;
+    --bg-hover:      #333A34;
     --bg-overlay:    rgba(0, 0, 0, 0.62);
-    --ink:           #EAF0F8;
-    --ink-2:         #BCC8D8;
-    --ink-3:         #8392A8;
-    --ink-4:         #56647A;
-    --ink-inverse:   #0D1420;
-    --herb:          #7FB0F0;
-    --herb-strong:   #A6C9F7;
-    --herb-soft:     #1A2B44;
-    --herb-faint:    #132036;
-    --terracotta:    #5AA0FF;
-    --terracotta-soft:#172C4A;
-    --saffron:       #7CC4F0;
-    --saffron-soft:  #14304A;
-    --line:          #223047;
-    --line-strong:   #31415A;
-    --danger:        #F07B72;
-    --danger-soft:   #3A1C1B;
+    --ink:           #F0EDE6;
+    --ink-2:         #CFCBC0;
+    --ink-3:         #9A9A8E;
+    --ink-4:         #6A6D64;
+    --ink-inverse:   #1F2420;
+    --herb:          #C4BD8E;
+    --herb-strong:   #D8D2A8;
+    --herb-soft:     #3A3D2E;
+    --herb-faint:    #2C3027;
+    --terracotta:    #E39462;
+    --terracotta-soft:#4A3122;
+    --saffron:       #C4BD8E;
+    --saffron-soft:  #3A3A2C;
+    --line:          #363D37;
+    --line-strong:   #4A524B;
+    --danger:        #F07B6B;
+    --danger-soft:   #3F2420;
     --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
     --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
     --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
-    --ring:     0 0 0 3px rgba(127, 176, 240, 0.3);
+    --ring:     0 0 0 3px rgba(227, 148, 98, 0.32);
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg:            #0D1420;
-  --bg-raised:     #141D2B;
-  --bg-sunken:     #0A101A;
-  --bg-hover:      #1B2636;
+  --bg:            #1F2420;
+  --bg-raised:     #2A302B;
+  --bg-sunken:     #181C19;
+  --bg-hover:      #333A34;
   --bg-overlay:    rgba(0, 0, 0, 0.62);
-  --ink:           #EAF0F8;
-  --ink-2:         #BCC8D8;
-  --ink-3:         #8392A8;
-  --ink-4:         #56647A;
-  --ink-inverse:   #0D1420;
-  --herb:          #7FB0F0;
-  --herb-strong:   #A6C9F7;
-  --herb-soft:     #1A2B44;
-  --herb-faint:    #132036;
-  --terracotta:    #5AA0FF;
-  --terracotta-soft:#172C4A;
-  --saffron:       #7CC4F0;
-  --saffron-soft:  #14304A;
-  --line:          #223047;
-  --line-strong:   #31415A;
-  --danger:        #F07B72;
-  --danger-soft:   #3A1C1B;
+  --ink:           #F0EDE6;
+  --ink-2:         #CFCBC0;
+  --ink-3:         #9A9A8E;
+  --ink-4:         #6A6D64;
+  --ink-inverse:   #1F2420;
+  --herb:          #C4BD8E;
+  --herb-strong:   #D8D2A8;
+  --herb-soft:     #3A3D2E;
+  --herb-faint:    #2C3027;
+  --terracotta:    #E39462;
+  --terracotta-soft:#4A3122;
+  --saffron:       #C4BD8E;
+  --saffron-soft:  #3A3A2C;
+  --line:          #363D37;
+  --line-strong:   #4A524B;
+  --danger:        #F07B6B;
+  --danger-soft:   #3F2420;
   --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
   --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
-  --ring:     0 0 0 3px rgba(127, 176, 240, 0.3);
+  --ring:     0 0 0 3px rgba(227, 148, 98, 0.32);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────── */

@@ -23,7 +23,7 @@
 .floating:hover { background: #fff; }
 
 .emptyIcon { color: var(--ink-3); transition: color var(--t-fast) ease; }
-.floating .emptyIcon { color: #4A5A70; }
+.floating .emptyIcon { color: #4C524B; }
 .star:hover .emptyIcon { color: var(--terracotta); }
 
 .filledIcon { color: var(--terracotta); fill: var(--terracotta); }

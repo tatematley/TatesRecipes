@@ -16,7 +16,7 @@
   letter-spacing: -0.012em;
   font-variation-settings: 'opsz' 144;
 }
-.headline em { font-style: italic; font-weight: 380; color: var(--herb); }
+.headline em { font-style: italic; font-weight: 380; color: var(--terracotta); }
 
 .stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 10px; }
 .stat { display: flex; flex-direction: column; }

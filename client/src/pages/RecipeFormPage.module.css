@@ -15,7 +15,7 @@
   line-height: 1.05;
   color: var(--ink);
 }
-.title em { font-style: italic; color: var(--herb); }
+.title em { font-style: italic; color: var(--terracotta); }
 
 .form { display: flex; flex-direction: column; gap: 20px; }
 
@@ -151,7 +151,7 @@
   position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
   display: inline-flex; align-items: center; gap: 6px;
   padding: 6px 12px; border-radius: var(--r-pill);
-  background: rgba(10, 22, 40, 0.65); color: #fff; font-size: 0.8rem; font-weight: 500;
+  background: rgba(30, 34, 31, 0.65); color: #fff; font-size: 0.8rem; font-weight: 500;
   backdrop-filter: blur(6px);
   white-space: nowrap;
   transition: transform 0.2s var(--ease-spring);
