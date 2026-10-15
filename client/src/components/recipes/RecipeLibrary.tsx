@@ -2,31 +2,24 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Recipe } from '../../types'
 import { useFilters } from '../../hooks/useFilters'
-import { applyFilters, sortRecipes, SortKey } from '../../utils/helpers'
+import { applyFilters, sortRecipes } from '../../utils/helpers'
 import { searchRecipes } from '../../utils/search'
 import { useAppData } from '../../lib/appData'
 import { RecipeGrid } from './RecipeGrid'
 import { FilterPanel } from '../filters/FilterPanel'
-import { SearchIcon, SlidersIcon, XIcon } from '../ui/Icons'
+import { SlidersIcon } from '../ui/Icons'
 import styles from './RecipeLibrary.module.css'
 
 interface Props {
   recipes: Recipe[]
   loading?: boolean
-  /** Shown right under the search bar (e.g. the home page's view toggles). */
+  /** Shown beside the Filters button (e.g. the home page's view toggles). */
   chips?: React.ReactNode
   emptyTitle?: string
   emptyMessage?: string
 }
 
-const SORTS: { value: SortKey; label: string }[] = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'az', label: 'A–Z' },
-  { value: 'quickest', label: 'Quickest' },
-  { value: 'cooked', label: 'Most made' },
-]
-
-/** Search plus one Filters button. Search, category and sort live in the URL. */
+/** The recipe grid with one Filters button. The search comes from the top bar, via the URL. */
 export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessage }: Props) {
   const navigate = useNavigate()
   const [params, setParams] = useSearchParams()
@@ -35,7 +28,6 @@ export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessag
   const [panelOpen, setPanelOpen] = useState(false)
 
   const query = params.get('q') ?? ''
-  const sort = (params.get('sort') as SortKey) || 'newest'
 
   function setParam(key: string, value: string) {
     const next = new URLSearchParams(params)
@@ -57,38 +49,23 @@ export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessag
   }, [cookLog])
 
   const results = useMemo(() => {
-    const searched = query ? searchRecipes(recipes, query) : sortRecipes(recipes, sort, cookCounts)
+    const searched = query ? searchRecipes(recipes, query) : sortRecipes(recipes, 'newest', cookCounts)
     return applyFilters(searched, filters.filters)
-  }, [recipes, query, sort, cookCounts, filters.filters])
+  }, [recipes, query, cookCounts, filters.filters])
 
-  const filterCount = filters.activeCount - (filters.filters.search ? 1 : 0) + (sort !== 'newest' ? 1 : 0)
+  const filterCount = filters.activeCount - (filters.filters.search ? 1 : 0)
   const narrowing = !!query || filters.activeCount > 0
 
   return (
     <section className={styles.library}>
       <div className={styles.toolbar}>
-        <div className={styles.search}>
-          <SearchIcon size={18} strokeWidth={1.75} />
-          <input
-            value={query}
-            onChange={(e) => setParam('q', e.target.value)}
-            placeholder="Search recipes, ingredients or tags"
-            aria-label="Search recipes"
-          />
-          {query && (
-            <button onClick={() => setParam('q', '')} aria-label="Clear search" className={styles.clear}>
-              <XIcon size={14} strokeWidth={2} />
-            </button>
-          )}
-        </div>
+        {chips}
         <button className={`${styles.filterBtn} ${filterCount > 0 ? styles.filterOn : ''}`} onClick={() => setPanelOpen(true)}>
-          <SlidersIcon size={16} strokeWidth={1.75} />
+          <SlidersIcon size={15} strokeWidth={1.75} />
           <span>Filters</span>
           {filterCount > 0 && <span className={styles.badge}>{filterCount}</span>}
         </button>
       </div>
-
-      {chips}
 
       {narrowing && !loading && (
         <div className={styles.count}>
@@ -118,7 +95,6 @@ export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessag
         isOpen={panelOpen}
         onClose={() => setPanelOpen(false)}
         filters={filters}
-        sort={{ value: sort, options: SORTS, disabled: !!query, onChange: (v) => setParam('sort', v === 'newest' ? '' : v) }}
       />
     </section>
   )

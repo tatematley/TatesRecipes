@@ -1,45 +1,22 @@
 .library { display: flex; flex-direction: column; gap: 22px; }
 
-.toolbar { display: flex; align-items: center; gap: 10px; }
-
-.search {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 54px;
-  padding: 0 16px 0 20px;
-  background: var(--bg-raised);
-  border: 1.5px solid var(--line);
-  border-radius: var(--r-pill);
-  color: var(--herb);
-  box-shadow: var(--shadow-1);
-  transition: border-color var(--t-fast) ease, box-shadow var(--t-fast) ease;
-  min-width: 0;
-}
-.search:focus-within { border-color: var(--terracotta); box-shadow: var(--ring); }
-.search input { flex: 1; border: none; outline: none; background: transparent; font-size: 1rem; min-width: 0; color: var(--ink); }
-.search input::placeholder { color: var(--ink-4); }
-.clear { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--bg-sunken); color: var(--ink-3); }
+.toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
 
 .filterBtn {
-  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  height: 54px;
-  padding: 0 22px;
+  height: 40px;
+  padding: 0 18px;
   border-radius: var(--r-pill);
-  border: 1.5px solid var(--line);
-  background: var(--bg-raised);
-  color: var(--ink);
+  border: 1.5px solid var(--line-strong);
+  color: var(--ink-2);
   font-weight: 600;
   font-size: 0.9375rem;
-  box-shadow: var(--shadow-1);
   transition: border-color var(--t-fast) ease, background var(--t-fast) ease, color var(--t-fast) ease;
 }
-.filterBtn:hover { border-color: var(--terracotta); }
-.filterOn, .filterOn:hover { background: var(--herb-strong); border-color: var(--herb-strong); color: var(--ink-inverse); }
+.filterBtn:hover { border-color: var(--ink-3); color: var(--ink); }
+.filterOn, .filterOn:hover { background: #fff; border-color: #fff; color: var(--bg); }
 .badge {
   display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px;
   border-radius: var(--r-pill); background: var(--terracotta); color: #fff; font-size: 0.75rem; font-weight: 700;
@@ -51,8 +28,5 @@
 .skeletons { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
 
 @media (max-width: 640px) {
-  .search, .filterBtn { height: 48px; }
-  .filterBtn { padding: 0 16px; }
-  .filterBtn span:not(.badge) { display: none; }
   .skeletons { grid-template-columns: repeat(2, 1fr); gap: 8px; }
 }
