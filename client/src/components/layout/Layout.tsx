@@ -3,14 +3,18 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { CommandPalette } from './CommandPalette'
 import { Brand } from './Brand'
 import { PlusIcon, SearchIcon, XIcon } from '../ui/Icons'
+import { useOpenAdd, backgroundFor } from '../../hooks/useOpenAdd'
 import styles from './Layout.module.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  const openAdd = useOpenAdd()
+  // While the add pop-up is open, the page behind it stays put
+  const page = backgroundFor(location) ?? location
   const [params, setParams] = useSearchParams()
-  const query = location.pathname === '/' ? params.get('q') ?? '' : ''
+  const query = page.pathname === '/' ? new URLSearchParams(page.search).get('q') ?? '' : ''
 
   // Search lives in the URL so the home page grid can read it
   function setQuery(q: string) {
@@ -42,7 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }, [])
 
   // New page → top of the page
-  useEffect(() => { window.scrollTo({ top: 0 }) }, [location.pathname])
+  useEffect(() => { window.scrollTo({ top: 0 }) }, [page.pathname])
 
   return (
     <div className={styles.layout}>
@@ -63,12 +67,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </button>
             )}
           </div>
-          <button className={styles.addBtn} onClick={() => navigate('/add')} aria-label="New recipe">
+          <button className={styles.addBtn} onClick={openAdd} aria-label="New recipe">
             <PlusIcon size={28} strokeWidth={2} />
           </button>
         </div>
       </header>
-      <main className={styles.main} key={location.pathname}>
+      <main className={styles.main} key={page.pathname}>
         {children}
       </main>
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />

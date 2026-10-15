@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import { useOpenAdd } from '../../hooks/useOpenAdd'
 import { Recipe } from '../../types'
 import { useFilters } from '../../hooks/useFilters'
 import { applyFilters, sortRecipes } from '../../utils/helpers'
@@ -21,7 +22,7 @@ interface Props {
 
 /** The recipe grid with one Filters button. The search comes from the top bar, via the URL. */
 export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessage }: Props) {
-  const navigate = useNavigate()
+  const openAdd = useOpenAdd()
   const [params, setParams] = useSearchParams()
   const filters = useFilters()
   const { cookLog } = useAppData()
@@ -85,7 +86,7 @@ export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessag
       ) : (
         <RecipeGrid
           recipes={results}
-          onAddRecipe={() => navigate('/add')}
+          onAddRecipe={openAdd}
           emptyTitle={recipes.length === 0 ? emptyTitle : undefined}
           emptyMessage={recipes.length === 0 ? emptyMessage : undefined}
         />

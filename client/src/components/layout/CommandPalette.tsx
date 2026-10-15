@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import styles from './CommandPalette.module.css'
+import { useOpenAdd } from '../../hooks/useOpenAdd'
 import { useRecipeContext } from '../../context/RecipeContext'
 import { NAV_GROUPS } from './nav'
 import { RecipeCover } from '../ui/RecipeCover'
@@ -25,6 +26,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const listRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
   const { recipes } = useRecipeContext()
+  const openAdd = useOpenAdd()
 
   useEffect(() => {
     if (open) {
@@ -50,7 +52,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       }))
 
     const actions: Item[] = [
-      { id: 'a-new', kind: 'action', label: 'Add a new recipe', run: go('/add'), render: () => <PlusIcon size={16} /> },
+      { id: 'a-new', kind: 'action', label: 'Add a new recipe', run: () => { onClose(); openAdd() }, render: () => <PlusIcon size={16} /> },
       {
         id: 'a-random', kind: 'action', label: 'Surprise me', hint: 'Open a random recipe',
         run: () => {
@@ -75,7 +77,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       })
     }
     return [...recipeItems, ...filteredActions]
-  }, [recipes, query, navigate, onClose])
+  }, [recipes, query, navigate, onClose, openAdd])
 
   useEffect(() => { setActive(0) }, [query])
 

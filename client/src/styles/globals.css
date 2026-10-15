@@ -78,36 +78,6 @@
   --t-fast: 120ms;
   --t-med: 220ms;
   --transition: all var(--t-fast) ease;
-
-  /* ── Legacy aliases (older CSS modules still use these) ── */
-  --page-bg: var(--bg);
-  --card-bg: var(--bg-raised);
-  --cream: var(--bg-hover);
-  --text-dark: var(--ink);
-  --text-body: var(--ink-2);
-  --text-muted: var(--ink-3);
-  --text-faint: var(--ink-4);
-  --border: var(--line);
-  --border-light: var(--line);
-  --green: var(--herb);
-  --green-dark: var(--herb-strong);
-  --green-deep: var(--herb-strong);
-  --green-mid: var(--herb);
-  --green-sage: #6E9EE5;
-  --green-soft: var(--herb-soft);
-  --green-mist: var(--herb-soft);
-  --green-pale: var(--herb-soft);
-  --green-faint: var(--herb-faint);
-  --coral: var(--terracotta);
-  --coral-pale: var(--terracotta-soft);
-  --shadow-sm: var(--shadow-1);
-  --shadow-card: var(--shadow-1);
-  --shadow-hover: var(--shadow-2);
-  --radius-xs: var(--r-xs);
-  --radius-sm: var(--r-xs);
-  --radius-md: var(--r-sm);
-  --radius-lg: var(--r-md);
-  --radius-xl: var(--r-lg);
 }
 
 /* The whole site sits on deep navy */
@@ -139,6 +109,69 @@
   --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
   --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
   --ring:     0 0 0 3px rgba(176, 216, 251, 0.3);
+}
+
+/* White pop-ups and panels on the navy site */
+.light-surface {
+  color-scheme: light;
+  --bg:            #FFFFFF;
+  --bg-raised:     #FFFFFF;
+  --bg-sunken:     #F1F6FD;
+  --bg-hover:      #EEF4FC;
+  --ink:           #1B2E4F;
+  --ink-2:         #3A4B68;
+  --ink-3:         #687891;
+  --ink-4:         #A2AEC2;
+  --ink-inverse:   #FFFFFF;
+  --herb:          #3B63A3;
+  --herb-strong:   #1B2E4F;
+  --herb-soft:     #DDEAFB;
+  --herb-faint:    #EFF5FE;
+  --terracotta:    #6E9EE5;
+  --terracotta-soft:#E3EEFC;
+  --saffron:       #6E9EE5;
+  --saffron-soft:  #E8F3FE;
+  --line:          #E3EAF4;
+  --line-strong:   #C8D4E6;
+  --danger:        #B3392C;
+  --danger-soft:   #F6DED9;
+  --shadow-1: 0 1px 2px rgba(27, 46, 79, 0.06), 0 1px 1px rgba(27, 46, 79, 0.04);
+  --shadow-2: 0 4px 14px -4px rgba(27, 46, 79, 0.14), 0 2px 4px rgba(27, 46, 79, 0.05);
+  --ring:     0 0 0 3px rgba(110, 158, 229, 0.35);
+  color: var(--ink);
+}
+
+/* Legacy aliases (older CSS modules still use these). Declared on both so
+   white pop-ups resolve them against their own palette. */
+:root, .light-surface {
+  --page-bg: var(--bg);
+  --card-bg: var(--bg-raised);
+  --cream: var(--bg-hover);
+  --text-dark: var(--ink);
+  --text-body: var(--ink-2);
+  --text-muted: var(--ink-3);
+  --text-faint: var(--ink-4);
+  --border: var(--line);
+  --border-light: var(--line);
+  --green: var(--herb);
+  --green-dark: var(--herb-strong);
+  --green-deep: var(--herb-strong);
+  --green-mid: var(--herb);
+  --green-sage: #6E9EE5;
+  --green-soft: var(--herb-soft);
+  --green-mist: var(--herb-soft);
+  --green-pale: var(--herb-soft);
+  --green-faint: var(--herb-faint);
+  --coral: var(--terracotta);
+  --coral-pale: var(--terracotta-soft);
+  --shadow-sm: var(--shadow-1);
+  --shadow-card: var(--shadow-1);
+  --shadow-hover: var(--shadow-2);
+  --radius-xs: var(--r-xs);
+  --radius-sm: var(--r-xs);
+  --radius-md: var(--r-sm);
+  --radius-lg: var(--r-md);
+  --radius-xl: var(--r-lg);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────── */
