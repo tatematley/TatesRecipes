@@ -2,12 +2,12 @@
 .brand:hover { color: var(--ink); }
 .name {
   font-family: var(--font-hand);
-  font-size: 2.1rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   color: #fff;
   white-space: nowrap;
 }
-.compact .compact .name { font-size: 1.75rem; }
+.compact .compact .name { font-size: 1.5rem; }
