@@ -2,24 +2,31 @@
   position: relative;
   display: flex;
   color: var(--ink);
-  border-radius: var(--r-lg);
+  border-radius: 0;
   animation: fadeUp 460ms var(--ease) both;
   -webkit-tap-highlight-color: transparent;
 }
 .card:hover { color: var(--ink); }
 
 /* ── Grid card ── */
-.grid { flex-direction: column; gap: 14px; }
-.grid .imageWrap {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  background: var(--bg-sunken);
+.grid {
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 16px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
   box-shadow: var(--shadow-1);
   transition: box-shadow var(--t-med) var(--ease), transform var(--t-med) var(--ease);
 }
-.grid:hover .imageWrap { box-shadow: var(--shadow-3); transform: translateY(-3px); }
+.grid:hover { box-shadow: var(--shadow-3); transform: translateY(-3px); }
+.grid .imageWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--line);
+}
 .image { transition: transform 600ms var(--ease); }
 .grid:hover .image { transform: scale(1.04); }
 
@@ -43,6 +50,7 @@
 }
 
 .body { display: flex; flex-direction: column; gap: 5px; padding: 0 4px; min-width: 0; }
+.grid .body { padding: 0 16px; }
 .category { font-size: 0.6875rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--herb); }
 .made { color: var(--ink-3); letter-spacing: 0.04em; text-transform: none; font-weight: 550; }
 .title {
@@ -68,7 +76,7 @@
   transition: box-shadow var(--t-fast) ease, border-color var(--t-fast) ease;
 }
 .row:hover { box-shadow: var(--shadow-2); border-color: var(--line-strong); }
-.row .imageWrap { width: 96px; height: 96px; border-radius: var(--r-md); overflow: hidden; flex-shrink: 0; }
+.row .imageWrap { width: 96px; height: 96px; border-radius: 0; overflow: hidden; flex-shrink: 0; }
 .row .body { flex: 1; }
 .row .title { font-size: 1.1rem; -webkit-line-clamp: 1; }
 .desc { font-size: 0.875rem; color: var(--ink-3); display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }

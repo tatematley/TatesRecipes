@@ -3,7 +3,7 @@ import styles from './Brand.module.css'
 
 export function Brand({ compact }: { compact?: boolean }) {
   return (
-    <Link to="/" className={`${styles.brand} ${compact ? styles.compact : ''}`} aria-label="Tate & Thyme home">
+    <Link to="/" className={`${styles.brand} ${compact ? styles.compact : ''}`} aria-label="Made by Tate home">
       <svg className={styles.mark} viewBox="0 0 64 64" aria-hidden="true">
         <rect width="64" height="64" rx="18" fill="currentColor" />
         <path d="M32 52V16" stroke="var(--bg)" strokeWidth="3" strokeLinecap="round" />
@@ -16,7 +16,7 @@ export function Brand({ compact }: { compact?: boolean }) {
         </g>
       </svg>
       <span className={styles.name}>
-        Tate <em>&amp;</em> Thyme
+        Made by <em>Tate</em>
       </span>
     </Link>
   )

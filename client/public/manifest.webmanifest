@@ -1,6 +1,6 @@
 {
-  "name": "Tate & Thyme",
-  "short_name": "Tate & Thyme",
+  "name": "Made by Tate",
+  "short_name": "Made by Tate",
   "description": "Tate's recipe box",
   "start_url": "/",
   "display": "standalone",

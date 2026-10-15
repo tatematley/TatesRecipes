@@ -44,7 +44,7 @@
   position: absolute;
   width: 80px;
   height: 102px;
-  border-radius: var(--r-md);
+  border-radius: 0;
   overflow: hidden;
   box-shadow: var(--shadow-2);
   border: 3px solid var(--bg-raised);
@@ -74,7 +74,7 @@
   gap: 4px;
   aspect-ratio: 4 / 3;
   padding: 4px;
-  border-radius: var(--r-lg);
+  border-radius: 0;
   background: var(--bg-raised);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-1);
@@ -84,7 +84,7 @@
 .card:hover .mosaic { box-shadow: var(--shadow-3); transform: translateY(-3px); }
 .mosaicOne { grid-template-columns: 1fr; grid-template-rows: 1fr; }
 .mosaicTwo { grid-template-rows: 1fr; }
-.tile { overflow: hidden; border-radius: calc(var(--r-lg) - 6px); min-height: 0; min-width: 0; }
+.tile { overflow: hidden; border-radius: 0; min-height: 0; min-width: 0; }
 .tile > * { transition: transform 600ms var(--ease); }
 .card:hover .tile > * { transform: scale(1.05); }
 .tileBlank { display: grid; place-items: center; background: var(--bg-sunken); color: var(--herb); }

@@ -71,7 +71,7 @@
 .entry:active { cursor: grabbing; }
 .dragging { opacity: 0.4; transform: scale(0.97); }
 
-.thumb { width: 52px; height: 52px; border-radius: var(--r-sm); overflow: hidden; flex-shrink: 0; display: block; }
+.thumb { width: 52px; height: 52px; border-radius: 0; overflow: hidden; flex-shrink: 0; display: block; }
 .thumb > * { width: 100%; height: 100%; }
 
 .entryText { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
@@ -147,7 +147,7 @@
 .mealRecipe div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .mealRecipe strong { font-weight: 600; color: var(--ink); }
 .mealRecipe span { font-size: 0.8125rem; color: var(--ink-3); }
-.mealThumb { width: 52px; height: 52px; border-radius: var(--r-sm); overflow: hidden; flex-shrink: 0; }
+.mealThumb { width: 52px; height: 52px; border-radius: 0; overflow: hidden; flex-shrink: 0; }
 .mealThumb > * { width: 100%; height: 100%; }
 .mealGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .mealChoice {
@@ -175,7 +175,7 @@
   font-size: 0.6875rem; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3);
 }
 .fillDay strong { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 560; color: var(--ink); letter-spacing: 0; }
-.fillThumb { width: 48px; height: 48px; border-radius: var(--r-sm); overflow: hidden; flex-shrink: 0; }
+.fillThumb { width: 48px; height: 48px; border-radius: 0; overflow: hidden; flex-shrink: 0; }
 .fillThumb > * { width: 100%; height: 100%; }
 .fillText { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .fillText strong { font-size: 0.9375rem; font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

@@ -41,10 +41,10 @@
 .heroCover {
   position: relative;
   aspect-ratio: 4 / 4.4;
-  border-radius: var(--r-xl);
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-3);
-  transform: rotate(1deg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
 }
 
 /* ── Stats ── */
@@ -163,14 +163,14 @@
 .journalActions { display: flex; gap: 8px; flex-wrap: wrap; }
 .journalEmpty { color: var(--ink-3); font-size: 0.9375rem; }
 .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-.photo { position: relative; aspect-ratio: 1; border-radius: var(--r-md); overflow: hidden; }
+.photo { position: relative; aspect-ratio: 1; border-radius: 0; overflow: hidden; }
 .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-med) var(--ease); }
 .photo:hover img { transform: scale(1.05); }
 .photo span {
   position: absolute; left: 8px; bottom: 8px; padding: 3px 8px; border-radius: var(--r-pill);
   background: rgba(0,0,0,0.55); color: #fff; font-size: 0.6875rem; font-weight: 600;
 }
-.lightboxImg { width: 100%; border-radius: var(--r-md); }
+.lightboxImg { width: 100%; border-radius: 0; }
 
 .timeline { display: flex; flex-direction: column; position: relative; padding-left: 22px; }
 .timeline::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }

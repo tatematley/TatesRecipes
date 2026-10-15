@@ -1,4 +1,4 @@
-# Tate & Thyme
+# Made by Tate
 
 A personal recipe box for the recipes Tate makes and the ones worth keeping from everywhere else. Plan the week, shop by aisle, cook hands-free, and ask a kitchen assistant that knows every recipe in the box.
 

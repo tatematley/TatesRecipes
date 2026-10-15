@@ -187,7 +187,7 @@
 
 .cardMain { display: flex; align-items: center; gap: 14px; padding: 14px 14px 12px; color: var(--ink); }
 .cardMain:hover { color: var(--ink); }
-.thumb { width: 72px; height: 72px; border-radius: var(--r-md); overflow: hidden; flex-shrink: 0; box-shadow: var(--shadow-1); }
+.thumb { width: 72px; height: 72px; border-radius: 0; overflow: hidden; flex-shrink: 0; box-shadow: var(--shadow-1); }
 .cardBody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .cardCat { font-size: 0.6875rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--herb); }
 .cardTitle {

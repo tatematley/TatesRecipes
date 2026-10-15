@@ -31,7 +31,7 @@ export const SMART_COLLECTIONS: SmartCollection[] = [
   },
   {
     id: 'smart-tate',
-    name: 'Made by Tate',
+    name: "Tate's originals",
     emoji: 'chef',
     description: 'Original recipes from Tate’s own kitchen.',
     match: (r) => r.createdByTate,

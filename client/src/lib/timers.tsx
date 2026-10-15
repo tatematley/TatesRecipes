@@ -84,7 +84,7 @@ export function TimerProvider({ children }: { children: React.ReactNode }) {
       notified.current.add(t.id)
       chime()
       if ('Notification' in window && Notification.permission === 'granted' && document.hidden) {
-        new Notification(`${t.label} is done`, { body: t.recipeTitle ?? 'Tate & Thyme timer' })
+        new Notification(`${t.label} is done`, { body: t.recipeTitle ?? 'Made by Tate timer' })
       }
     }
   }, [now, timers])

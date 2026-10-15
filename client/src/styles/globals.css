@@ -1,4 +1,4 @@
-/* ─── Tate & Thyme — Design Tokens ──────────────────────────────
+/* ─── Made by Tate — Design Tokens ──────────────────────────────
    Palette: Pearl Oatmilk #F0EDE6, Golden Matcha #B4AD7E, Citrus Spice #D08453,
    Forest Depth #2A302B. (--herb = forest/primary, --terracotta = citrus accent,
    --saffron = matcha.)
@@ -9,7 +9,7 @@
 
   /* Surfaces */
   --bg:            #F0EDE6;   /* pearl oatmilk */
-  --bg-raised:     #FAF8F4;   /* cards */
+  --bg-raised:     #FFFFFF;   /* cards */
   --bg-sunken:     #E7E3DA;   /* wells, inputs at rest */
   --bg-hover:      #EAE6DE;
   --bg-overlay:    rgba(30, 34, 31, 0.5);

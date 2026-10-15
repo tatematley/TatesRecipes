@@ -94,7 +94,7 @@
 
 .previewThumb {
   position: relative;
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   overflow: hidden;
   border: 1px solid var(--green-soft);
 }

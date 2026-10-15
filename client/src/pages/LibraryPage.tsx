@@ -12,7 +12,7 @@ const VIEWS = {
   },
   created: {
     eyebrow: 'Recipes',
-    title: <>Made by <em>Tate</em></>,
+    title: <>Tate's <em>originals</em></>,
     subtitle: 'Original recipes, written and tested in my own kitchen.',
     emptyTitle: 'Nothing here yet',
     emptyMessage: 'Mark a recipe as "Created by Tate" when you add it and it will live here.',

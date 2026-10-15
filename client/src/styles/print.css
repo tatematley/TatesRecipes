@@ -75,7 +75,7 @@
     width: 100%;
     max-height: 180pt;
     object-fit: cover;
-    border-radius: 8pt;
+    border-radius: 0;
     margin-bottom: 12pt;
   }
 

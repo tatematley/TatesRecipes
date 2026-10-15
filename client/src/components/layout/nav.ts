@@ -8,7 +8,7 @@ export const NAV_GROUPS = [
     items: [
       { to: '/', label: 'Recipe Box', Icon: HomeIcon },
       { to: '/favorites', label: 'Favorites', Icon: HeartIcon },
-      { to: '/created', label: 'Made by Tate', Icon: ChefHatIcon },
+      { to: '/created', label: "Tate's Originals", Icon: ChefHatIcon },
       { to: '/collections', label: 'Collections', Icon: FolderIcon },
     ],
   },

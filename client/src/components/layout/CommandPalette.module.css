@@ -65,7 +65,7 @@
   color: var(--ink);
 }
 .itemActive { background: var(--bg-hover); }
-.thumb { display: block; width: 40px; height: 40px; border-radius: 10px; overflow: hidden; flex-shrink: 0; }
+.thumb { display: block; width: 40px; height: 40px; border-radius: 0; overflow: hidden; flex-shrink: 0; }
 .actionIcon {
   width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px;
   background: var(--bg-sunken); color: var(--herb); flex-shrink: 0;
