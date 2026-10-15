@@ -59,3 +59,20 @@ create policy "Allow all" on recipes
 -- OR paste this (requires pg_storage extension to be enabled):
 -- select storage.create_bucket('recipe-photos', object_limit := null, file_size_limit := 10485760, allowed_mime_types := array['image/jpeg','image/png','image/webp','image/gif']);
 -- ─────────────────────────────────────────────────────────────
+
+-- ─────────────────────────────────────────────────────────────
+-- Kitchen data: collections, meal plan, grocery list, cook log.
+-- One JSON document per key. Optional: without this table the app
+-- keeps that data in the browser only. Run it to sync across devices.
+-- ─────────────────────────────────────────────────────────────
+create table if not exists app_state (
+  key         text          primary key,
+  value       jsonb         not null default '[]',
+  updated_at  timestamptz   not null default now()
+);
+
+alter table app_state enable row level security;
+
+drop policy if exists "Allow all" on app_state;
+create policy "Allow all" on app_state
+  for all using (true) with check (true);

@@ -1,0 +1,11 @@
+.form { display: flex; flex-direction: column; gap: 18px; }
+.stars { display: flex; gap: 2px; }
+.star, .starOn { font-size: 2rem; line-height: 1; padding: 2px; transition: transform var(--t-fast) var(--ease-spring), color var(--t-fast) ease; }
+.star { color: var(--line-strong); }
+.starOn { color: var(--saffron); transform: scale(1.08); }
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.choice {
+  height: 40px; padding: 0 16px; border-radius: var(--r-pill); border: 1px solid var(--line);
+  font-weight: 550; font-size: 0.875rem; background: var(--bg-raised);
+}
+.choiceOn { background: var(--herb-soft); border-color: var(--herb); color: var(--herb-strong); }

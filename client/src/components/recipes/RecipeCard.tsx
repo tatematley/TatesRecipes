@@ -1,82 +1,79 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Recipe } from '../../types'
 import { StarButton } from '../ui/StarButton'
-import { Tag } from '../ui/Tag'
+import { RecipeCover } from '../ui/RecipeCover'
 import { formatTime } from '../../utils/helpers'
 import { useRecipeContext } from '../../context/RecipeContext'
-import { ClockIcon } from '../ui/Icons'
+import { useAppData } from '../../lib/appData'
+import { ClockIcon, ChefHatIcon } from '../ui/Icons'
 import styles from './RecipeCard.module.css'
 
 interface RecipeCardProps {
   recipe: Recipe
+  /** "grid" is the photo card; "row" is a compact list row */
+  layout?: 'grid' | 'row'
+  /** Extra line under the title, e.g. pantry match info */
+  footer?: React.ReactNode
+  index?: number
 }
 
-
-export function RecipeCard({ recipe }: RecipeCardProps) {
+export function RecipeCard({ recipe, layout = 'grid', footer, index = 0 }: RecipeCardProps) {
   const { toggleFavorite } = useRecipeContext()
-  const navigate = useNavigate()
+  const { cookLog } = useAppData()
+  const timesMade = cookLog.filter((c) => c.recipeId === recipe.id).length
 
   function handleFavorite(e: React.MouseEvent) {
+    e.preventDefault()
     e.stopPropagation()
     toggleFavorite(recipe.id)
   }
 
-  const visibleTags = recipe.tags.slice(0, 2)
+  const meta = [
+    recipe.totalTime ? formatTime(recipe.totalTime) : null,
+    recipe.servings ? `Serves ${recipe.servings}` : null,
+  ].filter(Boolean)
 
   return (
-    <article
-      className={styles.card}
-      onClick={() => navigate(`/recipe/${recipe.id}`)}
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && navigate(`/recipe/${recipe.id}`)}
+    <Link
+      to={`/recipe/${recipe.id}`}
+      className={`${styles.card} ${styles[layout]}`}
+      style={{ animationDelay: `${Math.min(index, 12) * 35}ms` }}
     >
       <div className={styles.imageWrap}>
-        {recipe.heroImage && (
-          <img src={recipe.heroImage} alt={recipe.title} className={styles.image} loading="lazy" />
+        <RecipeCover recipe={recipe} size={layout === 'row' ? 'sm' : 'md'} className={styles.image} />
+        {layout === 'grid' && (
+          <>
+            <div className={styles.starWrap}>
+              <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" floating />
+            </div>
+            {recipe.createdByTate && (
+              <span className={styles.tateBadge}><ChefHatIcon size={12} strokeWidth={2} /> Tate's</span>
+            )}
+          </>
         )}
-        <div className={styles.starWrap}>
-          <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" />
-        </div>
       </div>
 
       <div className={styles.body}>
-        <div className={styles.meta}>
-          <span className={styles.category}>{recipe.category}</span>
-          {recipe.createdByTate && (
-            <span className={styles.tatePill}>Tate's</span>
-          )}
-        </div>
-
+        <p className={styles.category}>
+          {recipe.category}
+          {timesMade > 0 && <span className={styles.made}> · made {timesMade}×</span>}
+        </p>
         <h3 className={styles.title}>{recipe.title}</h3>
-
-        <div className={styles.timeRow}>
-          {recipe.totalTime != null && (
-            <span className={styles.timeItem}>
-              <ClockIcon size={12} strokeWidth={1.75} />
-              {formatTime(recipe.totalTime)}
-            </span>
-          )}
-          {recipe.servings != null && (
-            <span className={styles.timeItem}>Serves {recipe.servings}</span>
-          )}
-          {recipe.difficulty && (
-            <span className={styles.timeItem} style={{ textTransform: 'capitalize' }}>
-              {recipe.difficulty}
-            </span>
-          )}
-        </div>
-
-        {visibleTags.length > 0 && (
-          <div className={styles.tags}>
-            {visibleTags.map((tag) => (
-              <Tag key={tag} label={tag} size="sm" />
-            ))}
-            {recipe.tags.length > 2 && (
-              <span className={styles.moreTag}>+{recipe.tags.length - 2}</span>
-            )}
-          </div>
+        {layout === 'row' && recipe.description && <p className={styles.desc}>{recipe.description}</p>}
+        {meta.length > 0 && (
+          <p className={styles.meta}>
+            <ClockIcon size={13} strokeWidth={1.75} />
+            {meta.join(' · ')}
+          </p>
         )}
+        {footer}
       </div>
-    </article>
+
+      {layout === 'row' && (
+        <div className={styles.rowStar}>
+          <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" />
+        </div>
+      )}
+    </Link>
   )
 }

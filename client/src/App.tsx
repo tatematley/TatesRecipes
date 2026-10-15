@@ -1,79 +1,58 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { RecipeProvider } from './context/RecipeContext'
+import { AppDataProvider } from './lib/appData'
+import { ToastProvider } from './components/ui/Toast'
+import { TimerProvider } from './lib/timers'
 import { Layout } from './components/layout/Layout'
 import { Dashboard } from './pages/Dashboard'
+import { LibraryPage } from './pages/LibraryPage'
 import { RecipeDetailPage } from './pages/RecipeDetailPage'
-import { AddRecipePage } from './pages/AddRecipePage'
-import { EditRecipePage } from './pages/EditRecipePage'
-import { FavoritesPage } from './pages/FavoritesPage'
-import { CreatedByTatePage } from './pages/CreatedByTatePage'
-import { PlaceholderPage } from './pages/PlaceholderPage'
+import { CookModePage } from './pages/CookModePage'
+import { RecipeFormPage } from './pages/RecipeFormPage'
+import { GroceryPage } from './pages/GroceryPage'
+import { PlannerPage } from './pages/PlannerPage'
+import { PantryPage } from './pages/PantryPage'
+import { CollectionsPage } from './pages/CollectionsPage'
+import { CollectionDetailPage } from './pages/CollectionDetailPage'
+import { AssistantPage } from './pages/AssistantPage'
 
 export default function App() {
   return (
-    <RecipeProvider>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/recipe/:id" element={<RecipeDetailPage />} />
-            <Route path="/add" element={<AddRecipePage />} />
-            <Route path="/edit/:id" element={<EditRecipePage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/created" element={<CreatedByTatePage />} />
-            <Route
-              path="/pantry"
-              element={
-                <PlaceholderPage
-                  title="Pantry Mode"
-                  phase={4}
-                  description="Enter ingredients you have on hand and get recipe recommendations from your collection, sorted by best match and fewest missing ingredients."
-                />
-              }
-            />
-            <Route
-              path="/grocery"
-              element={
-                <PlaceholderPage
-                  title="Grocery Lists"
-                  phase={3}
-                  description="Select one or more recipes and generate a combined grocery list, grouped by store section with check-off functionality."
-                />
-              }
-            />
-            <Route
-              path="/collections"
-              element={
-                <PlaceholderPage
-                  title="Collections"
-                  phase={7}
-                  description="Organize your recipes into custom collections — Summer BBQ, Christmas Baking, Sunday Dinners, or anything else."
-                />
-              }
-            />
-            <Route
-              path="/planner"
-              element={
-                <PlaceholderPage
-                  title="Meal Planner"
-                  phase={7}
-                  description="Plan your meals for the week by assigning recipes to days, then generate a combined grocery list for everything."
-                />
-              }
-            />
-            <Route
-              path="/assistant"
-              element={
-                <PlaceholderPage
-                  title="AI Assistant"
-                  phase={6}
-                  description="Chat with an AI that knows your recipe collection — scale recipes, find substitutions, get meal recommendations, and more."
-                />
-              }
-            />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-    </RecipeProvider>
+    <BrowserRouter>
+      <RecipeProvider>
+        <AppDataProvider>
+          <ToastProvider>
+          <TimerProvider>
+            <Routes>
+              {/* Cook mode is full screen, outside the app chrome */}
+              <Route path="/recipe/:id/cook" element={<CookModePage />} />
+              <Route
+                path="*"
+                element={
+                  <Layout>
+                    <Routes>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/favorites" element={<LibraryPage view="favorites" />} />
+                      <Route path="/created" element={<LibraryPage view="created" />} />
+                      <Route path="/recipe/:id" element={<RecipeDetailPage />} />
+                      <Route path="/add" element={<RecipeFormPage />} />
+                      <Route path="/edit/:id" element={<RecipeFormPage />} />
+                      <Route path="/grocery" element={<GroceryPage />} />
+                      <Route path="/planner" element={<PlannerPage />} />
+                      <Route path="/pantry" element={<PantryPage />} />
+                      <Route path="/collections" element={<CollectionsPage />} />
+                      <Route path="/collections/:id" element={<CollectionDetailPage />} />
+                      <Route path="/assistant" element={<AssistantPage />} />
+                      <Route path="*" element={<Navigate to="/" replace />} />
+                    </Routes>
+                  </Layout>
+                }
+              />
+            </Routes>
+          </TimerProvider>
+          </ToastProvider>
+        </AppDataProvider>
+      </RecipeProvider>
+    </BrowserRouter>
   )
 }

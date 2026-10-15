@@ -2,22 +2,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: var(--transition);
+  border-radius: 50%;
+  transition: background var(--t-fast) ease, transform var(--t-fast) ease;
   flex-shrink: 0;
-  padding: 4px;
+  -webkit-tap-highlight-color: transparent;
 }
+.star:hover { background: var(--bg-hover); }
+.star:active { transform: scale(0.9); }
 
-.star:hover { background: var(--cream); }
+.sm { width: 34px; height: 34px; }
+.md { width: 40px; height: 40px; }
+.lg { width: 48px; height: 48px; }
 
-.sm { width: 26px; height: 26px; }
-.md { width: 32px; height: 32px; }
-.lg { width: 38px; height: 38px; }
+.floating {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-1);
+}
+.floating:hover { background: #fff; }
 
-.emptyIcon { color: var(--border); transition: var(--transition); }
-.star:hover .emptyIcon { color: #c8942a; }
+.emptyIcon { color: var(--ink-3); transition: color var(--t-fast) ease; }
+.floating .emptyIcon { color: #3B63A3; }
+.star:hover .emptyIcon { color: var(--terracotta); }
 
-.filledIcon { color: #c8942a; fill: #c8942a; }
+.filledIcon { color: var(--terracotta); fill: var(--terracotta); }
+.active .filledIcon { animation: pop 0.35s var(--ease-spring); }

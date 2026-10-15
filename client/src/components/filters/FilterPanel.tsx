@@ -9,6 +9,8 @@ interface FilterPanelProps {
   isOpen: boolean
   onClose: () => void
   filters: ReturnType<typeof useFilters>
+  /** Optional sort control shown at the top of the panel */
+  sort?: { value: string; options: { value: string; label: string }[]; onChange: (v: string) => void; disabled?: boolean }
 }
 
 const TIME_OPTIONS = [
@@ -24,7 +26,7 @@ const DIFFICULTIES = [
   { value: 'advanced', label: 'Advanced' },
 ]
 
-export function FilterPanel({ isOpen, onClose, filters }: FilterPanelProps) {
+export function FilterPanel({ isOpen, onClose, filters, sort }: FilterPanelProps) {
   useEffect(() => {
     const fn = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', fn)
@@ -43,6 +45,23 @@ export function FilterPanel({ isOpen, onClose, filters }: FilterPanelProps) {
         </div>
 
         <div className={styles.body}>
+          {sort && (
+            <section className={styles.section}>
+              <p className={styles.label}>Sort by</p>
+              <div className={styles.chips}>
+                {sort.options.map((o) => (
+                  <button
+                    key={o.value}
+                    disabled={sort.disabled}
+                    className={[styles.chip, sort.value === o.value ? styles.chipOn : ''].join(' ')}
+                    onClick={() => sort.onChange(o.value)}
+                  >{o.label}</button>
+                ))}
+              </div>
+              {sort.disabled && <p className={styles.note}>Search results are sorted by best match.</p>}
+            </section>
+          )}
+
           <section className={styles.section}>
             <p className={styles.label}>Category</p>
             <div className={styles.chips}>

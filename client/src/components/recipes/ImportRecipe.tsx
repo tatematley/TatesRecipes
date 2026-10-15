@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { CameraIcon } from '../ui/Icons'
 import styles from './ImportRecipe.module.css'
 
 interface ParsedRecipe {
@@ -26,9 +27,10 @@ interface PendingImage {
 
 interface Props {
   onImport: (data: ParsedRecipe) => void
+  bare?: boolean
 }
 
-export function ImportRecipe({ onImport }: Props) {
+export function ImportRecipe({ onImport, bare }: Props) {
   const [mode, setMode] = useState<'photo' | 'url'>('photo')
   const [url, setUrl] = useState('')
   const [images, setImages] = useState<PendingImage[]>([])
@@ -96,11 +98,11 @@ export function ImportRecipe({ onImport }: Props) {
   }
 
   return (
-    <div className={styles.wrap}>
-      <div className={styles.header}>
+    <div className={`${styles.wrap} ${bare ? styles.bare : ''}`}>
+      {!bare && <div className={styles.header}>
         <span className={styles.label}>Import Recipe</span>
         <span className={styles.sub}>Let AI read a photo or URL and fill in the fields for you</span>
-      </div>
+      </div>}
 
       <div className={styles.tabs}>
         <button type="button" className={`${styles.tab} ${mode === 'photo' ? styles.tabActive : ''}`} onClick={() => setMode('photo')}>
@@ -120,7 +122,7 @@ export function ImportRecipe({ onImport }: Props) {
             onDragOver={(e) => e.preventDefault()}
           >
             <div className={styles.dropPrompt}>
-              <span className={styles.dropIcon}>📷</span>
+              <span className={styles.dropIcon}><CameraIcon size={28} /></span>
               <span>Drop photos here or click to browse</span>
               <span className={styles.dropHint}>Add multiple pages if the recipe spans more than one</span>
             </div>

@@ -30,7 +30,7 @@
   outline: none;
   transition: var(--transition);
 }
-.groupInput:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(74,124,53,0.12); }
+.groupInput:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(27, 46, 79, 0.12); }
 
 .ungroupedLabel {
   font-family: var(--font-heading);
@@ -54,7 +54,7 @@
   transition: var(--transition);
   flex-shrink: 0;
 }
-.removeGroupBtn:hover { background: var(--coral-pale); color: var(--coral); }
+.removeGroupBtn:hover { background: var(--danger-soft); color: var(--danger); }
 
 .rows {
   display: flex;
@@ -65,7 +65,7 @@
 .errMsg {
   display: block;
   font-size: 0.8rem;
-  color: var(--coral);
+  color: var(--danger);
   font-weight: 600;
 }
 

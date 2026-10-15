@@ -8,6 +8,8 @@
   border-radius: var(--radius-md);
 }
 
+.bare { padding: 0; background: none; border: none; border-radius: 0; }
+
 .header {
   display: flex;
   flex-direction: column;
@@ -71,7 +73,7 @@
   text-align: center;
 }
 
-.dropIcon { font-size: 2rem; }
+.dropIcon { display: grid; color: var(--herb); }
 
 .dropPrompt span:nth-child(2) {
   font-size: 0.9rem;
@@ -92,7 +94,7 @@
 
 .previewThumb {
   position: relative;
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   overflow: hidden;
   border: 1px solid var(--green-soft);
 }
@@ -130,13 +132,13 @@
   justify-content: center;
   line-height: 1;
 }
-.removeThumb:hover { background: var(--coral); }
+.removeThumb:hover { background: var(--danger); }
 
 .hidden { display: none; }
 
 .error {
   font-size: 0.8125rem;
-  color: var(--coral);
+  color: var(--danger);
   font-weight: 500;
   margin: 0;
 }

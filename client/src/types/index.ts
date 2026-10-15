@@ -187,3 +187,45 @@ export const MEASUREMENTS: Measurement[] = [
   'slice',
   'piece',
 ]
+
+// ─── Kitchen data (collections, plans, lists, cook log) ─────────
+// Stored outside the recipes table, see lib/appData.tsx.
+
+export interface Collection {
+  id: string
+  name: string
+  emoji: string
+  description: string
+  recipeIds: string[]
+  createdAt: string
+}
+
+export interface PlanEntry {
+  id: string
+  /** Local date, YYYY-MM-DD */
+  date: string
+  recipeId: string
+  meal: 'Breakfast' | 'Lunch' | 'Dinner' | 'Snack'
+  servings?: number | null
+}
+
+export interface GroceryItem {
+  id: string
+  name: string
+  /** Display amount, e.g. "2 cup + 3 tbsp" */
+  amount: string
+  aisle: string
+  checked: boolean
+  recipeIds: string[]
+  addedAt: string
+}
+
+export interface CookEntry {
+  id: string
+  recipeId: string
+  /** YYYY-MM-DD */
+  date: string
+  rating: number | null
+  notes: string
+  makeAgain: boolean | null
+}

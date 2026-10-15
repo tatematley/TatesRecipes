@@ -1,0 +1,60 @@
+.topBar, .tabBar { display: none; }
+
+@media (max-width: 900px) {
+  .topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    padding: calc(10px + env(safe-area-inset-top)) var(--gutter) 10px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  }
+  .topActions { display: flex; align-items: center; gap: 4px; }
+  .iconBtn {
+    width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; color: var(--ink-2);
+  }
+  .iconBtn:active { background: var(--bg-hover); }
+  .addBtn {
+    width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%;
+    background: var(--herb); color: var(--ink-inverse); margin-left: 4px; box-shadow: var(--shadow-2);
+  }
+
+  .tabBar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 60;
+    height: calc(var(--mobile-nav-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: color-mix(in srgb, var(--bg-raised) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(16px);
+    -webkit-backdrop-filter: saturate(1.4) blur(16px);
+    border-top: 1px solid var(--line);
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    font-size: 0.6875rem; font-weight: 600; color: var(--ink-3);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tabActive { color: var(--herb); }
+  .tabIcon { position: relative; display: grid; place-items: center; }
+  .badge {
+    position: absolute; top: -4px; right: -10px; min-width: 18px; height: 16px; padding: 0 4px;
+    display: grid; place-items: center; border-radius: var(--r-pill);
+    background: var(--terracotta); color: #fff; font-size: 0.625rem; font-weight: 700;
+  }
+}
+
+.moreGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.moreItem {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  padding: 16px; border-radius: var(--r-md); background: var(--bg-sunken); color: var(--ink);
+  font-weight: 600; font-size: 0.9rem;
+}
+.moreItem svg { color: var(--herb); }

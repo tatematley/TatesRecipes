@@ -50,24 +50,24 @@
 
   /* Cute recipe card layout */
   .print-card {
-    border: 3px solid #6FA85D;
+    border: 3px solid #3B63A3;
     border-radius: 12pt;
     padding: 24pt;
-    background: #FFF8EC !important;
+    background: #F1F6FD !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   .print-card h1 {
     font-size: 20pt;
-    color: #3F3028;
+    color: #1B2E4F;
     text-align: center;
     margin-bottom: 6pt;
   }
 
   .print-card .print-divider {
     border: none;
-    border-top: 2px solid #C7D9B7;
+    border-top: 2px solid #C8D4E6;
     margin: 12pt 0;
   }
 
@@ -75,7 +75,7 @@
     width: 100%;
     max-height: 180pt;
     object-fit: cover;
-    border-radius: 8pt;
+    border-radius: 0;
     margin-bottom: 12pt;
   }
 
@@ -84,7 +84,7 @@
     justify-content: center;
     gap: 20pt;
     font-size: 10pt;
-    color: #5a4a40;
+    color: #3A4B68;
     margin-bottom: 14pt;
   }
 
@@ -96,7 +96,7 @@
 
   .print-card h3 {
     font-size: 12pt;
-    color: #6FA85D;
+    color: #3B63A3;
     margin-bottom: 6pt;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -109,8 +109,8 @@
   }
 
   .print-card .tates-tips {
-    background: #FEF0ED !important;
-    border-left: 3px solid #F28C7A;
+    background: #E3EEFC !important;
+    border-left: 3px solid #6E9EE5;
     padding: 8pt 12pt;
     margin-top: 12pt;
     border-radius: 0 6pt 6pt 0;
@@ -121,7 +121,7 @@
   .print-card .footer-note {
     text-align: center;
     font-size: 9pt;
-    color: #9a8880;
+    color: #687891;
     margin-top: 12pt;
     font-style: italic;
   }

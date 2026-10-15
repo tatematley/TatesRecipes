@@ -19,17 +19,6 @@ export function now(): string {
 
 export function applyFilters(recipes: Recipe[], filters: FilterState): Recipe[] {
   return recipes.filter((recipe) => {
-    if (filters.search) {
-      const q = filters.search.toLowerCase()
-      const inTitle = recipe.title.toLowerCase().includes(q)
-      const inDesc = recipe.description.toLowerCase().includes(q)
-      const inTags = recipe.tags.some((t) => t.toLowerCase().includes(q))
-      const inIngredients = recipe.ingredients.some((i) =>
-        i.name.toLowerCase().includes(q)
-      )
-      if (!inTitle && !inDesc && !inTags && !inIngredients) return false
-    }
-
     if (filters.category && filters.category !== 'All') {
       if (recipe.category !== filters.category) return false
     }
@@ -80,3 +69,23 @@ export function slugify(text: string): string {
     .replace(/[^a-z0-9-]/g, '')
 }
 
+
+export type SortKey = 'newest' | 'az' | 'quickest' | 'cooked'
+
+export function sortRecipes(recipes: Recipe[], sort: SortKey, cookCounts: Record<string, number> = {}): Recipe[] {
+  const list = [...recipes]
+  switch (sort) {
+    case 'az': return list.sort((a, b) => a.title.localeCompare(b.title))
+    case 'quickest': return list.sort((a, b) => (a.totalTime ?? 9999) - (b.totalTime ?? 9999))
+    case 'cooked': return list.sort((a, b) => (cookCounts[b.id] ?? 0) - (cookCounts[a.id] ?? 0) || b.createdAt.localeCompare(a.createdAt))
+    default: return list.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  }
+}
+
+export function greeting(date = new Date()): string {
+  const h = date.getHours()
+  if (h < 5) return 'Up late'
+  if (h < 12) return 'Good morning'
+  if (h < 17) return 'Good afternoon'
+  return 'Good evening'
+}

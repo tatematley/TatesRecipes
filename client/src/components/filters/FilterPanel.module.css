@@ -1,7 +1,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(28, 20, 16, 0.4);
+  background: rgba(15, 26, 46, 0.4);
   z-index: 200;
 }
 
@@ -140,3 +140,6 @@
   flex-direction: column;
   gap: 6px;
 }
+
+.note { margin-top: 8px; font-size: 0.8rem; color: var(--ink-3); }
+.chip:disabled { opacity: 0.5; cursor: default; }

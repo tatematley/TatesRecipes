@@ -1,0 +1,66 @@
+.library { display: flex; flex-direction: column; gap: 22px; }
+
+.toolbar { display: flex; align-items: center; gap: 10px; }
+
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 54px;
+  padding: 0 16px 0 20px;
+  background: var(--bg-raised);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--herb);
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--t-fast) ease, box-shadow var(--t-fast) ease;
+  min-width: 0;
+}
+.search:focus-within { border-color: var(--terracotta); box-shadow: var(--ring); }
+.search input { flex: 1; border: none; outline: none; background: transparent; font-size: 1rem; min-width: 0; color: var(--ink); }
+.search input::placeholder { color: var(--ink-4); }
+.clear { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--bg-sunken); color: var(--ink-3); }
+
+.filterBtn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 54px;
+  padding: 0 22px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--line);
+  background: var(--bg-raised);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--t-fast) ease, background var(--t-fast) ease, color var(--t-fast) ease;
+}
+.filterBtn:hover { border-color: var(--terracotta); }
+.filterOn, .filterOn:hover { background: var(--herb-strong); border-color: var(--herb-strong); color: var(--ink-inverse); }
+.badge {
+  display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px;
+  border-radius: var(--r-pill); background: var(--terracotta); color: #fff; font-size: 0.75rem; font-weight: 700;
+}
+
+.allHead { display: flex; align-items: baseline; gap: 12px; margin-top: 8px; }
+.allTitle { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 560; letter-spacing: -0.01em; }
+.allCount {
+  display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding: 0 8px;
+  border-radius: var(--r-pill); background: var(--herb-soft); color: var(--herb);
+  font-size: 0.8rem; font-weight: 700;
+}
+
+.count { display: flex; align-items: center; gap: 12px; font-size: 0.875rem; color: var(--ink-3); }
+.reset { font-size: 0.875rem; font-weight: 600; color: var(--herb); }
+
+.skeletons { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 36px 24px; }
+
+@media (max-width: 640px) {
+  .search, .filterBtn { height: 48px; }
+  .filterBtn { padding: 0 16px; }
+  .filterBtn span:not(.badge) { display: none; }
+  .skeletons { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
+}
