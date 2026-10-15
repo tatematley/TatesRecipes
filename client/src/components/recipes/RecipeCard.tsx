@@ -5,6 +5,7 @@ import { RecipeCover } from '../ui/RecipeCover'
 import { formatTime } from '../../utils/helpers'
 import { useRecipeContext } from '../../context/RecipeContext'
 import { useAppData } from '../../lib/appData'
+import { useAuth } from '../../context/AuthContext'
 import { ClockIcon, ChefHatIcon } from '../ui/Icons'
 import styles from './RecipeCard.module.css'
 
@@ -19,6 +20,7 @@ interface RecipeCardProps {
 
 export function RecipeCard({ recipe, layout = 'grid', footer, index = 0 }: RecipeCardProps) {
   const { toggleFavorite } = useRecipeContext()
+  const { isAdmin } = useAuth()
   const { cookLog } = useAppData()
   const timesMade = cookLog.filter((c) => c.recipeId === recipe.id).length
 
@@ -43,9 +45,11 @@ export function RecipeCard({ recipe, layout = 'grid', footer, index = 0 }: Recip
         <RecipeCover recipe={recipe} size={layout === 'row' ? 'sm' : 'md'} className={styles.image} />
         {layout === 'grid' && (
           <>
-            <div className={styles.starWrap}>
-              <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" floating />
-            </div>
+            {isAdmin && (
+              <div className={styles.starWrap}>
+                <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" floating />
+              </div>
+            )}
             {recipe.createdByTate && (
               <span className={styles.tateBadge}><ChefHatIcon size={12} strokeWidth={2} /> Tate's</span>
             )}
@@ -69,7 +73,7 @@ export function RecipeCard({ recipe, layout = 'grid', footer, index = 0 }: Recip
         {footer}
       </div>
 
-      {layout === 'row' && (
+      {layout === 'row' && isAdmin && (
         <div className={styles.rowStar}>
           <StarButton isFavorite={recipe.isFavorite} onToggle={handleFavorite} size="sm" />
         </div>

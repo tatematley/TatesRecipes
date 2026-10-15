@@ -10,22 +10,21 @@
 }
 .errorBanner code { font-family: var(--font-mono); font-size: 0.8em; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 1px 6px; border-radius: 6px; }
 
-.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 24px; }
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   height: 40px;
-  padding: 0 18px;
-  border-radius: var(--r-pill);
-  border: 1.5px solid var(--line-strong);
-  color: var(--ink-2);
+  color: var(--ink-3);
   font-size: 0.9375rem;
   font-weight: 600;
-  transition: background var(--t-fast) ease, color var(--t-fast) ease, border-color var(--t-fast) ease;
+  text-decoration: underline 2px transparent;
+  text-underline-offset: 6px;
+  transition: color var(--t-fast) ease, text-decoration-color var(--t-fast) ease;
 }
-.chip:hover { border-color: var(--ink-3); color: var(--ink); }
-.chipOn, .chipOn:hover { background: #fff; border-color: #fff; color: var(--bg); }
+.chip:hover { color: var(--ink); }
+.chipOn, .chipOn:hover { color: #fff; text-decoration-color: currentColor; }
 .chipT {
   width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%;
   border: 1.5px solid currentColor; font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; line-height: 1;

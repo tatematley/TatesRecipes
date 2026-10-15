@@ -6,6 +6,7 @@ import { useFilters } from '../../hooks/useFilters'
 import { applyFilters, sortRecipes } from '../../utils/helpers'
 import { searchRecipes } from '../../utils/search'
 import { useAppData } from '../../lib/appData'
+import { useAuth } from '../../context/AuthContext'
 import { RecipeGrid } from './RecipeGrid'
 import { FilterPanel } from '../filters/FilterPanel'
 import { SlidersIcon } from '../ui/Icons'
@@ -23,6 +24,7 @@ interface Props {
 /** The recipe grid with one Filters button. The search comes from the top bar, via the URL. */
 export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessage }: Props) {
   const openAdd = useOpenAdd()
+  const { isAdmin } = useAuth()
   const [params, setParams] = useSearchParams()
   const filters = useFilters()
   const { cookLog } = useAppData()
@@ -86,7 +88,7 @@ export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessag
       ) : (
         <RecipeGrid
           recipes={results}
-          onAddRecipe={openAdd}
+          onAddRecipe={isAdmin ? openAdd : undefined}
           emptyTitle={recipes.length === 0 ? emptyTitle : undefined}
           emptyMessage={recipes.length === 0 ? emptyMessage : undefined}
         />

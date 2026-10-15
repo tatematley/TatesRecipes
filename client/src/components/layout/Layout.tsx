@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { CommandPalette } from './CommandPalette'
+import { LoginModal } from './LoginModal'
+import { useAuth } from '../../context/AuthContext'
 import { Brand } from './Brand'
 import { PlusIcon, SearchIcon, XIcon } from '../ui/Icons'
 import { useOpenAdd, backgroundFor } from '../../hooks/useOpenAdd'
@@ -8,6 +10,8 @@ import styles from './Layout.module.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false)
+  const { isAdmin, signOut } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
   const openAdd = useOpenAdd()
@@ -67,15 +71,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </button>
             )}
           </div>
-          <button className={styles.addBtn} onClick={openAdd} aria-label="New recipe">
-            <PlusIcon size={28} strokeWidth={2} />
-          </button>
+          {isAdmin && (
+            <button className={styles.addBtn} onClick={openAdd} aria-label="New recipe">
+              <PlusIcon size={28} strokeWidth={2} />
+            </button>
+          )}
         </div>
       </header>
       <main className={styles.main} key={page.pathname}>
         {children}
       </main>
+      <footer className={styles.footer}>
+        {isAdmin ? (
+          <button className={styles.adminLink} onClick={signOut}>Sign out</button>
+        ) : (
+          <button className={styles.adminLink} onClick={() => setLoginOpen(true)}>Admin</button>
+        )}
+      </footer>
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+      <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
     </div>
   )
 }

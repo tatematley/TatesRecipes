@@ -9,6 +9,7 @@ import { RecipeCover } from '../ui/RecipeCover'
 import { PlusIcon, SearchIcon, ShuffleIcon, ArrowRightIcon } from '../ui/Icons'
 import { searchRecipes } from '../../utils/search'
 import { formatTime } from '../../utils/helpers'
+import { useAuth } from '../../context/AuthContext'
 
 interface Item {
   id: string
@@ -27,6 +28,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const navigate = useNavigate()
   const { recipes } = useRecipeContext()
   const openAdd = useOpenAdd()
+  const { isAdmin } = useAuth()
 
   useEffect(() => {
     if (open) {
@@ -52,7 +54,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       }))
 
     const actions: Item[] = [
-      { id: 'a-new', kind: 'action', label: 'Add a new recipe', run: () => { onClose(); openAdd() }, render: () => <PlusIcon size={16} /> },
+      ...(isAdmin ? [{ id: 'a-new', kind: 'action' as const, label: 'Add a new recipe', run: () => { onClose(); openAdd() }, render: () => <PlusIcon size={16} /> }] : []),
       {
         id: 'a-random', kind: 'action', label: 'Surprise me', hint: 'Open a random recipe',
         run: () => {
@@ -77,7 +79,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       })
     }
     return [...recipeItems, ...filteredActions]
-  }, [recipes, query, navigate, onClose, openAdd])
+  }, [recipes, query, navigate, onClose, openAdd, isAdmin])
 
   useEffect(() => { setActive(0) }, [query])
 
