@@ -25,7 +25,7 @@ interface Props {
   eager?: boolean
 }
 
-/** The recipe photo, or an editorial typographic cover when there isn't one. */
+/** The recipe photo, or a simple icon cover when there isn't one. */
 export function RecipeCover({ recipe, className = '', size = 'md', eager }: Props) {
   const [failed, setFailed] = useState(false)
 
@@ -42,7 +42,6 @@ export function RecipeCover({ recipe, className = '', size = 'md', eager }: Prop
   }
 
   const [bg, ink, accent] = paletteFor(recipe.title)
-  const initial = recipe.title.trim().charAt(0).toUpperCase() || '·'
 
   return (
     <div
@@ -51,7 +50,6 @@ export function RecipeCover({ recipe, className = '', size = 'md', eager }: Prop
       role="img"
       aria-label={recipe.title}
     >
-      <span className={styles.letter} aria-hidden="true">{initial}</span>
       <span className={styles.mark} aria-hidden="true"><CategoryIcon category={recipe.category} strokeWidth={1.25} /></span>
     </div>
   )

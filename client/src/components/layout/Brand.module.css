@@ -2,13 +2,13 @@
 .brand:hover { color: var(--ink); }
 .mark { width: 32px; height: 32px; color: var(--herb); flex-shrink: 0; }
 .name {
-  font-family: var(--font-display);
+  font-family: var(--font-hand);
   font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  font-variation-settings: 'opsz' 72;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
   white-space: nowrap;
 }
-.name em { font-style: italic; font-weight: 400; color: var(--terracotta); }
 .compact .mark { width: 28px; height: 28px; }
-.compact .name { font-size: 1.15rem; }
+.compact .name { font-size: 1.1rem; }

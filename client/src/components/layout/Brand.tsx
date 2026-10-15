@@ -16,7 +16,7 @@ export function Brand({ compact }: { compact?: boolean }) {
         </g>
       </svg>
       <span className={styles.name}>
-        Made by <em>Tate</em>
+        Made by Tate
       </span>
     </Link>
   )

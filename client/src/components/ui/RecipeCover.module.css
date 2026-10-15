@@ -5,22 +5,9 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* Recipes without a photo sit on clean white, tinted only by their letter and icon. */
+  /* Recipes without a photo sit on clean white, marked only by their icon. */
   background: var(--bg-raised);
   isolation: isolate;
-}
-.letter {
-  position: absolute;
-  right: -0.06em;
-  bottom: -0.3em;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 340;
-  line-height: 1;
-  color: var(--art-ink);
-  opacity: 0.1;
-  letter-spacing: -0.04em;
-  font-variation-settings: 'opsz' 144;
 }
 
 .mark {
@@ -41,9 +28,6 @@
 }
 .mark svg { width: 1em; height: 1em; }
 
-.sm .letter { font-size: 7rem; }
 .sm .mark { font-size: 1.5rem; }
-.md .letter { font-size: 13rem; }
 .md .mark { font-size: 2.3rem; }
-.lg .letter { font-size: clamp(14rem, 34vw, 30rem); }
 .lg .mark { font-size: clamp(2.6rem, 5vw, 4rem); left: 70%; }

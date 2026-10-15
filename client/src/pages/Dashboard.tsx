@@ -1,75 +1,24 @@
-import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecipeContext } from '../context/RecipeContext'
-import { useAppData } from '../lib/appData'
 import { RecipeLibrary } from '../components/recipes/RecipeLibrary'
 import { RecipeCard } from '../components/recipes/RecipeCard'
-import { RecipeCover } from '../components/ui/RecipeCover'
-import { ArrowRightIcon, ChefHatIcon, ClockIcon, HeartIcon } from '../components/ui/Icons'
+import { ArrowRightIcon, HeartIcon } from '../components/ui/Icons'
 import { Recipe } from '../types'
 import styles from './Dashboard.module.css'
 
 export function Dashboard() {
   const { recipes, loading, error } = useRecipeContext()
-  const { recent } = useAppData()
-
-  const recentRecipes = useMemo(
-    () => recent.map((id) => recipes.find((r) => r.id === id)).filter(Boolean).slice(0, 6) as Recipe[],
-    [recent, recipes],
-  )
-  const originals = recipes.filter((r) => r.createdByTate)
   const favorites = recipes.filter((r) => r.isFavorite)
-  const quick = recipes.filter((r) => r.totalTime != null && r.totalTime > 0 && r.totalTime <= 30)
 
-  const browse = (
-    <div className={styles.sections}>
-      {recentRecipes.length > 0 && (
-        <section className={styles.recent}>
-          <h2 className={styles.kicker}>Pick up where you left off</h2>
-          <div className={styles.recentRow}>
-            {recentRecipes.map((r) => (
-              <Link key={r.id} to={`/recipe/${r.id}`} className={styles.recentItem}>
-                <span className={styles.recentCover}><RecipeCover recipe={r} size="sm" /></span>
-                <span className={styles.recentTitle}>{r.title}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {originals.length > 0 && (
-        <Shelf
-          tone="deep"
-          icon={<ChefHatIcon size={18} strokeWidth={1.75} />}
-          title="Tate's Originals"
-          subtitle="Written and tested in my own kitchen."
-          to="/created"
-          recipes={originals}
-        />
-      )}
-
-      {favorites.length > 0 && (
-        <Shelf
-          tone="sky"
-          icon={<HeartIcon size={18} strokeWidth={1.75} />}
-          title="Favorites"
-          subtitle="The ones worth making again and again."
-          to="/favorites"
-          recipes={favorites}
-        />
-      )}
-
-      {quick.length > 0 && (
-        <Shelf
-          tone="plain"
-          icon={<ClockIcon size={18} strokeWidth={1.75} />}
-          title="Quick weeknights"
-          subtitle="On the table in 30 minutes or less."
-          to="/collections/smart-quick"
-          recipes={quick}
-        />
-      )}
-    </div>
+  const browse = favorites.length > 0 && (
+    <Shelf
+      tone="sky"
+      icon={<HeartIcon size={18} strokeWidth={1.75} />}
+      title="Favorites"
+      subtitle="The ones worth making again and again."
+      to="/favorites"
+      recipes={favorites}
+    />
   )
 
   return (
