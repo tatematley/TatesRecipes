@@ -45,7 +45,8 @@ const KNOWN_TAGS = new Set(TAG_GROUPS.flatMap((g) => g.tags))
 interface PendingPhoto { id: string; file: File; preview: string; caption: string }
 
 /** Add and edit share one form. */
-export function RecipeFormPage() {
+/** Add or edit a recipe. With onClose it renders inside the add pop-up. */
+export function RecipeFormPage({ onClose }: { onClose?: () => void } = {}) {
   const { id } = useParams<{ id: string }>()
   const isEdit = !!id
   const navigate = useNavigate()
@@ -240,13 +241,21 @@ export function RecipeFormPage() {
     setCustomTag('')
   }
 
+  function close() {
+    if (dirty && !window.confirm('Discard this recipe?')) return
+    if (onClose) onClose()
+    else navigate(-1)
+  }
+
   const coverPreview = heroPreview ?? form.heroImage
   const customTags = form.tags.filter((t) => !KNOWN_TAGS.has(t))
 
   return (
-    <div className={styles.page}>
+    <div className={onClose ? styles.inModal : styles.page}>
       <div className={styles.header}>
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} icon={<ArrowLeftIcon size={15} strokeWidth={2} />}>Back</Button>
+        {onClose
+          ? <button type="button" className={styles.closeBtn} onClick={close} aria-label="Close"><XIcon size={20} strokeWidth={2} /></button>
+          : <Button variant="ghost" size="sm" onClick={close} icon={<ArrowLeftIcon size={15} strokeWidth={2} />}>Back</Button>}
         <div className={styles.headerText}>
           <p className="eyebrow">{isEdit ? 'Editing' : 'New recipe'}</p>
           <h1 className={styles.title}>{isEdit ? form.title || 'Untitled' : <>Add to the <em>box</em></>}</h1>
@@ -493,7 +502,7 @@ export function RecipeFormPage() {
         <div className={styles.saveBar}>
           {saveError && <span className={styles.errMsg}>{saveError}</span>}
           <span className={styles.saveHint}>{dirty ? 'Unsaved changes' : ''}</span>
-          <Button type="button" variant="ghost" onClick={() => navigate(-1)} disabled={saving}>Cancel</Button>
+          <Button type="button" variant="ghost" onClick={close} disabled={saving}>Cancel</Button>
           <Button type="submit" disabled={saving}>{saving ? 'Saving…' : isEdit ? 'Save changes' : 'Save recipe'}</Button>
         </div>
       </form>

@@ -1,7 +1,7 @@
 /* ─── Made by Tate — Design Tokens ──────────────────────────────
-   Mainly white, with Elite Blue #1B2E4F for ink, the sidebar and cook mode,
-   International #3B63A3 for buttons and links, and Greek Sea #6E9EE5 /
-   Endless Horizon #B0D8FB as the light, happy accents.
+   Deep navy everywhere, with white ink, and Greek Sea #6E9EE5 /
+   Endless Horizon #B0D8FB as the light, happy accents. The light values
+   below are the base set; the navy :root block after them wins.
    (--herb = primary blue, --terracotta = greek sea accent.)
    ─────────────────────────────────────────────────────────────── */
 :root {
@@ -57,7 +57,6 @@
   --font-display: 'Fraunces Variable', 'Fraunces', 'Cormorant Garamond', Georgia, serif;
   --font-heading: 'Fraunces Variable', 'Fraunces', Georgia, serif;
   --font-body:    'Inter Variable', 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
-  --font-hand:    'Delicious Handrawn', 'Marker Felt', cursive;
   --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 
   /* Shape */
@@ -69,10 +68,9 @@
   --r-pill: 999px;
 
   /* Layout */
-  --sidebar-width: 248px;
   --content-max: 1240px;
   --gutter: clamp(16px, 4vw, 40px);
-  --mobile-nav-h: 64px;
+  --mobile-nav-h: 0px;
 
   /* Motion */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -80,8 +78,72 @@
   --t-fast: 120ms;
   --t-med: 220ms;
   --transition: all var(--t-fast) ease;
+}
 
-  /* ── Legacy aliases (older CSS modules still use these) ── */
+/* The whole site sits on deep navy */
+:root {
+  color-scheme: dark;
+  --bg:            #0A1628;
+  --bg-raised:     #12213A;
+  --bg-sunken:     #07101F;
+  --bg-hover:      #1A2C4B;
+  --bg-overlay:    rgba(0, 0, 0, 0.62);
+  --ink:           #F2F6FC;
+  --ink-2:         #C9D5E8;
+  --ink-3:         #8D9CB6;
+  --ink-4:         #5D6C86;
+  --ink-inverse:   #0A1628;
+  --herb:          #B0D8FB;
+  --herb-strong:   #D3E9FD;
+  --herb-soft:     #1F3456;
+  --herb-faint:    #162741;
+  --terracotta:    #8DB6F0;
+  --terracotta-soft:#1F3456;
+  --saffron:       #8DB6F0;
+  --saffron-soft:  #1F3456;
+  --line:          #20314F;
+  --line-strong:   #2E4368;
+  --danger:        #F07B6B;
+  --danger-soft:   #3F2420;
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
+  --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
+  --ring:     0 0 0 3px rgba(176, 216, 251, 0.3);
+}
+
+/* White pop-ups and panels on the navy site */
+.light-surface {
+  color-scheme: light;
+  --bg:            #FFFFFF;
+  --bg-raised:     #FFFFFF;
+  --bg-sunken:     #F1F6FD;
+  --bg-hover:      #EEF4FC;
+  --ink:           #1B2E4F;
+  --ink-2:         #3A4B68;
+  --ink-3:         #687891;
+  --ink-4:         #A2AEC2;
+  --ink-inverse:   #FFFFFF;
+  --herb:          #3B63A3;
+  --herb-strong:   #1B2E4F;
+  --herb-soft:     #DDEAFB;
+  --herb-faint:    #EFF5FE;
+  --terracotta:    #6E9EE5;
+  --terracotta-soft:#E3EEFC;
+  --saffron:       #6E9EE5;
+  --saffron-soft:  #E8F3FE;
+  --line:          #E3EAF4;
+  --line-strong:   #C8D4E6;
+  --danger:        #B3392C;
+  --danger-soft:   #F6DED9;
+  --shadow-1: 0 1px 2px rgba(27, 46, 79, 0.06), 0 1px 1px rgba(27, 46, 79, 0.04);
+  --shadow-2: 0 4px 14px -4px rgba(27, 46, 79, 0.14), 0 2px 4px rgba(27, 46, 79, 0.05);
+  --ring:     0 0 0 3px rgba(110, 158, 229, 0.35);
+  color: var(--ink);
+}
+
+/* Legacy aliases (older CSS modules still use these). Declared on both so
+   white pop-ups resolve them against their own palette. */
+:root, .light-surface {
   --page-bg: var(--bg);
   --card-bg: var(--bg-raised);
   --cream: var(--bg-hover);
@@ -110,91 +172,6 @@
   --radius-md: var(--r-sm);
   --radius-lg: var(--r-md);
   --radius-xl: var(--r-lg);
-}
-
-/* Dark mode: follows the system unless the user picked a theme */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg:            #0F1A2E;
-    --bg-raised:     #18263F;
-    --bg-sunken:     #0B1424;
-    --bg-hover:      #213252;
-    --bg-overlay:    rgba(0, 0, 0, 0.62);
-    --ink:           #F2F6FC;
-    --ink-2:         #C9D5E8;
-    --ink-3:         #8D9CB6;
-    --ink-4:         #5D6C86;
-    --ink-inverse:   #0F1A2E;
-    --herb:          #B0D8FB;
-    --herb-strong:   #D3E9FD;
-    --herb-soft:     #22385C;
-    --herb-faint:    #1A2B48;
-    --terracotta:    #8DB6F0;
-    --terracotta-soft:#22385C;
-    --saffron:       #8DB6F0;
-    --saffron-soft:  #22385C;
-    --line:          #263856;
-    --line-strong:   #34496D;
-    --danger:        #F07B6B;
-    --danger-soft:   #3F2420;
-    --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
-    --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
-    --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
-    --ring:     0 0 0 3px rgba(176, 216, 251, 0.3);
-  }
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg:            #0F1A2E;
-  --bg-raised:     #18263F;
-  --bg-sunken:     #0B1424;
-  --bg-hover:      #213252;
-  --bg-overlay:    rgba(0, 0, 0, 0.62);
-  --ink:           #F2F6FC;
-  --ink-2:         #C9D5E8;
-  --ink-3:         #8D9CB6;
-  --ink-4:         #5D6C86;
-  --ink-inverse:   #0F1A2E;
-  --herb:          #B0D8FB;
-  --herb-strong:   #D3E9FD;
-  --herb-soft:     #22385C;
-  --herb-faint:    #1A2B48;
-  --terracotta:    #8DB6F0;
-  --terracotta-soft:#22385C;
-  --saffron:       #8DB6F0;
-  --saffron-soft:  #22385C;
-  --line:          #263856;
-  --line-strong:   #34496D;
-  --danger:        #F07B6B;
-  --danger-soft:   #3F2420;
-  --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
-  --shadow-2: 0 6px 18px -6px rgba(0,0,0,0.6);
-  --shadow-3: 0 24px 54px -18px rgba(0,0,0,0.75);
-  --ring:     0 0 0 3px rgba(176, 216, 251, 0.3);
-}
-
-/* Always-dark elite blue surfaces: the sidebar and mobile nav bars */
-.brand-surface {
-  --bg:            #1B2E4F;
-  --bg-raised:     #243A60;
-  --bg-sunken:     #15243F;
-  --bg-hover:      #2A4470;
-  --ink:           #FFFFFF;
-  --ink-2:         #D6E2F3;
-  --ink-3:         #9FB2D0;
-  --ink-4:         #6F84A6;
-  --ink-inverse:   #1B2E4F;
-  --herb:          #FFFFFF;
-  --herb-strong:   #FFFFFF;
-  --herb-soft:     #2F4A78;
-  --herb-faint:    #243A60;
-  --terracotta:    #B0D8FB;
-  --saffron:       #B0D8FB;
-  --line:          #2B4269;
-  --line-strong:   #3B5583;
-  color-scheme: dark;
-  color: var(--ink);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────── */

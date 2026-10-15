@@ -1,32 +1,25 @@
 import { useEffect } from 'react'
 import styles from './FilterPanel.module.css'
 import { useFilters } from '../../hooks/useFilters'
-import { ALL_DIETARY_TAGS, ALL_OCCASION_TAGS, ALL_HOLIDAY_TAGS, ALL_CATEGORIES } from '../../types'
-import { Button } from '../ui/Button'
+import { ALL_DIETARY_TAGS, ALL_CATEGORIES } from '../../types'
 import { XIcon } from '../ui/Icons'
 
 interface FilterPanelProps {
   isOpen: boolean
   onClose: () => void
   filters: ReturnType<typeof useFilters>
-  /** Optional sort control shown at the top of the panel */
-  sort?: { value: string; options: { value: string; label: string }[]; onChange: (v: string) => void; disabled?: boolean }
 }
 
 const TIME_OPTIONS = [
-  { value: 'under15', label: 'Under 15 min' },
   { value: 'under30', label: 'Under 30 min' },
   { value: 'under60', label: 'Under 1 hour' },
   { value: 'over60',  label: 'Over 1 hour' },
 ]
 
-const DIFFICULTIES = [
-  { value: 'easy',     label: 'Easy' },
-  { value: 'medium',   label: 'Medium' },
-  { value: 'advanced', label: 'Advanced' },
-]
+/** A short white slide-out: what kind of dish, how long, and any diet. */
+export function FilterPanel({ isOpen, onClose, filters }: FilterPanelProps) {
+  const f = filters.filters
 
-export function FilterPanel({ isOpen, onClose, filters, sort }: FilterPanelProps) {
   useEffect(() => {
     const fn = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', fn)
@@ -36,140 +29,58 @@ export function FilterPanel({ isOpen, onClose, filters, sort }: FilterPanelProps
   return (
     <>
       {isOpen && <div className={styles.backdrop} onClick={onClose} />}
-      <div className={[styles.panel, isOpen ? styles.open : ''].join(' ')}>
+      <div className={[styles.panel, isOpen ? styles.open : ''].join(' ')} aria-hidden={!isOpen}>
         <div className={styles.header}>
           <span className={styles.title}>Filters</span>
           <button className={styles.closeBtn} onClick={onClose} aria-label="Close filters">
-            <XIcon size={14} strokeWidth={2} />
+            <XIcon size={18} strokeWidth={2} />
           </button>
         </div>
 
         <div className={styles.body}>
-          {sort && (
-            <section className={styles.section}>
-              <p className={styles.label}>Sort by</p>
-              <div className={styles.chips}>
-                {sort.options.map((o) => (
-                  <button
-                    key={o.value}
-                    disabled={sort.disabled}
-                    className={[styles.chip, sort.value === o.value ? styles.chipOn : ''].join(' ')}
-                    onClick={() => sort.onChange(o.value)}
-                  >{o.label}</button>
-                ))}
-              </div>
-              {sort.disabled && <p className={styles.note}>Search results are sorted by best match.</p>}
-            </section>
-          )}
-
-          <section className={styles.section}>
-            <p className={styles.label}>Category</p>
+          <section>
+            <p className={styles.label}>Type</p>
             <div className={styles.chips}>
-              <button
-                className={[styles.chip, !filters.filters.category ? styles.chipOn : ''].join(' ')}
-                onClick={() => filters.setCategory('')}
-              >All</button>
               {ALL_CATEGORIES.map((cat) => (
                 <button
                   key={cat}
-                  className={[styles.chip, filters.filters.category === cat ? styles.chipOn : ''].join(' ')}
-                  onClick={() => filters.setCategory(filters.filters.category === cat ? '' : cat)}
+                  className={[styles.chip, f.category === cat ? styles.chipOn : ''].join(' ')}
+                  onClick={() => filters.setCategory(f.category === cat ? '' : cat)}
                 >{cat}</button>
               ))}
             </div>
           </section>
 
-          <section className={styles.section}>
-            <p className={styles.label}>Total Time</p>
+          <section>
+            <p className={styles.label}>Time</p>
             <div className={styles.chips}>
               {TIME_OPTIONS.map(({ value, label }) => (
                 <button
                   key={value}
-                  className={[styles.chip, filters.filters.timeFilter === value ? styles.chipOn : ''].join(' ')}
-                  onClick={() => filters.setTimeFilter(filters.filters.timeFilter === value ? '' : value)}
+                  className={[styles.chip, f.timeFilter === value ? styles.chipOn : ''].join(' ')}
+                  onClick={() => filters.setTimeFilter(f.timeFilter === value ? '' : value)}
                 >{label}</button>
               ))}
             </div>
           </section>
 
-          <section className={styles.section}>
-            <p className={styles.label}>Difficulty</p>
-            <div className={styles.chips}>
-              {DIFFICULTIES.map(({ value, label }) => (
-                <button
-                  key={value}
-                  className={[styles.chip, filters.filters.difficulty === value ? styles.chipOn : ''].join(' ')}
-                  onClick={() => filters.setDifficulty(filters.filters.difficulty === value ? '' : value)}
-                >{label}</button>
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.section}>
-            <p className={styles.label}>Dietary</p>
+          <section>
+            <p className={styles.label}>Diet</p>
             <div className={styles.chips}>
               {ALL_DIETARY_TAGS.map((tag) => (
                 <button
                   key={tag}
-                  className={[styles.chip, filters.filters.dietaryTags.includes(tag) ? styles.chipOn : ''].join(' ')}
+                  className={[styles.chip, f.dietaryTags.includes(tag) ? styles.chipOn : ''].join(' ')}
                   onClick={() => filters.toggleDietaryTag(tag)}
                 >{tag}</button>
               ))}
             </div>
           </section>
-
-          <section className={styles.section}>
-            <p className={styles.label}>Occasion</p>
-            <div className={styles.chips}>
-              {ALL_OCCASION_TAGS.map((tag) => (
-                <button
-                  key={tag}
-                  className={[styles.chip, filters.filters.occasionTags.includes(tag) ? styles.chipOn : ''].join(' ')}
-                  onClick={() => filters.toggleOccasionTag(tag)}
-                >{tag}</button>
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.section}>
-            <p className={styles.label}>Holidays</p>
-            <div className={styles.chips}>
-              {ALL_HOLIDAY_TAGS.map((tag) => (
-                <button
-                  key={tag}
-                  className={[styles.chip, filters.filters.occasionTags.includes(tag) ? styles.chipOn : ''].join(' ')}
-                  onClick={() => filters.toggleOccasionTag(tag)}
-                >{tag}</button>
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.section}>
-            <p className={styles.label}>Show Only</p>
-            <label className={styles.toggle}>
-              <input
-                type="checkbox"
-                checked={filters.filters.favoritesOnly}
-                onChange={(e) => filters.setFavoritesOnly(e.target.checked)}
-              />
-              <span className={styles.track} />
-              <span>Favorites only</span>
-            </label>
-            <label className={styles.toggle}>
-              <input
-                type="checkbox"
-                checked={filters.filters.createdByTateOnly}
-                onChange={(e) => filters.setCreatedByTateOnly(e.target.checked)}
-              />
-              <span className={styles.track} />
-              <span>Created by Tate only</span>
-            </label>
-          </section>
         </div>
 
         <div className={styles.footer}>
-          <Button variant="ghost" onClick={filters.clearFilters} fullWidth>Clear all</Button>
-          <Button onClick={onClose} fullWidth>Done</Button>
+          <button className={styles.clear} onClick={filters.clearFilters}>Clear</button>
+          <button className={styles.done} onClick={onClose}>Show recipes</button>
         </div>
       </div>
     </>

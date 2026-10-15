@@ -1,16 +1,4 @@
-.page { display: flex; flex-direction: column; gap: 28px; }
-
-/* ── Header ── */
-.header { display: flex; flex-direction: column; gap: 6px; animation: fadeUp 420ms var(--ease) both; }
-.title {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 4.6vw, 3.4rem);
-  font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-.subtitle { font-size: 1rem; color: var(--ink-3); }
+.page { display: flex; flex-direction: column; gap: 20px; }
 
 .errorBanner {
   padding: 14px 18px;
@@ -22,70 +10,23 @@
 }
 .errorBanner code { font-family: var(--font-mono); font-size: 0.8em; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 1px 6px; border-radius: 6px; }
 
-.sections { display: flex; flex-direction: column; gap: 28px; }
-
-/* ── Shelves ── */
-.shelf {
-  --shelf-pad: clamp(18px, 3vw, 32px);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: var(--shelf-pad);
-  animation: fadeUp 480ms var(--ease) both;
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--line-strong);
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: background var(--t-fast) ease, color var(--t-fast) ease, border-color var(--t-fast) ease;
 }
-.shelfHead { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
-.shelfText { display: flex; align-items: center; gap: 14px; min-width: 0; }
-.shelfIcon { width: 44px; height: 44px; flex-shrink: 0; display: grid; place-items: center; border-radius: 50%; }
-.shelfTitle { font-family: var(--font-heading); font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 560; letter-spacing: -0.01em; line-height: 1.1; }
-.shelfSub { font-size: 0.9rem; margin-top: 2px; }
-.seeAll {
-  flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
-  height: 38px; padding: 0 16px; border-radius: var(--r-pill);
-  font-size: 0.875rem; font-weight: 600; white-space: nowrap;
-  transition: background var(--t-fast) ease, gap var(--t-fast) var(--ease);
+.chip:hover { border-color: var(--ink-3); color: var(--ink); }
+.chipOn, .chipOn:hover { background: #fff; border-color: #fff; color: var(--bg); }
+.chipT {
+  width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%;
+  border: 1.5px solid currentColor; font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; line-height: 1;
 }
-.seeAll:hover { gap: 10px; }
-
-.shelfRow {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(230px, 260px);
-  gap: 18px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 4px var(--shelf-pad) 12px;
-  margin: 0 calc(var(--shelf-pad) * -1) -12px;
-  scrollbar-width: thin;
-}
-.shelfItem { scroll-snap-align: start; display: flex; }
-.shelfItem > * { flex: 1; }
-
-/* Elite blue band */
-.deep { background: linear-gradient(135deg, var(--brand-deep) 0%, var(--brand-mid) 100%); color: #fff; }
-.deep .shelfIcon { background: rgba(255, 255, 255, 0.14); color: #fff; }
-.deep .shelfSub { color: rgba(255, 255, 255, 0.75); }
-.deep .seeAll { background: #fff; color: var(--brand-deep); }
-.deep .seeAll:hover { color: var(--brand-deep); background: var(--brand-sky); }
-
-/* Endless horizon band */
-.sky { background: linear-gradient(135deg, var(--brand-sky-soft) 0%, color-mix(in srgb, var(--brand-sky) 70%, #fff) 100%); color: var(--brand-deep); }
-.sky .shelfIcon { background: #fff; color: var(--brand-mid); }
-.sky .shelfSub { color: var(--brand-mid); }
-.sky .seeAll { background: var(--brand-deep); color: #fff; }
-.sky .seeAll:hover { color: #fff; background: var(--brand-mid); }
-
-/* Plain white with a greek-sea rule */
-.plain { background: var(--bg-raised); border: 1px solid var(--line); border-top: 4px solid var(--brand-sea); }
-.plain .shelfIcon { background: var(--herb-soft); color: var(--brand-mid); }
-.plain .shelfSub { color: var(--ink-3); }
-.plain .seeAll { background: var(--herb-faint); color: var(--brand-mid); }
-.plain .seeAll:hover { color: var(--brand-deep); background: var(--herb-soft); }
-
-@media (max-width: 640px) {
-  .page { gap: 20px; }
-  .shelfHead { flex-direction: column; align-items: flex-start; }
-  .shelfRow { grid-auto-columns: 72%; gap: 12px; }
-}
-
-.deep .shelfTitle { color: #fff; }
-.sky .shelfTitle, .plain .shelfTitle { color: var(--brand-deep); }

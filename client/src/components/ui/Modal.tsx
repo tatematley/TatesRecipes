@@ -31,7 +31,7 @@ export function Modal({ isOpen, onClose, title, children, footer, size = 'md' }:
   return createPortal(
     <div className={styles.overlay} onMouseDown={onClose}>
       <div
-        className={[styles.modal, styles[size]].join(' ')}
+        className={[styles.modal, styles[size], 'light-surface'].join(' ')}
         onMouseDown={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

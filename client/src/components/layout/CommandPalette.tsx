@@ -2,11 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import styles from './CommandPalette.module.css'
+import { useOpenAdd } from '../../hooks/useOpenAdd'
 import { useRecipeContext } from '../../context/RecipeContext'
 import { NAV_GROUPS } from './nav'
 import { RecipeCover } from '../ui/RecipeCover'
-import { PlusIcon, SearchIcon, ShuffleIcon, MoonIcon, ArrowRightIcon } from '../ui/Icons'
-import { useTheme } from '../../hooks/useTheme'
+import { PlusIcon, SearchIcon, ShuffleIcon, ArrowRightIcon } from '../ui/Icons'
 import { searchRecipes } from '../../utils/search'
 import { formatTime } from '../../utils/helpers'
 
@@ -26,7 +26,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const listRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
   const { recipes } = useRecipeContext()
-  const { toggle } = useTheme()
+  const openAdd = useOpenAdd()
 
   useEffect(() => {
     if (open) {
@@ -52,7 +52,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       }))
 
     const actions: Item[] = [
-      { id: 'a-new', kind: 'action', label: 'Add a new recipe', run: go('/add'), render: () => <PlusIcon size={16} /> },
+      { id: 'a-new', kind: 'action', label: 'Add a new recipe', run: () => { onClose(); openAdd() }, render: () => <PlusIcon size={16} /> },
       {
         id: 'a-random', kind: 'action', label: 'Surprise me', hint: 'Open a random recipe',
         run: () => {
@@ -63,7 +63,6 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
         },
         render: () => <ShuffleIcon size={16} />,
       },
-      { id: 'a-theme', kind: 'action', label: 'Toggle dark mode', run: () => { toggle(); onClose() }, render: () => <MoonIcon size={16} /> },
       ...NAV_GROUPS.flatMap((g) => g.items).map(({ to, label, Icon }) => ({
         id: `nav-${to}`, kind: 'action' as const, label: `Go to ${label}`, run: go(to), render: () => <Icon size={16} />,
       })),
@@ -78,7 +77,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       })
     }
     return [...recipeItems, ...filteredActions]
-  }, [recipes, query, navigate, onClose, toggle])
+  }, [recipes, query, navigate, onClose, openAdd])
 
   useEffect(() => { setActive(0) }, [query])
 
