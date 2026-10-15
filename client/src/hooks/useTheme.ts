@@ -6,13 +6,14 @@ const KEY = 'tt:theme'
 // One shared store so every toggle in the app stays in step.
 const listeners = new Set<() => void>()
 let choice: ThemeChoice = read()
+document.documentElement.dataset.theme = choice
 
 function read(): ThemeChoice {
   try {
-    const v = localStorage.getItem(KEY)
-    return v === 'light' || v === 'dark' ? v : 'system'
+    // Light by default, whatever the computer's setting; dark only when chosen.
+    return localStorage.getItem(KEY) === 'dark' ? 'dark' : 'light'
   } catch {
-    return 'system'
+    return 'light'
   }
 }
 
