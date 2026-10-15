@@ -13,6 +13,8 @@ import { useRecipeContext } from '../context/RecipeContext'
 import { useAppData } from '../lib/appData'
 import { Recipe } from '../types'
 import { SMART_COLLECTIONS, smartRecipes } from './CollectionsPage'
+import { CollectionIcon } from '../components/ui/FoodIcons'
+import { FolderIcon } from '../components/ui/Icons'
 import styles from './CollectionDetailPage.module.css'
 
 export function CollectionDetailPage() {
@@ -63,7 +65,7 @@ export function CollectionDetailPage() {
       <div>
         {back}
         <EmptyState
-          emoji="🗂️"
+          icon={<FolderIcon size={26} />}
           title="Collection not found"
           message="It may have been deleted, or the link is out of date."
           action={{ label: 'All collections', onClick: () => navigate('/collections') }}
@@ -81,7 +83,7 @@ export function CollectionDetailPage() {
       {back}
 
       <header className={styles.hero}>
-        <div className={styles.emojiTile} aria-hidden="true">{emoji}</div>
+        <div className={styles.emojiTile} aria-hidden="true"><CollectionIcon icon={emoji} size={44} strokeWidth={1.25} /></div>
         <div className={styles.heroText}>
           <p className="eyebrow">
             {smart ? <span className={styles.smartTag}><SparkleIcon size={11} strokeWidth={2} /> Smart collection</span> : 'Collection'}
@@ -149,7 +151,7 @@ export function CollectionDetailPage() {
         />
       ) : list.length === 0 ? (
         <EmptyState
-          emoji={emoji}
+          icon={<CollectionIcon icon={emoji} size={26} />}
           title="An empty collection"
           message="Pick a few recipes to start filling it up."
           action={{ label: 'Add recipes', onClick: () => setPicking(true) }}
@@ -223,7 +225,7 @@ export function CollectionDetailPage() {
             }
           >
             <p className={styles.confirm}>
-              <strong>{collection.emoji} {collection.name}</strong> will be removed. The {collection.recipeIds.length} recipe{collection.recipeIds.length === 1 ? '' : 's'} in it stay in your cookbook.
+              <strong>{collection.name}</strong> will be removed. The {collection.recipeIds.length} recipe{collection.recipeIds.length === 1 ? '' : 's'} in it stay in your cookbook.
             </p>
           </Modal>
         </>

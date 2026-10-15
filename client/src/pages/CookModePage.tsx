@@ -11,8 +11,9 @@ import { findDurations } from '../utils/timers'
 import { convertAmount, normalizeName } from '../utils/quantity'
 import { Ingredient } from '../types'
 import {
-  ArrowLeftIcon, ArrowRightIcon, CheckIcon, ChevronLeftIcon, ListIcon, TimerIcon, XIcon,
+  ArrowLeftIcon, ArrowRightIcon, CheckIcon, ChefHatIcon, ChevronLeftIcon, ListIcon, SparkleIcon, StarIcon, TimerIcon, XIcon,
 } from '../components/ui/Icons'
+import { PartyIcon, StopIcon, UtensilsIcon, VolumeIcon } from '../components/ui/FoodIcons'
 import styles from './CookModePage.module.css'
 
 /** Ingredients mentioned in a step ("add the garlic" → garlic) */
@@ -256,7 +257,7 @@ export function CookModePage() {
               </p>
               <div className={styles.stepTools}>
                 <button className={styles.toolBtn} onClick={() => (speaking ? (window.speechSynthesis.cancel(), setSpeaking(false)) : speak(current.text))}>
-                  {speaking ? '■ Stop reading' : '🔊 Read aloud'}
+                  {speaking ? <><StopIcon size={15} /> Stop reading</> : <><VolumeIcon size={15} /> Read aloud</>}
                 </button>
                 {firstTimer && (
                   <button className={styles.toolBtn} onClick={() => start(firstTimer.seconds, `Step ${index + 1} · ${firstTimer.label}`, r.title)}>
@@ -284,7 +285,7 @@ export function CookModePage() {
 
           {finished && (
             <div className={styles.finish}>
-              <div className={styles.confetti} aria-hidden="true">{'🎉🌿✨🍽️🎊'.split('').filter((c) => c.trim()).map((c, i) => <span key={i} style={{ animationDelay: `${i * 90}ms` }}>{c}</span>)}</div>
+              <div className={styles.confetti} aria-hidden="true">{[PartyIcon, ChefHatIcon, SparkleIcon, UtensilsIcon, StarIcon].map((I, i) => <span key={i} style={{ animationDelay: `${i * 90}ms` }}><I size={34} strokeWidth={1.5} /></span>)}</div>
               <h1 className={styles.miseTitle}>Dinner is served.</h1>
               <p className={styles.miseSub}>Nicely done. How did it turn out?</p>
               <div className={styles.finishActions}>

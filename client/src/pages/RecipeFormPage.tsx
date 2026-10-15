@@ -9,9 +9,10 @@ import { IngredientsEditor } from '../components/recipes/IngredientsEditor'
 import { ImportRecipe } from '../components/recipes/ImportRecipe'
 import { Button } from '../components/ui/Button'
 import { Modal } from '../components/ui/Modal'
-import { RecipeCover, categoryEmoji } from '../components/ui/RecipeCover'
+import { RecipeCover } from '../components/ui/RecipeCover'
+import { CategoryIcon } from '../components/ui/FoodIcons'
 import { useToast } from '../components/ui/Toast'
-import { ArrowLeftIcon, CameraIcon, PlusIcon, XIcon, ChevronDownIcon, CopyIcon, ChefHatIcon, HeartIcon } from '../components/ui/Icons'
+import { ArrowLeftIcon, CameraIcon, PlusIcon, XIcon, ChevronDownIcon, CopyIcon, ChefHatIcon, HeartIcon, SparkleIcon } from '../components/ui/Icons'
 import { generateId } from '../utils/helpers'
 import { parseIngredientLine } from '../utils/quantity'
 import { uploadPhoto } from '../lib/db'
@@ -212,7 +213,7 @@ export function RecipeFormPage() {
         navigate(`/recipe/${id}`, { replace: true })
       } else {
         const saved = await addRecipe(data)
-        toast('Recipe added to your box 🌿')
+        toast('Recipe added to your box')
         navigate(`/recipe/${saved.id}`, { replace: true })
       }
     } catch (err) {
@@ -256,7 +257,7 @@ export function RecipeFormPage() {
         {!isEdit && (
           <section className={`${styles.card} ${styles.importCard}`}>
             <button type="button" className={styles.importToggle} onClick={() => setImportOpen((o) => !o)} aria-expanded={importOpen}>
-              <span className={styles.importIcon}>✨</span>
+              <span className={styles.importIcon}><SparkleIcon size={18} /></span>
               <span className={styles.importText}>
                 <strong>Import with AI</strong>
                 <span>Paste a link or snap a cookbook page and the fields fill themselves.</span>
@@ -295,7 +296,7 @@ export function RecipeFormPage() {
                 <div className={styles.catGrid}>
                   {ALL_CATEGORIES.map((c) => (
                     <button key={c} type="button" className={`${styles.catChip} ${form.category === c ? styles.on : ''}`} onClick={() => set('category', c as Category)}>
-                      <span>{categoryEmoji(c)}</span>{c}
+                      <CategoryIcon category={c} size={15} />{c}
                     </button>
                   ))}
                 </div>

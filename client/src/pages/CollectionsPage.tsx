@@ -8,6 +8,7 @@ import { CollectionFormModal } from '../components/recipes/CollectionPicker'
 import { useRecipeContext } from '../context/RecipeContext'
 import { useAppData } from '../lib/appData'
 import { CookEntry, Recipe } from '../types'
+import { CollectionIcon } from '../components/ui/FoodIcons'
 import styles from './CollectionsPage.module.css'
 
 // ─── Smart collections: automatic, no setup ────────────────────
@@ -24,21 +25,21 @@ export const SMART_COLLECTIONS: SmartCollection[] = [
   {
     id: 'smart-quick',
     name: 'Quick weeknights',
-    emoji: '⚡',
+    emoji: 'clock',
     description: 'On the table in 30 minutes or less.',
     match: (r) => r.totalTime != null && r.totalTime > 0 && r.totalTime <= 30,
   },
   {
     id: 'smart-tate',
     name: 'Made by Tate',
-    emoji: '👨‍🍳',
+    emoji: 'chef',
     description: 'Original recipes from Tate’s own kitchen.',
     match: (r) => r.createdByTate,
   },
   {
     id: 'smart-new',
     name: 'Never cooked',
-    emoji: '✨',
+    emoji: 'sparkle',
     description: 'Saved but not made yet. Pick one tonight.',
     match: (r, cooked) => !cooked.has(r.id),
   },
@@ -55,7 +56,7 @@ export function Mosaic({ recipes, emoji, large }: { recipes: Recipe[]; emoji: st
   if (recipes.length === 0) {
     return (
       <div className={`${styles.mosaic} ${styles.mosaicEmpty}`}>
-        <span className={styles.placeholderEmoji}>{emoji}</span>
+        <span className={styles.placeholderEmoji}><CollectionIcon icon={emoji} size={40} strokeWidth={1.25} /></span>
       </div>
     )
   }
@@ -74,7 +75,7 @@ export function Mosaic({ recipes, emoji, large }: { recipes: Recipe[]; emoji: st
       {tiles.map((r) => (
         <div key={r.id} className={styles.tile}><RecipeCover recipe={r} size="sm" /></div>
       ))}
-      {tiles.length === 3 && <div className={`${styles.tile} ${styles.tileBlank}`}>{emoji}</div>}
+      {tiles.length === 3 && <div className={`${styles.tile} ${styles.tileBlank}`}><CollectionIcon icon={emoji} size={24} /></div>}
     </div>
   )
 }
@@ -118,7 +119,7 @@ export function CollectionsPage() {
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <div className={styles.smartText}>
-                <span className={styles.smartEmoji}>{s.emoji}</span>
+                <span className={styles.smartEmoji}><CollectionIcon icon={s.emoji} size={22} /></span>
                 <h3 className={styles.smartName}>{s.name}</h3>
                 <p className={styles.smartDesc}>{s.description}</p>
                 <span className={styles.smartCount}>
@@ -146,7 +147,7 @@ export function CollectionsPage() {
 
         {sorted.length === 0 ? (
           <button className={styles.emptyCard} onClick={() => setCreating(true)}>
-            <span className={styles.emptyEmojis} aria-hidden="true">🎄 🍝 🌮</span>
+            <span className={styles.emptyEmojis} aria-hidden="true"><CollectionIcon icon="tree" size={24} /><CollectionIcon icon="utensils" size={24} /><CollectionIcon icon="heart" size={24} /></span>
             <span className={styles.emptyTitle}>Make your first collection</span>
             <span className={styles.emptyText}>Holiday baking, date-night dinners, recipes to try someday. Whatever helps you find them again.</span>
             <span className={styles.emptyCta}><PlusIcon size={14} strokeWidth={2.25} /> New collection</span>
@@ -164,7 +165,7 @@ export function CollectionsPage() {
                 >
                   <Mosaic recipes={rs} emoji={c.emoji} />
                   <div className={styles.cardBody}>
-                    <h3 className={styles.cardName}><span className={styles.cardEmoji}>{c.emoji}</span>{c.name}</h3>
+                    <h3 className={styles.cardName}><span className={styles.cardEmoji}><CollectionIcon icon={c.emoji} size={16} /></span>{c.name}</h3>
                     <p className={styles.cardCount}>{rs.length} recipe{rs.length === 1 ? '' : 's'}</p>
                     {c.description && <p className={styles.cardDesc}>{c.description}</p>}
                   </div>

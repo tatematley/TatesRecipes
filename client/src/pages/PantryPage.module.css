@@ -133,7 +133,7 @@
   place-items: center;
   width: 56px;
   height: 56px;
-  font-size: 1.75rem;
+  color: var(--herb);
   border-radius: 50%;
   background: var(--bg-sunken);
   border: 1px solid var(--line);

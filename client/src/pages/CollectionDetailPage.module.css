@@ -23,7 +23,7 @@
   flex-shrink: 0;
   width: 104px;
   height: 104px;
-  font-size: 3.25rem;
+  color: var(--herb);
   border-radius: var(--r-xl);
   background:
     radial-gradient(circle at 30% 25%, var(--herb-soft), transparent 65%),
@@ -102,7 +102,8 @@
 
 @media (max-width: 640px) {
   .hero { gap: 16px; flex-direction: column; }
-  .emojiTile { width: 72px; height: 72px; font-size: 2.25rem; border-radius: var(--r-lg); }
+  .emojiTile { width: 72px; height: 72px; border-radius: var(--r-lg); }
+  .emojiTile svg { width: 32px; height: 32px; }
   .toolbar { padding: 12px 0; margin-bottom: 22px; }
   .toolbarMain { width: 100%; }
   .toolbarMain > * { flex: 1; }

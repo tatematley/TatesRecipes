@@ -1,6 +1,7 @@
 import { Recipe } from '../../types'
 import { RecipeCard } from './RecipeCard'
 import { EmptyState } from '../ui/EmptyState'
+import { SearchIcon } from '../ui/Icons'
 import styles from './RecipeGrid.module.css'
 
 interface RecipeGridProps {
@@ -17,7 +18,7 @@ export function RecipeGrid({ recipes, layout = 'grid', onAddRecipe, emptyTitle, 
       <EmptyState
         title={emptyTitle ?? 'No recipes found'}
         message={emptyMessage ?? 'Try a different search or filter, or add a new recipe.'}
-        emoji="🔍"
+        icon={<SearchIcon size={26} />}
         action={onAddRecipe ? { label: 'Add a recipe', onClick: onAddRecipe } : undefined}
       />
     )

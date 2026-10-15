@@ -149,7 +149,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     ...state,
     syncStatus,
 
-    createCollection: ({ name, emoji = '📒', description = '', recipeIds = [] }) => {
+    createCollection: ({ name, emoji = 'book', description = '', recipeIds = [] }) => {
       const c: Collection = { id: uid(), name, emoji, description, recipeIds, createdAt: new Date().toISOString() }
       update('collections', (cs) => [...cs, c])
       return c

@@ -175,7 +175,7 @@ What you help with:
 
 Linking rule: whenever you mention a recipe that is in the collection, write its exact title wrapped in double square brackets, like [[Exact Recipe Title]], so the app can link it. Only do this for recipes in the list below, never for recipes that aren't in it.
 
-Style: keep answers short and skimmable. Use markdown: short paragraphs, **bold** for key words, bullet or numbered lists, and an occasional ### heading for longer answers. No tables, no code blocks. Prefer Tate's own recipes when they fit; if nothing in the collection fits, say so briefly and suggest an idea anyway.`
+Style: keep answers short and skimmable. Use markdown: short paragraphs, **bold** for key words, bullet or numbered lists, and an occasional ### heading for longer answers. No tables, no code blocks, no emoji. Prefer Tate's own recipes when they fit; if nothing in the collection fits, say so briefly and suggest an idea anyway.`
 
 function formatCollection(recipes: RecipeSummary[]): string {
   if (!recipes.length) return "Tate's collection is empty right now."

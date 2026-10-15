@@ -82,7 +82,7 @@
   color: var(--ink-2);
   transition: background var(--t-fast) ease, color var(--t-fast) ease;
 }
-.cat span { font-size: 1.1rem; }
+.cat svg { color: var(--herb); flex-shrink: 0; }
 .cat:hover { background: var(--bg-hover); color: var(--ink); }
 .catOn, .catOn:hover { background: var(--herb-soft); color: var(--herb-strong); box-shadow: inset 0 0 0 1.5px var(--herb); }
 

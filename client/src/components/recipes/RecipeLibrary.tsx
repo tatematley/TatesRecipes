@@ -7,8 +7,8 @@ import { searchRecipes } from '../../utils/search'
 import { useAppData } from '../../lib/appData'
 import { RecipeGrid } from './RecipeGrid'
 import { FilterPanel } from '../filters/FilterPanel'
-import { categoryEmoji } from '../ui/RecipeCover'
-import { GridIcon, ListIcon, SearchIcon, SlidersIcon, XIcon } from '../ui/Icons'
+import { CategoryIcon, UtensilsIcon } from '../ui/FoodIcons'
+import { GridIcon, HeartIcon, ListIcon, SearchIcon, SlidersIcon, XIcon } from '../ui/Icons'
 import styles from './RecipeLibrary.module.css'
 
 interface Props {
@@ -93,7 +93,7 @@ export function RecipeLibrary({ recipes, loading, showCategories = true, emptyTi
 
         <div className={styles.controls}>
           <button className={`${styles.chip} ${f.favoritesOnly ? styles.chipOn : ''}`} onClick={() => filters.setFavoritesOnly(!f.favoritesOnly)}>
-            ♥ Favorites
+            <HeartIcon size={14} strokeWidth={1.75} /> Favorites
           </button>
           <button className={`${styles.chip} ${f.timeFilter === 'under30' ? styles.chipOn : ''}`} onClick={() => filters.setTimeFilter(f.timeFilter === 'under30' ? '' : 'under30')}>
             Under 30 min
@@ -115,11 +115,11 @@ export function RecipeLibrary({ recipes, loading, showCategories = true, emptyTi
       {showCategories && presentCategories.length > 1 && (
         <div className={styles.rail} role="tablist" aria-label="Categories">
           <button className={`${styles.cat} ${!category ? styles.catOn : ''}`} onClick={() => setParam('category', '')}>
-            <span>🍽️</span> All
+            <UtensilsIcon size={15} /> All
           </button>
           {presentCategories.map((c) => (
             <button key={c} className={`${styles.cat} ${category === c ? styles.catOn : ''}`} onClick={() => setParam('category', category === c ? '' : c)}>
-              <span>{categoryEmoji(c)}</span> {c}
+              <CategoryIcon category={c} size={15} /> {c}
             </button>
           ))}
         </div>

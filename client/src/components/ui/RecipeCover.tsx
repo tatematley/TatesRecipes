@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Recipe } from '../../types'
+import { CategoryIcon } from './FoodIcons'
 import styles from './RecipeCover.module.css'
 
 /** Curated palettes for recipes without a photo: [background, ink] */
@@ -13,20 +14,10 @@ const PALETTES: [string, string, string][] = [
   ['#D5E4FA', '#2F6BC4', '#BBD2F4'], // azure
 ]
 
-const CATEGORY_EMOJI: Record<string, string> = {
-  Breakfast: '🥞', Lunch: '🥪', Dinner: '🍲', Desserts: '🍪', Breads: '🍞', Sides: '🥔',
-  Appetizers: '🫒', Soups: '🥣', Salads: '🥗', Snacks: '🥨', Drinks: '🍹', Sauces: '🫙',
-  'Holiday Recipes': '🥧', 'Family Favorites': '🏡',
-}
-
 export function paletteFor(seed: string) {
   let h = 0
   for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0
   return PALETTES[h % PALETTES.length]
-}
-
-export function categoryEmoji(category: string) {
-  return CATEGORY_EMOJI[category] ?? '🍽️'
 }
 
 interface Props {
@@ -64,7 +55,7 @@ export function RecipeCover({ recipe, className = '', size = 'md', eager }: Prop
       aria-label={recipe.title}
     >
       <span className={styles.letter} aria-hidden="true">{initial}</span>
-      <span className={styles.emoji} aria-hidden="true">{categoryEmoji(recipe.category)}</span>
+      <span className={styles.mark} aria-hidden="true"><CategoryIcon category={recipe.category} strokeWidth={1.25} /></span>
     </div>
   )
 }

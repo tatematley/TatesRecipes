@@ -48,7 +48,7 @@
 }
 .importIcon {
   width: 40px; height: 40px; flex-shrink: 0; display: grid; place-items: center;
-  border-radius: var(--r-md); background: var(--bg-raised); border: 1px solid var(--line); font-size: 1.2rem;
+  border-radius: var(--r-md); background: var(--bg-raised); border: 1px solid var(--line); color: var(--herb);
 }
 .importText { display: flex; flex-direction: column; gap: 2px; flex: 1; }
 .importText strong { font-weight: 600; }

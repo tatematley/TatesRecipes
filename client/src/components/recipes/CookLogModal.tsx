@@ -24,7 +24,7 @@ export function CookLogModal({ recipeId, recipeTitle, isOpen, onClose }: Props) 
 
   function save() {
     logCook({ recipeId, date, rating, notes: notes.trim(), makeAgain })
-    toast(`Logged “${recipeTitle}” 🎉`)
+    toast(`Logged “${recipeTitle}”`)
     setRating(null); setNotes(''); setMakeAgain(null); setDate(todayISO())
     onClose()
   }
@@ -59,7 +59,7 @@ export function CookLogModal({ recipeId, recipeTitle, isOpen, onClose }: Props) 
         <div>
           <label className="field-label">Make it again?</label>
           <div className={styles.choices}>
-            {[{ v: true, l: '👍 Definitely' }, { v: false, l: '🤔 Probably not' }].map((c) => (
+            {[{ v: true, l: 'Definitely' }, { v: false, l: 'Probably not' }].map((c) => (
               <button key={String(c.v)} className={`${styles.choice} ${makeAgain === c.v ? styles.choiceOn : ''}`} onClick={() => setMakeAgain(makeAgain === c.v ? null : c.v)}>
                 {c.l}
               </button>

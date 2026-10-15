@@ -156,7 +156,7 @@
   font-weight: 600; color: var(--ink-2);
   transition: border-color var(--t-fast) ease, background var(--t-fast) ease, transform var(--t-fast) ease;
 }
-.mealChoice span { font-size: 1.15rem; }
+.mealChoice svg { color: var(--herb); }
 .mealChoice:hover { border-color: var(--herb); background: var(--herb-faint); color: var(--ink); }
 .mealChoice:active { transform: scale(0.97); }
 .mealChoice:focus-visible { outline: none; box-shadow: var(--ring); }

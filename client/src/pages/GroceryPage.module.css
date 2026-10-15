@@ -105,7 +105,7 @@
 a.groupTitle:hover { color: var(--herb); }
 .groupEmoji {
   width: 30px; height: 30px; display: grid; place-items: center; flex-shrink: 0;
-  border-radius: 50%; background: var(--bg-sunken); font-size: 0.95rem;
+  border-radius: 50%; background: var(--herb-faint); color: var(--herb);
 }
 .groupCount {
   display: inline-grid; place-items: center; min-width: 24px; height: 22px; padding: 0 7px;
@@ -200,7 +200,7 @@ a.groupTitle:hover { color: var(--herb); }
   border: 1.5px dashed var(--line); border-radius: var(--r-lg); color: var(--ink-2);
   font-family: var(--font-heading); font-size: 1.15rem; animation: fadeUp 420ms var(--ease) both;
 }
-.allDone span { font-size: 1.6rem; animation: pop 500ms var(--ease-spring) both; }
+.allDone span { display: grid; color: var(--herb); animation: pop 500ms var(--ease-spring) both; }
 
 .cart { margin-top: 22px; border-top: 1px dashed var(--line-strong); padding-top: 8px; }
 .cartHead {

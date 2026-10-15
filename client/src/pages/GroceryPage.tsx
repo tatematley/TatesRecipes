@@ -13,15 +13,11 @@ import { useAppData } from '../lib/appData'
 import { useRecipeContext } from '../context/RecipeContext'
 import { AISLES, aisleFor } from '../utils/quantity'
 import { GroceryItem, Recipe } from '../types'
+import { AisleIcon, BasketIcon } from '../components/ui/FoodIcons'
 import styles from './GroceryPage.module.css'
 
 type GroupMode = 'aisle' | 'recipe'
 const MODE_KEY = 'tt:grocery:group'
-
-const AISLE_EMOJI: Record<string, string> = {
-  Produce: '🥬', 'Meat & Seafood': '🥩', 'Dairy & Eggs': '🧀', Bakery: '🥖', Pantry: '🫙',
-  'Spices & Baking': '🧂', Frozen: '🧊', Drinks: '🍷', Other: '🛒',
-}
 
 const UNITS = 'cups?|c|tbsp|tbs|tablespoons?|tsp|teaspoons?|lbs?|pounds?|oz|ounces?|g|grams?|kg|ml|l|cans?|jars?|packages?|pkgs?|bags?|boxes|box|bunch(?:es)?|cloves?|heads?|dozen|bottles?|sticks?|slices?|pieces?|pints?|quarts?|gallons?'
 const QUICK_RE = new RegExp(
@@ -47,7 +43,7 @@ function readMode(): GroupMode {
   try { return localStorage.getItem(MODE_KEY) === 'recipe' ? 'recipe' : 'aisle' } catch { return 'aisle' }
 }
 
-interface Group { key: string; label: string; emoji?: string; recipe?: Recipe; items: GroceryItem[] }
+interface Group { key: string; label: string; recipe?: Recipe; items: GroceryItem[] }
 
 export function GroceryPage() {
   const {
@@ -96,7 +92,7 @@ export function GroceryPage() {
         const aisle = (AISLES as readonly string[]).includes(item.aisle) ? item.aisle : 'Other'
         by.set(aisle, [...(by.get(aisle) ?? []), item])
       }
-      return AISLES.filter((a) => by.has(a)).map((a) => ({ key: a, label: a, emoji: AISLE_EMOJI[a], items: by.get(a)! }))
+      return AISLES.filter((a) => by.has(a)).map((a) => ({ key: a, label: a, items: by.get(a)! }))
     }
     const by = new Map<string, GroceryItem[]>()
     for (const item of toBuy) {
@@ -110,7 +106,7 @@ export function GroceryPage() {
       out.push({ key: id, label: recipe.title, recipe, items })
     }
     out.sort((a, b) => a.label.localeCompare(b.label))
-    if (by.has('__own')) out.push({ key: '__own', label: 'Added by you', emoji: '✍️', items: by.get('__own')! })
+    if (by.has('__own')) out.push({ key: '__own', label: 'Added by you', items: by.get('__own')! })
     return out
   }, [mode, toBuy, getRecipe])
 
@@ -291,7 +287,7 @@ export function GroceryPage() {
       {grocery.length === 0 ? (
         <div className={styles.empty}>
           <EmptyState
-            emoji="🧺"
+            icon={<BasketIcon size={26} />}
             title="Your basket is empty"
             message="Pull ingredients from a few recipes, or plan your week and shop for it in one tap. Type above to add anything else."
             action={{ label: 'Add from recipes', onClick: () => setPickerOpen(true) }}
@@ -330,7 +326,7 @@ export function GroceryPage() {
 
           {groups.length === 0 && (
             <div className={styles.allDone}>
-              <span aria-hidden="true">🎉</span>
+              <span aria-hidden="true"><CheckIcon size={26} strokeWidth={2} /></span>
               <p>Everything's in the cart. Nice work.</p>
             </div>
           )}
@@ -341,10 +337,10 @@ export function GroceryPage() {
                 <header className={styles.groupHead}>
                   {g.recipe ? (
                     <Link to={`/recipe/${g.recipe.id}`} className={styles.groupTitle}>
-                      <span className={styles.groupEmoji}>📖</span>{g.label}
+                      <span className={styles.groupEmoji}><AisleIcon aisle="__recipe" size={16} /></span>{g.label}
                     </Link>
                   ) : (
-                    <h2 className={styles.groupTitle}><span className={styles.groupEmoji}>{g.emoji}</span>{g.label}</h2>
+                    <h2 className={styles.groupTitle}><span className={styles.groupEmoji}><AisleIcon aisle={g.key} size={16} /></span>{g.label}</h2>
                   )}
                   <span className={styles.groupCount}>{g.items.filter((x) => !isChecked(x)).length}</span>
                 </header>

@@ -6,12 +6,13 @@ import { useToast } from '../ui/Toast'
 import { CheckIcon, PlusIcon } from '../ui/Icons'
 import { useAppData } from '../../lib/appData'
 import { useRecipeContext } from '../../context/RecipeContext'
+import { COLLECTION_ICON_KEYS, CollectionIcon, DEFAULT_COLLECTION_ICON } from '../ui/FoodIcons'
 import styles from './CollectionPicker.module.css'
 
-export const COLLECTION_EMOJIS = ['📒', '🍝', '🥗', '🍲', '🌮', '🍰', '🥐', '🍕', '🍜', '🥘', '🍳', '🔥', '🎄', '🌱', '🍹', '❤️']
 
-// ─── Shared form: name, emoji, description ─────────────────────
+// ─── Shared form: name, icon, description ─────────────────────
 
+/** `emoji` holds an icon key (see COLLECTION_ICONS); the name is kept for stored data. */
 export interface CollectionDraft { name: string; emoji: string; description: string }
 
 interface FormProps {
@@ -28,7 +29,7 @@ export function CollectionFields({ value, onChange, onSubmit, autoFocus, compact
       <div>
         <label className="field-label" htmlFor="col-name">Name</label>
         <div className={styles.nameRow}>
-          <span className={styles.emojiPreview} aria-hidden="true">{value.emoji}</span>
+          <span className={styles.emojiPreview} aria-hidden="true"><CollectionIcon icon={value.emoji} size={20} /></span>
           <input
             id="col-name"
             className="field-input"
@@ -42,18 +43,19 @@ export function CollectionFields({ value, onChange, onSubmit, autoFocus, compact
         </div>
       </div>
       <div>
-        <span className="field-label">Emoji</span>
-        <div className={styles.emojis} role="radiogroup" aria-label="Emoji">
-          {COLLECTION_EMOJIS.map((em) => (
+        <span className="field-label">Icon</span>
+        <div className={styles.emojis} role="radiogroup" aria-label="Icon">
+          {COLLECTION_ICON_KEYS.map((em) => (
             <button
               key={em}
               type="button"
               role="radio"
               aria-checked={value.emoji === em}
               className={`${styles.emoji} ${value.emoji === em ? styles.emojiOn : ''}`}
+              aria-label={em}
               onClick={() => onChange({ ...value, emoji: em })}
             >
-              {em}
+              <CollectionIcon icon={em} size={18} />
             </button>
           ))}
         </div>
@@ -84,9 +86,9 @@ export function CollectionFormModal({ isOpen, onClose, title, initial, submitLab
   submitLabel: string
   onSubmit: (v: CollectionDraft) => void
 }) {
-  const [draft, setDraft] = useState<CollectionDraft>({ name: '', emoji: '📒', description: '' })
+  const [draft, setDraft] = useState<CollectionDraft>({ name: '', emoji: DEFAULT_COLLECTION_ICON, description: '' })
   useEffect(() => {
-    if (isOpen) setDraft({ name: initial?.name ?? '', emoji: initial?.emoji ?? '📒', description: initial?.description ?? '' })
+    if (isOpen) setDraft({ name: initial?.name ?? '', emoji: initial?.emoji ?? DEFAULT_COLLECTION_ICON, description: initial?.description ?? '' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
@@ -128,12 +130,12 @@ export function CollectionPicker({ recipeId, isOpen, onClose }: PickerProps) {
   const { getRecipe } = useRecipeContext()
   const toast = useToast()
   const [creating, setCreating] = useState(false)
-  const [draft, setDraft] = useState<CollectionDraft>({ name: '', emoji: '📒', description: '' })
+  const [draft, setDraft] = useState<CollectionDraft>({ name: '', emoji: DEFAULT_COLLECTION_ICON, description: '' })
 
   useEffect(() => {
     if (isOpen) {
       setCreating(collections.length === 0)
-      setDraft({ name: '', emoji: '📒', description: '' })
+      setDraft({ name: '', emoji: DEFAULT_COLLECTION_ICON, description: '' })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
@@ -149,7 +151,7 @@ export function CollectionPicker({ recipeId, isOpen, onClose }: PickerProps) {
     const c = createCollection({ name, emoji: draft.emoji, recipeIds: [recipeId] })
     toast(`Saved to ${c.name}`, { label: 'View', to: `/collections/${c.id}` })
     setCreating(false)
-    setDraft({ name: '', emoji: '📒', description: '' })
+    setDraft({ name: '', emoji: DEFAULT_COLLECTION_ICON, description: '' })
   }
 
   return (
@@ -173,10 +175,10 @@ export function CollectionPicker({ recipeId, isOpen, onClose }: PickerProps) {
                   aria-pressed={inIt}
                 >
                   <span className={styles.thumb}>
-                    {first ? <RecipeCover recipe={first} size="sm" /> : <span className={styles.thumbEmoji}>{c.emoji}</span>}
+                    {first ? <RecipeCover recipe={first} size="sm" /> : <span className={styles.thumbEmoji}><CollectionIcon icon={c.emoji} size={18} /></span>}
                   </span>
                   <span className={styles.text}>
-                    <span className={styles.name}>{c.emoji} {c.name}</span>
+                    <span className={styles.name}>{c.name}</span>
                     <span className={styles.meta}>{c.recipeIds.length} recipe{c.recipeIds.length === 1 ? '' : 's'}</span>
                   </span>
                   <span className={styles.check}>{inIt && <CheckIcon size={14} strokeWidth={3} />}</span>

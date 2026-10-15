@@ -23,7 +23,7 @@
 .smart2 { background: var(--terracotta-soft); }
 
 .smartText { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 4px; max-width: 56%; }
-.smartEmoji { font-size: 1.6rem; line-height: 1; margin-bottom: 6px; }
+.smartEmoji { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: var(--r-sm); background: rgba(255, 255, 255, 0.7); color: var(--herb); margin-bottom: 6px; }
 .smartName { font-size: 1.35rem; line-height: 1.15; }
 .smartDesc { font-size: 0.8125rem; color: var(--ink-2); line-height: 1.5; }
 .smartCount {
@@ -87,7 +87,7 @@
 .tile { overflow: hidden; border-radius: calc(var(--r-lg) - 6px); min-height: 0; min-width: 0; }
 .tile > * { transition: transform 600ms var(--ease); }
 .card:hover .tile > * { transform: scale(1.05); }
-.tileBlank { display: grid; place-items: center; background: var(--bg-sunken); font-size: 1.6rem; }
+.tileBlank { display: grid; place-items: center; background: var(--bg-sunken); color: var(--herb); }
 
 .mosaicEmpty {
   display: grid;
@@ -99,7 +99,7 @@
     radial-gradient(circle at 75% 80%, var(--saffron-soft), transparent 55%),
     var(--bg-sunken);
 }
-.placeholderEmoji { font-size: 3rem; filter: saturate(0.9); }
+.placeholderEmoji { display: grid; color: var(--herb); opacity: 0.8; }
 
 .cardBody { display: flex; flex-direction: column; gap: 2px; padding: 0 4px; min-width: 0; }
 .cardName {
@@ -112,7 +112,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.cardEmoji { font-size: 1.05rem; flex-shrink: 0; }
+.cardEmoji { display: inline-grid; color: var(--herb); flex-shrink: 0; }
 .cardCount { font-size: 0.8125rem; color: var(--ink-3); font-weight: 550; }
 .cardDesc {
   font-size: 0.8125rem;
@@ -156,7 +156,7 @@
   transition: border-color var(--t-fast) ease, background var(--t-fast) ease;
 }
 .emptyCard:hover { border-color: var(--herb); background: var(--herb-faint); }
-.emptyEmojis { font-size: 1.8rem; letter-spacing: 0.1em; margin-bottom: 4px; }
+.emptyEmojis { display: flex; gap: 14px; color: var(--herb); margin-bottom: 4px; }
 .emptyTitle { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 560; color: var(--ink); }
 .emptyText { max-width: 420px; color: var(--ink-3); font-size: 0.9375rem; line-height: 1.6; }
 .emptyCta {

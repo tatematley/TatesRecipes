@@ -13,12 +13,13 @@ import { useAppData, toISODate, todayISO } from '../lib/appData'
 import { useRecipeContext } from '../context/RecipeContext'
 import { formatTime } from '../utils/helpers'
 import { PlanEntry, Recipe } from '../types'
+import { AppleIcon, CoffeeIcon, SandwichIcon, UtensilsIcon } from '../components/ui/FoodIcons'
 import styles from './PlannerPage.module.css'
 
 type Meal = PlanEntry['meal']
 const MEALS: Meal[] = ['Breakfast', 'Lunch', 'Dinner', 'Snack']
 const MEAL_ORDER: Record<Meal, number> = { Breakfast: 0, Lunch: 1, Dinner: 2, Snack: 3 }
-const MEAL_EMOJI: Record<Meal, string> = { Breakfast: '☕', Lunch: '🥪', Dinner: '🍽️', Snack: '🍎' }
+const MEAL_ICON: Record<Meal, typeof CoffeeIcon> = { Breakfast: CoffeeIcon, Lunch: SandwichIcon, Dinner: UtensilsIcon, Snack: AppleIcon }
 
 /** How well each category works as a dinner when filling the week (0 = never suggest). */
 const DINNER_FIT: Record<string, number> = {
@@ -322,7 +323,7 @@ export function PlannerPage() {
             <div className={styles.mealGrid}>
               {MEALS.map((m) => (
                 <button key={m} className={`${styles.mealChoice} ${m === 'Dinner' ? styles.mealDefault : ''}`} onClick={() => confirmMeal(m)} autoFocus={m === 'Dinner'}>
-                  <span aria-hidden="true">{MEAL_EMOJI[m]}</span>{m}
+                  {(() => { const I = MEAL_ICON[m]; return <I size={18} /> })()}{m}
                 </button>
               ))}
             </div>

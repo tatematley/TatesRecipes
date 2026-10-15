@@ -4,12 +4,13 @@ import { PageHeader } from '../components/ui/PageHeader'
 import { RecipeCover } from '../components/ui/RecipeCover'
 import { Button } from '../components/ui/Button'
 import { useToast } from '../components/ui/Toast'
-import { CheckIcon, ClockIcon, PlusIcon, ShoppingBagIcon, XIcon } from '../components/ui/Icons'
+import { CheckIcon, ClockIcon, PlusIcon, SearchIcon, ShoppingBagIcon, XIcon } from '../components/ui/Icons'
 import { useRecipeContext } from '../context/RecipeContext'
 import { useAppData } from '../lib/appData'
 import { aisleFor, namesMatch, normalizeName } from '../utils/quantity'
 import { formatTime } from '../utils/helpers'
 import { Recipe } from '../types'
+import { AppleIcon, BasketIcon, CarrotIcon, EggIcon } from '../components/ui/FoodIcons'
 import styles from './PantryPage.module.css'
 
 const LS_KEY = 'tt:pantry'
@@ -244,7 +245,7 @@ export function PantryPage() {
       {chips.length === 0 ? (
         <div className={styles.empty}>
           <div className={styles.emptyArt} aria-hidden="true">
-            <span>🧺</span><span>🥕</span><span>🧄</span><span>🍋</span>
+            <span><BasketIcon size={24} /></span><span><CarrotIcon size={24} /></span><span><EggIcon size={24} /></span><span><AppleIcon size={24} /></span>
           </div>
           <h2 className={styles.emptyTitle}>Start with what you have</h2>
           <p className={styles.emptyText}>
@@ -257,7 +258,7 @@ export function PantryPage() {
         </div>
       ) : ready.length + almost.length + trip.length === 0 ? (
         <div className={styles.empty}>
-          <div className={styles.emptyArt} aria-hidden="true"><span>🤔</span></div>
+          <div className={styles.emptyArt} aria-hidden="true"><span><SearchIcon size={24} /></span></div>
           <h2 className={styles.emptyTitle}>Nothing lines up yet</h2>
           <p className={styles.emptyText}>
             None of your recipes use enough of those. Try adding a couple more ingredients, like an onion, garlic or eggs.

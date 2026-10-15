@@ -73,7 +73,7 @@
   text-align: center;
 }
 
-.dropIcon { font-size: 2rem; }
+.dropIcon { display: grid; color: var(--herb); }
 
 .dropPrompt span:nth-child(2) {
   font-size: 0.9rem;

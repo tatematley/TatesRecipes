@@ -36,18 +36,27 @@
   font-variation-settings: 'opsz' 144;
 }
 
-.emoji {
+.mark {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) rotate(-6deg);
-  filter: drop-shadow(0 10px 14px rgba(10, 25, 50, 0.2));
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--art-ink);
+  box-shadow: 0 10px 24px -8px rgba(10, 25, 50, 0.25);
+  backdrop-filter: blur(4px);
   z-index: 1;
 }
+.mark svg { width: 1em; height: 1em; }
 
 .sm .letter { font-size: 7rem; }
-.sm .emoji { font-size: 2.1rem; }
+.sm .mark { font-size: 1.5rem; }
 .md .letter { font-size: 13rem; }
-.md .emoji { font-size: 3.4rem; }
+.md .mark { font-size: 2.3rem; }
 .lg .letter { font-size: clamp(14rem, 34vw, 30rem); }
-.lg .emoji { font-size: clamp(4rem, 9vw, 7rem); left: 70%; }
+.lg .mark { font-size: clamp(2.6rem, 5vw, 4rem); left: 70%; }

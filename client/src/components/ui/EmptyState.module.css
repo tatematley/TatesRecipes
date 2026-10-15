@@ -19,6 +19,7 @@
   font-size: 1.9rem;
   border-radius: 50%;
   background: var(--herb-soft);
+  color: var(--herb);
   margin-bottom: 6px;
 }
 

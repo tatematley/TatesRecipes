@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { CameraIcon } from '../ui/Icons'
 import styles from './ImportRecipe.module.css'
 
 interface ParsedRecipe {
@@ -121,7 +122,7 @@ export function ImportRecipe({ onImport, bare }: Props) {
             onDragOver={(e) => e.preventDefault()}
           >
             <div className={styles.dropPrompt}>
-              <span className={styles.dropIcon}>📷</span>
+              <span className={styles.dropIcon}><CameraIcon size={28} /></span>
               <span>Drop photos here or click to browse</span>
               <span className={styles.dropHint}>Add multiple pages if the recipe spans more than one</span>
             </div>

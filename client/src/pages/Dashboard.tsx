@@ -6,7 +6,7 @@ import { isDemo } from '../lib/supabase'
 import { RecipeLibrary } from '../components/recipes/RecipeLibrary'
 import { RecipeCover } from '../components/ui/RecipeCover'
 import { Button } from '../components/ui/Button'
-import { ArrowRightIcon, ChefHatIcon, ClockIcon, PlusIcon, ShuffleIcon, CalendarIcon } from '../components/ui/Icons'
+import { ArrowRightIcon, ChefHatIcon, ClockIcon, PlusIcon, ShuffleIcon, CalendarIcon, SparkleIcon } from '../components/ui/Icons'
 import { formatTime, greeting } from '../utils/helpers'
 import { Recipe } from '../types'
 import styles from './Dashboard.module.css'
@@ -129,7 +129,7 @@ export function Dashboard() {
       </section>
 
       <Link to="/assistant" className={styles.askBar}>
-        <span>✨ Not sure what to make? Ask the kitchen assistant</span>
+        <span className={styles.askText}><SparkleIcon size={16} /> Not sure what to make? Ask the kitchen assistant</span>
         <ArrowRightIcon size={16} />
       </Link>
     </div>
