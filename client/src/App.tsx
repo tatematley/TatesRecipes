@@ -5,7 +5,6 @@ import { ToastProvider } from './components/ui/Toast'
 import { TimerProvider } from './lib/timers'
 import { Layout } from './components/layout/Layout'
 import { Dashboard } from './pages/Dashboard'
-import { LibraryPage } from './pages/LibraryPage'
 import { RecipeDetailPage } from './pages/RecipeDetailPage'
 import { CookModePage } from './pages/CookModePage'
 import { RecipeFormPage } from './pages/RecipeFormPage'
@@ -32,8 +31,8 @@ export default function App() {
                   <Layout>
                     <Routes>
                       <Route path="/" element={<Dashboard />} />
-                      <Route path="/favorites" element={<LibraryPage view="favorites" />} />
-                      <Route path="/created" element={<LibraryPage view="created" />} />
+                      <Route path="/favorites" element={<Navigate to="/?view=favorites" replace />} />
+                      <Route path="/created" element={<Navigate to="/?view=tates" replace />} />
                       <Route path="/recipe/:id" element={<RecipeDetailPage />} />
                       <Route path="/add" element={<RecipeFormPage />} />
                       <Route path="/edit/:id" element={<RecipeFormPage />} />

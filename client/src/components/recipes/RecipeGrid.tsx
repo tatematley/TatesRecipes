@@ -1,5 +1,6 @@
 import { Recipe } from '../../types'
 import { RecipeCard } from './RecipeCard'
+import { RecipeTile } from './RecipeTile'
 import { EmptyState } from '../ui/EmptyState'
 import { SearchIcon } from '../ui/Icons'
 import styles from './RecipeGrid.module.css'
@@ -27,7 +28,9 @@ export function RecipeGrid({ recipes, layout = 'grid', onAddRecipe, emptyTitle, 
   return (
     <div className={layout === 'grid' ? styles.grid : styles.list}>
       {recipes.map((recipe, i) => (
-        <RecipeCard key={recipe.id} recipe={recipe} layout={layout} index={i} />
+        layout === 'grid'
+          ? <RecipeTile key={recipe.id} recipe={recipe} index={i} />
+          : <RecipeCard key={recipe.id} recipe={recipe} layout={layout} index={i} />
       ))}
     </div>
   )

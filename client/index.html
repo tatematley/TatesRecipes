@@ -5,19 +5,11 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#1B2E4F" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0F1A2E" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0A1628" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Made by Tate" />
     <meta name="description" content="Tate's recipe box: the dishes I make and the ones I've found." />
     <title>Made by Tate</title>
-    <script>
-      // Apply the saved theme before first paint so there's no flash.
-      try {
-        var t = localStorage.getItem('tt:theme');
-        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-      } catch (e) {}
-    </script>
   </head>
   <body>
     <div id="root"></div>

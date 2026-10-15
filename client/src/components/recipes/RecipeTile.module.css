@@ -1,0 +1,31 @@
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--bg-raised);
+  animation: fadeUp 420ms var(--ease) both;
+  -webkit-tap-highlight-color: transparent;
+}
+.image { transition: transform 600ms var(--ease); }
+.tile:hover .image { transform: scale(1.05); }
+.tile:focus-visible { outline: 2px solid var(--brand-sky); outline-offset: 3px; }
+
+.t {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--bg);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-2);
+}

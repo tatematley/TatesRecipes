@@ -5,8 +5,7 @@ import styles from './CommandPalette.module.css'
 import { useRecipeContext } from '../../context/RecipeContext'
 import { NAV_GROUPS } from './nav'
 import { RecipeCover } from '../ui/RecipeCover'
-import { PlusIcon, SearchIcon, ShuffleIcon, MoonIcon, ArrowRightIcon } from '../ui/Icons'
-import { useTheme } from '../../hooks/useTheme'
+import { PlusIcon, SearchIcon, ShuffleIcon, ArrowRightIcon } from '../ui/Icons'
 import { searchRecipes } from '../../utils/search'
 import { formatTime } from '../../utils/helpers'
 
@@ -26,7 +25,6 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const listRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
   const { recipes } = useRecipeContext()
-  const { toggle } = useTheme()
 
   useEffect(() => {
     if (open) {
@@ -63,7 +61,6 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
         },
         render: () => <ShuffleIcon size={16} />,
       },
-      { id: 'a-theme', kind: 'action', label: 'Toggle dark mode', run: () => { toggle(); onClose() }, render: () => <MoonIcon size={16} /> },
       ...NAV_GROUPS.flatMap((g) => g.items).map(({ to, label, Icon }) => ({
         id: `nav-${to}`, kind: 'action' as const, label: `Go to ${label}`, run: go(to), render: () => <Icon size={16} />,
       })),
@@ -78,7 +75,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       })
     }
     return [...recipeItems, ...filteredActions]
-  }, [recipes, query, navigate, onClose, toggle])
+  }, [recipes, query, navigate, onClose])
 
   useEffect(() => { setActive(0) }, [query])
 

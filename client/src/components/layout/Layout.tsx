@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { Sidebar } from './Sidebar'
-import { MobileNav } from './MobileNav'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { CommandPalette } from './CommandPalette'
+import { Brand } from './Brand'
+import { PlusIcon } from '../ui/Icons'
 import styles from './Layout.module.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
 
   // ⌘K / Ctrl+K anywhere, or "/" when not typing
   useEffect(() => {
@@ -31,8 +32,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={styles.layout}>
-      <Sidebar onOpenSearch={() => setPaletteOpen(true)} />
-      <MobileNav onOpenSearch={() => setPaletteOpen(true)} />
+      <header className={styles.topBar}>
+        <Brand />
+        <button className={styles.addBtn} onClick={() => navigate('/add')} aria-label="New recipe">
+          <PlusIcon size={22} strokeWidth={2.25} />
+        </button>
+      </header>
       <main className={styles.main} key={location.pathname}>
         {children}
       </main>

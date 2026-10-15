@@ -45,22 +45,14 @@
   border-radius: var(--r-pill); background: var(--terracotta); color: #fff; font-size: 0.75rem; font-weight: 700;
 }
 
-.allHead { display: flex; align-items: baseline; gap: 12px; margin-top: 8px; }
-.allTitle { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 560; letter-spacing: -0.01em; }
-.allCount {
-  display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding: 0 8px;
-  border-radius: var(--r-pill); background: var(--herb-soft); color: var(--herb);
-  font-size: 0.8rem; font-weight: 700;
-}
-
 .count { display: flex; align-items: center; gap: 12px; font-size: 0.875rem; color: var(--ink-3); }
 .reset { font-size: 0.875rem; font-weight: 600; color: var(--herb); }
 
-.skeletons { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 36px 24px; }
+.skeletons { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
 
 @media (max-width: 640px) {
   .search, .filterBtn { height: 48px; }
   .filterBtn { padding: 0 16px; }
   .filterBtn span:not(.badge) { display: none; }
-  .skeletons { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
+  .skeletons { grid-template-columns: repeat(2, 1fr); gap: 8px; }
 }

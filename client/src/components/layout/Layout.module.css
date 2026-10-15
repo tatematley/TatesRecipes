@@ -1,15 +1,39 @@
-.layout { display: flex; min-height: 100vh; }
+.layout { display: flex; flex-direction: column; min-height: 100vh; }
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  max-width: calc(var(--content-max) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: calc(28px + env(safe-area-inset-top)) var(--gutter) 28px;
+}
+
+.addBtn {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--bg);
+  box-shadow: var(--shadow-2);
+  transition: transform var(--t-fast) var(--ease), background var(--t-fast) ease;
+}
+.addBtn:hover { transform: scale(1.06); background: var(--brand-sky); }
 
 .main {
   flex: 1;
   min-width: 0;
-  padding: clamp(24px, 4vw, 48px) var(--gutter) 96px;
+  padding: 8px var(--gutter) 96px;
   animation: fadeIn 260ms ease both;
 }
 .main > * { max-width: var(--content-max); margin-left: auto; margin-right: auto; }
 
-@media (max-width: 900px) {
-  .layout { flex-direction: column; }
-  .layout > aside { display: none; }
-  .main { padding-top: 20px; padding-bottom: calc(var(--mobile-nav-h) + 40px + env(safe-area-inset-bottom)); }
+@media (max-width: 640px) {
+  .topBar { padding-top: calc(20px + env(safe-area-inset-top)); padding-bottom: 20px; }
+  .addBtn { width: 46px; height: 46px; }
 }

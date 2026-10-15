@@ -13,10 +13,8 @@ import styles from './RecipeLibrary.module.css'
 interface Props {
   recipes: Recipe[]
   loading?: boolean
-  /** Shown under the search bar while nothing is searched or filtered (e.g. the home page shelves). */
-  browse?: React.ReactNode
-  /** Heading over the grid while browsing */
-  allTitle?: string
+  /** Shown right under the search bar (e.g. the home page's view toggles). */
+  chips?: React.ReactNode
   emptyTitle?: string
   emptyMessage?: string
 }
@@ -29,7 +27,7 @@ const SORTS: { value: SortKey; label: string }[] = [
 ]
 
 /** Search plus one Filters button. Search, category and sort live in the URL. */
-export function RecipeLibrary({ recipes, loading, browse, allTitle, emptyTitle, emptyMessage }: Props) {
+export function RecipeLibrary({ recipes, loading, chips, emptyTitle, emptyMessage }: Props) {
   const navigate = useNavigate()
   const [params, setParams] = useSearchParams()
   const filters = useFilters()
@@ -65,7 +63,6 @@ export function RecipeLibrary({ recipes, loading, browse, allTitle, emptyTitle, 
 
   const filterCount = filters.activeCount - (filters.filters.search ? 1 : 0) + (sort !== 'newest' ? 1 : 0)
   const narrowing = !!query || filters.activeCount > 0
-  const browsing = !narrowing && !loading
 
   return (
     <section className={styles.library}>
@@ -91,28 +88,21 @@ export function RecipeLibrary({ recipes, loading, browse, allTitle, emptyTitle, 
         </button>
       </div>
 
-      {browsing && browse}
+      {chips}
 
-      {browsing && allTitle ? (
-        <div className={styles.allHead}>
-          <h2 className={styles.allTitle}>{allTitle}</h2>
-          <span className={styles.allCount}>{results.length}</span>
-        </div>
-      ) : !loading && (
+      {narrowing && !loading && (
         <div className={styles.count}>
           {`${results.length} ${results.length === 1 ? 'recipe' : 'recipes'}${query ? ` for “${query}”` : ''}`}
-          {narrowing && (
-            <button className={styles.reset} onClick={() => { filters.clearFilters(); setParams(new URLSearchParams(), { replace: true }) }}>
-              Clear all
-            </button>
-          )}
+          <button className={styles.reset} onClick={() => { filters.clearFilters(); setParam('q', '') }}>
+            Clear all
+          </button>
         </div>
       )}
 
       {loading ? (
         <div className={styles.skeletons}>
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i}><div className="skeleton" style={{ aspectRatio: '4 / 3' }} /><div className="skeleton" style={{ height: 18, marginTop: 14, width: '70%' }} /></div>
+            <div key={i} className="skeleton" style={{ aspectRatio: '1 / 1' }} />
           ))}
         </div>
       ) : (
