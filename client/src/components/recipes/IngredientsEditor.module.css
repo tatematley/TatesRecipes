@@ -30,7 +30,7 @@
   outline: none;
   transition: var(--transition);
 }
-.groupInput:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(42, 48, 43, 0.12); }
+.groupInput:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(27, 46, 79, 0.12); }
 
 .ungroupedLabel {
   font-family: var(--font-heading);

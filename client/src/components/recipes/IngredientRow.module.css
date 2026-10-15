@@ -36,7 +36,7 @@
 .cell:focus {
   border-color: var(--green);
   background: var(--card-bg);
-  box-shadow: 0 0 0 2px rgba(42, 48, 43, 0.1);
+  box-shadow: 0 0 0 2px rgba(27, 46, 79, 0.1);
 }
 
 .cell::placeholder { color: var(--text-faint); }

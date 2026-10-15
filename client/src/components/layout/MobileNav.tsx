@@ -26,7 +26,7 @@ export function MobileNav({ onOpenSearch }: { onOpenSearch: () => void }) {
 
   return (
     <>
-      <header className={`${styles.topBar} forest-surface`}>
+      <header className={`${styles.topBar} brand-surface`}>
         <Brand compact />
         <div className={styles.topActions}>
           <button className={styles.iconBtn} onClick={onOpenSearch} aria-label="Search">
@@ -41,7 +41,7 @@ export function MobileNav({ onOpenSearch }: { onOpenSearch: () => void }) {
         </div>
       </header>
 
-      <nav className={`${styles.tabBar} forest-surface`} aria-label="Main">
+      <nav className={`${styles.tabBar} brand-surface`} aria-label="Main">
         {TABS.map(({ to, label, Icon }) => (
           <NavLink key={to} to={to} end={to === '/'} className={({ isActive }) => `${styles.tab} ${isActive ? styles.tabActive : ''}`}>
             <span className={styles.tabIcon}>

@@ -5,11 +5,10 @@ import styles from './RecipeCover.module.css'
 
 /** Curated palettes for recipes without a photo: [background, ink] */
 const PALETTES: [string, string, string][] = [
-  ['#E4EAE3', '#2A302B', '#D2DBD0'], // forest mist
-  ['#F6E1D2', '#A3582C', '#EDCDB6'], // citrus spice
-  ['#E8ECE7', '#3D473E', '#D7DED5'], // sage
-  ['#EEF0ED', '#4A524B', '#DFE3DE'], // stone
-  ['#DDE6DC', '#2F4A33', '#C9D6C7'], // fern
+  ['#E3EEFC', '#1B2E4F', '#D0E1F8'], // elite on horizon
+  ['#DDEAFB', '#3B63A3', '#C8DBF6'], // international
+  ['#EAF4FE', '#3B63A3', '#D5E9FC'], // endless horizon
+  ['#E1EBF9', '#2C4A7E', '#CBDBF2'], // greek sea
 ]
 
 export function paletteFor(seed: string) {
