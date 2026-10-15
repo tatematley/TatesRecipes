@@ -45,13 +45,19 @@ create trigger recipes_updated_at
   before update on recipes
   for each row execute function update_updated_at();
 
--- Row Level Security — open policy for a personal single-user app.
--- Lock this down with auth.uid() checks if you add login later.
+-- Row Level Security — anyone can read; only the signed-in admin can write.
+-- Create the admin in Authentication → Users → Add user, and turn off
+-- "Allow new users to sign up" (Authentication → Sign In / Providers)
+-- so nobody else can make an account.
 alter table recipes enable row level security;
 
 drop policy if exists "Allow all" on recipes;
-create policy "Allow all" on recipes
-  for all using (true) with check (true);
+drop policy if exists "Anyone can read" on recipes;
+drop policy if exists "Admin can write" on recipes;
+create policy "Anyone can read" on recipes
+  for select using (true);
+create policy "Admin can write" on recipes
+  for all to authenticated using (true) with check (true);
 
 -- ─────────────────────────────────────────────────────────────
 -- Storage bucket for food photos
@@ -59,6 +65,12 @@ create policy "Allow all" on recipes
 -- OR paste this (requires pg_storage extension to be enabled):
 -- select storage.create_bucket('recipe-photos', object_limit := null, file_size_limit := 10485760, allowed_mime_types := array['image/jpeg','image/png','image/webp','image/gif']);
 -- ─────────────────────────────────────────────────────────────
+
+-- Only the signed-in admin can upload or remove photos (public bucket stays readable)
+drop policy if exists "Admin can upload photos" on storage.objects;
+create policy "Admin can upload photos" on storage.objects
+  for all to authenticated
+  using (bucket_id = 'recipe-photos') with check (bucket_id = 'recipe-photos');
 
 -- ─────────────────────────────────────────────────────────────
 -- Kitchen data: collections, meal plan, grocery list, cook log.

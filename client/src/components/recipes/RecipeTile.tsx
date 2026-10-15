@@ -11,7 +11,6 @@ export function RecipeTile({ recipe, index = 0 }: { recipe: Recipe; index?: numb
       className={styles.tile}
       style={{ animationDelay: `${Math.min(index, 12) * 30}ms` }}
       aria-label={recipe.title}
-      title={recipe.title}
     >
       <RecipeCover recipe={recipe} className={styles.image} />
       {recipe.createdByTate && <span className={styles.t} aria-label="Tate's original">T</span>}
