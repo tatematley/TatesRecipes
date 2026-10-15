@@ -25,7 +25,6 @@ export function Dashboard() {
     <div className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.title}>Recipes</h1>
-        {!loading && <p className={styles.subtitle}>{recipes.length} recipes, made by Tate and saved from everywhere else.</p>}
       </header>
 
       {error && (
