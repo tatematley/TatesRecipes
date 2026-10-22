@@ -6,7 +6,6 @@ import { useChecklist } from '../hooks/useChecklist'
 import { useTimers, TimerPill } from '../lib/timers'
 import { IngredientPanel } from '../components/recipes/IngredientPanel'
 import { StepText } from '../components/recipes/StepText'
-import { CookLogModal } from '../components/recipes/CookLogModal'
 import { findDurations } from '../utils/timers'
 import { convertAmount, normalizeName } from '../utils/quantity'
 import { Ingredient } from '../types'
@@ -49,7 +48,6 @@ export function CookModePage() {
   // -1 = mise en place, steps.length = finished
   const [index, setIndex] = useState(-1)
   const [panelOpen, setPanelOpen] = useState(false)
-  const [logOpen, setLogOpen] = useState(false)
   const [awake, setAwake] = useState(false)
   const [speaking, setSpeaking] = useState(false)
   const [listening, setListening] = useState(false)
@@ -95,7 +93,6 @@ export function CookModePage() {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if ((e.target as HTMLElement).closest('input, textarea')) return
-      if (logOpen) return
       if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1) }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1) }
       else if (e.key === 'Escape') navigate(`/recipe/${id}`)
@@ -103,7 +100,7 @@ export function CookModePage() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [go, navigate, id, logOpen])
+  }, [go, navigate, id])
 
   // Read the current step aloud
   const speak = useCallback((text: string) => {
@@ -287,10 +284,9 @@ export function CookModePage() {
             <div className={styles.finish}>
               <div className={styles.confetti} aria-hidden="true">{[PartyIcon, ChefHatIcon, SparkleIcon, UtensilsIcon, StarIcon].map((I, i) => <span key={i} style={{ animationDelay: `${i * 90}ms` }}><I size={34} strokeWidth={1.5} /></span>)}</div>
               <h1 className={styles.miseTitle}>Dinner is served.</h1>
-              <p className={styles.miseSub}>Nicely done. How did it turn out?</p>
+              <p className={styles.miseSub}>Nicely done.</p>
               <div className={styles.finishActions}>
-                <button className={styles.primaryBtn} onClick={() => setLogOpen(true)}><CheckIcon size={18} strokeWidth={2.5} /> Log it in the journal</button>
-                <button className={styles.ghostBtn} onClick={() => navigate(`/recipe/${r.id}`)}>Back to recipe</button>
+                <button className={styles.primaryBtn} onClick={() => navigate(`/recipe/${r.id}`)}>Back to recipe</button>
               </div>
             </div>
           )}
@@ -338,7 +334,6 @@ export function CookModePage() {
         <div className={styles.progressPct} aria-hidden="true">{Math.round(progress)}%</div>
       </footer>
 
-      <CookLogModal recipeId={r.id} recipeTitle={r.title} isOpen={logOpen} onClose={() => { setLogOpen(false) }} />
     </div>
   )
 }

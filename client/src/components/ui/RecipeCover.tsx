@@ -25,7 +25,7 @@ interface Props {
   eager?: boolean
 }
 
-/** The recipe photo, or a simple icon cover when there isn't one. */
+/** The recipe photo, or its title (an icon at small and hero sizes) when there isn't one. */
 export function RecipeCover({ recipe, className = '', size = 'md', eager }: Props) {
   const [failed, setFailed] = useState(false)
 
@@ -50,7 +50,11 @@ export function RecipeCover({ recipe, className = '', size = 'md', eager }: Prop
       role="img"
       aria-label={recipe.title}
     >
-      <span className={styles.mark} aria-hidden="true"><CategoryIcon category={recipe.category} strokeWidth={1.25} /></span>
+      {size === 'md' ? (
+        <span className={styles.title} aria-hidden="true">{recipe.title}</span>
+      ) : (
+        <span className={styles.mark} aria-hidden="true"><CategoryIcon category={recipe.category} strokeWidth={1.25} /></span>
+      )}
     </div>
   )
 }

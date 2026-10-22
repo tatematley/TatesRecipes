@@ -1,22 +1,19 @@
 .library { display: flex; flex-direction: column; gap: 22px; }
 
-.toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; }
 
 .filterBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   height: 40px;
-  padding: 0 18px;
-  border-radius: var(--r-pill);
-  border: 1.5px solid var(--line-strong);
-  color: var(--ink-2);
+  color: var(--ink-3);
   font-weight: 600;
   font-size: 0.9375rem;
-  transition: border-color var(--t-fast) ease, background var(--t-fast) ease, color var(--t-fast) ease;
+  transition: color var(--t-fast) ease;
 }
-.filterBtn:hover { border-color: var(--ink-3); color: var(--ink); }
-.filterOn, .filterOn:hover { background: #fff; border-color: #fff; color: var(--bg); }
+.filterBtn:hover { color: var(--ink); }
+.filterOn, .filterOn:hover { color: #fff; }
 .badge {
   display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px;
   border-radius: var(--r-pill); background: var(--terracotta); color: #fff; font-size: 0.75rem; font-weight: 700;

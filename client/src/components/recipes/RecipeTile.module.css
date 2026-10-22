@@ -9,6 +9,24 @@
 }
 .image { transition: transform 600ms var(--ease); }
 .tile:hover .image { transform: scale(1.05); }
+.name {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+  background: linear-gradient(to top, rgba(10, 22, 40, 0.75), rgba(10, 22, 40, 0) 60%);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+  font-weight: 560;
+  line-height: 1.2;
+  opacity: 0;
+  transition: opacity var(--t-fast) ease;
+  pointer-events: none;
+}
+.tile:hover .name, .tile:focus-visible .name { opacity: 1; }
 .tile:focus-visible { outline: 2px solid var(--brand-sky); outline-offset: 3px; }
 
 .t {
@@ -29,3 +47,4 @@
   line-height: 1;
   box-shadow: var(--shadow-2);
 }
+.tLeft { right: auto; left: 10px; }

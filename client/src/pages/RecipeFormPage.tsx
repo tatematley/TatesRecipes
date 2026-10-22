@@ -12,7 +12,7 @@ import { Modal } from '../components/ui/Modal'
 import { RecipeCover } from '../components/ui/RecipeCover'
 import { CategoryIcon } from '../components/ui/FoodIcons'
 import { useToast } from '../components/ui/Toast'
-import { ArrowLeftIcon, CameraIcon, PlusIcon, XIcon, ChevronDownIcon, CopyIcon, ChefHatIcon, HeartIcon, SparkleIcon } from '../components/ui/Icons'
+import { ArrowLeftIcon, CameraIcon, PlusIcon, XIcon, ChevronDownIcon, CopyIcon, ChefHatIcon, HeartIcon, HomeIcon, SparkleIcon } from '../components/ui/Icons'
 import { generateId } from '../utils/helpers'
 import { parseIngredientLine } from '../utils/quantity'
 import { uploadPhoto } from '../lib/db'
@@ -31,7 +31,7 @@ const blankForm = (): FormData => ({
   createdByTate: false, tatesTips: '', tags: [],
   ingredients: [newIngredient()],
   instructions: [{ id: generateId(), step: 1, text: '' }],
-  photos: [], isFavorite: false,
+  photos: [], isFavorite: false, isPublic: true,
 })
 
 const TAG_GROUPS = [
@@ -424,6 +424,11 @@ export function RecipeFormPage({ onClose }: { onClose?: () => void } = {}) {
 
             {/* Flags */}
             <section className={styles.card}>
+              <label className={styles.toggle}>
+                <span className={styles.toggleText}><HomeIcon size={16} /> On the main page</span>
+                <input type="checkbox" checked={form.isPublic} onChange={(e) => set('isPublic', e.target.checked)} />
+                <span className={styles.track} />
+              </label>
               <label className={styles.toggle}>
                 <span className={styles.toggleText}><ChefHatIcon size={16} /> Created by Tate</span>
                 <input type="checkbox" checked={form.createdByTate} onChange={(e) => set('createdByTate', e.target.checked)} />

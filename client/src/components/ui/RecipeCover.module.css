@@ -28,6 +28,21 @@
 }
 .mark svg { width: 1em; height: 1em; }
 
+.title {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 12%;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.6vw, 1.375rem);
+  font-weight: 560;
+  line-height: 1.2;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
 .sm .mark { font-size: 1.5rem; }
 .md .mark { font-size: 2.3rem; }
 .lg .mark { font-size: clamp(2.6rem, 5vw, 4rem); left: 70%; }

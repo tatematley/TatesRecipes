@@ -3,6 +3,7 @@ import { Recipe } from '../types'
 import {
   fetchRecipes, insertRecipe, patchRecipe, removeRecipe,
 } from '../lib/db'
+import { useAuth } from './AuthContext'
 
 interface State {
   recipes: Recipe[]
@@ -80,7 +81,9 @@ export function RecipeProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  useEffect(() => { load() }, [load])
+  // Reload on sign-in and sign-out: hidden recipes are only readable by the admin
+  const { isAdmin, ready } = useAuth()
+  useEffect(() => { if (ready) load() }, [load, ready, isAdmin])
 
   const addRecipe = useCallback(
     async (data: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>) => {

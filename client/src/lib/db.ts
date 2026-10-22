@@ -1,5 +1,6 @@
 import { supabase as sb, PHOTOS_BUCKET, isDemo } from './supabase'
 import { buildDemoRecipes } from './demoData'
+import { gradeUploaded } from './preset'
 import { Recipe, Ingredient, Instruction, Photo, Category, Difficulty, Measurement } from '../types'
 
 // ─── DB Row Shape (snake_case from Postgres) ─────────────────
@@ -19,6 +20,7 @@ interface DBRecipe {
   created_by_tate: boolean
   tates_tips: string
   is_favorite: boolean
+  is_public: boolean
   tags: string[]
   ingredients: Ingredient[]
   instructions: Instruction[]
@@ -45,6 +47,7 @@ function toRecipe(row: DBRecipe): Recipe {
     createdByTate: row.created_by_tate,
     tatesTips:     row.tates_tips,
     isFavorite:    row.is_favorite,
+    isPublic:      row.is_public ?? true,
     tags:          row.tags ?? [],
     ingredients:   row.ingredients ?? [],
     instructions:  row.instructions ?? [],
@@ -70,6 +73,7 @@ function toRow(r: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>): Omit<DBRecipe
     created_by_tate: r.createdByTate,
     tates_tips:      r.tatesTips,
     is_favorite:     r.isFavorite,
+    is_public:       r.isPublic,
     tags:            r.tags,
     ingredients:     r.ingredients,
     instructions:    r.instructions,
@@ -154,6 +158,7 @@ export async function patchRecipe(
   if (updates.createdByTate  !== undefined) patch.created_by_tate = updates.createdByTate
   if (updates.tatesTips      !== undefined) patch.tates_tips      = updates.tatesTips
   if (updates.isFavorite     !== undefined) patch.is_favorite     = updates.isFavorite
+  if (updates.isPublic       !== undefined) patch.is_public       = updates.isPublic
   if (updates.tags           !== undefined) patch.tags            = updates.tags
   if (updates.ingredients    !== undefined) patch.ingredients     = updates.ingredients
   if (updates.instructions   !== undefined) patch.instructions    = updates.instructions
@@ -193,7 +198,8 @@ export async function uploadPhoto(folderId: string, file: File): Promise<string>
     })
   }
   const ext  = file.name.split('.').pop() ?? 'jpg'
-  const path = `${folderId}/${Date.now()}.${ext}`
+  // Unique even when several photos upload in the same millisecond
+  const path = `${folderId}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`
 
   const { error: uploadError } = await supabase.storage
     .from(PHOTOS_BUCKET)
@@ -205,7 +211,13 @@ export async function uploadPhoto(folderId: string, file: File): Promise<string>
     .from(PHOTOS_BUCKET)
     .getPublicUrl(path)
 
-  return data.publicUrl
+  // The original is kept; the photo look is applied to a copy, which is what shows
+  try {
+    return await gradeUploaded(folderId, data.publicUrl, file)
+  } catch (err) {
+    console.error('Photo preset failed, using the original:', err)
+    return data.publicUrl
+  }
 }
 
 // ─── Ingredient / Instruction helpers (used in JSONB data) ───

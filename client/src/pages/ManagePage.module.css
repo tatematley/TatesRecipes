@@ -1,0 +1,47 @@
+.page { display: flex; flex-direction: column; gap: 22px; }
+
+.tabs { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.tab {
+  height: 40px;
+  color: var(--ink-3);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: underline 2px transparent;
+  text-underline-offset: 6px;
+  transition: color var(--t-fast) ease, text-decoration-color var(--t-fast) ease;
+}
+.tab:hover { color: var(--ink); }
+.tabOn, .tabOn:hover { color: #fff; text-decoration-color: currentColor; }
+
+/* Same grid as the main page */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.empty { color: var(--ink-3); }
+
+.cell { position: relative; }
+/* Hidden recipes fade back so the public ones stand out */
+.cell.hidden > a { opacity: 0.4; transition: opacity var(--t-fast) ease; }
+.cell.hidden:hover > a { opacity: 1; }
+
+.toggle { position: absolute; top: 10px; right: 10px; z-index: 3; display: inline-flex; cursor: pointer; }
+.toggle input { position: absolute; opacity: 0; pointer-events: none; }
+.track {
+  width: 40px; height: 24px; border-radius: var(--r-pill);
+  background: rgba(10, 22, 40, 0.55);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85), var(--shadow-2);
+  position: relative;
+  transition: background 0.2s var(--ease);
+}
+.track::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%; background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s var(--ease-spring);
+}
+.toggle input:checked + .track { background: var(--herb); }
+.toggle input:checked + .track::after { transform: translateX(16px); }
+.toggle input:focus-visible + .track { outline: 2px solid var(--brand-sky); outline-offset: 2px; }
+.toggle input:disabled + .track { opacity: 0.6; }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+}
