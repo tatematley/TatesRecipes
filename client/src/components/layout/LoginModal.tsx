@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Modal } from '../ui/Modal'
 import { Button } from '../ui/Button'
 import { useAuth } from '../../context/AuthContext'
@@ -8,6 +9,7 @@ import styles from './LoginModal.module.css'
 /** The admin sign-in pop-up, opened from the footer. */
 export function LoginModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { signIn } = useAuth()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -26,6 +28,7 @@ export function LoginModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
     try {
       await signIn(email.trim(), password)
       close()
+      navigate('/manage')
     } catch {
       setError('That email and password didn’t match.')
     } finally {

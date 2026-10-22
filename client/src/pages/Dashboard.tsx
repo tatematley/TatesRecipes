@@ -24,9 +24,11 @@ export function Dashboard() {
     setParams(next, { replace: true })
   }
 
-  const list = view === 'favorites' ? recipes.filter((r) => r.isFavorite)
-    : view === 'tates' ? recipes.filter((r) => r.createdByTate)
-    : recipes
+  // The main page is the public one, even for the admin
+  const published = recipes.filter((r) => r.isPublic)
+  const list = view === 'favorites' ? published.filter((r) => r.isFavorite)
+    : view === 'tates' ? published.filter((r) => r.createdByTate)
+    : published
   const empty = EMPTY[view ?? 'all']
 
   const chips = (

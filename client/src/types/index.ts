@@ -86,6 +86,8 @@ export interface Recipe {
   instructions: Instruction[]
   photos: Photo[]
   isFavorite: boolean
+  /** Shown on the public main page; hidden recipes are only visible to the admin */
+  isPublic: boolean
   createdAt: string
   updatedAt: string
 }

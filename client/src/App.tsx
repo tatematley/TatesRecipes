@@ -16,6 +16,7 @@ import { PantryPage } from './pages/PantryPage'
 import { CollectionsPage } from './pages/CollectionsPage'
 import { CollectionDetailPage } from './pages/CollectionDetailPage'
 import { AssistantPage } from './pages/AssistantPage'
+import { ManagePage } from './pages/ManagePage'
 import { AddRecipeModal } from './components/recipes/AddRecipeModal'
 
 export default function App() {
@@ -70,6 +71,7 @@ function MainRoutes() {
         <Route path="/collections" element={<CollectionsPage />} />
         <Route path="/collections/:id" element={<CollectionDetailPage />} />
         <Route path="/assistant" element={<AssistantPage />} />
+        <Route path="/manage" element={canEdit ? <ManagePage /> : <Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {location.pathname === '/add' && !canEdit && <Navigate to="/" replace />}

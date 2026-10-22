@@ -59,6 +59,7 @@ export function RecipeDetailPage() {
   const [planOpen, setPlanOpen] = useState(false)
   const [collectionOpen, setCollectionOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [lightbox, setLightbox] = useState<Photo | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => { if (recipe) markViewed(recipe.id) }, [recipe?.id]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -73,7 +74,7 @@ export function RecipeDetailPage() {
     return () => window.removeEventListener('keydown', onKey)
   }, [recipe, navigate])
 
-  const more = useMemo(() => (recipe ? related(recipe, recipes) : []), [recipe, recipes])
+  const more = useMemo(() => (recipe ? related(recipe, recipes.filter((x) => x.isPublic)) : []), [recipe, recipes])
 
   if (!recipe) {
     if (loading) return <div className={styles.loading}><div className="skeleton" style={{ height: 420 }} /></div>
@@ -88,6 +89,8 @@ export function RecipeDetailPage() {
 
   const r = recipe
   const inCollections = collections.filter((c) => c.recipeIds.includes(r.id))
+  // Extra photos, minus the one already used as the cover
+  const gallery = r.photos.filter((p) => p.url !== r.heroImage)
   const steps = r.instructions.slice().sort((a, b) => a.step - b.step)
   const stepsDone = steps.filter((s) => doneSteps.isChecked(s.id)).length
 
@@ -169,6 +172,7 @@ export function RecipeDetailPage() {
           <p className={styles.kicker}>
             <Link to={`/?category=${encodeURIComponent(r.category)}`}>{r.category}</Link>
             {r.createdByTate && <span className={styles.tatePill}><ChefHatIcon size={12} strokeWidth={2} /> Tate's original</span>}
+            {!r.isPublic && <span className={styles.tatePill}>Hidden from the main page</span>}
           </p>
           <h1 className={styles.title}>{r.title}</h1>
           {r.description && <p className={styles.description}>{r.description}</p>}
@@ -271,6 +275,19 @@ export function RecipeDetailPage() {
         </section>
       </div>
 
+      {gallery.length > 0 && (
+        <section className={`${styles.gallery} no-print`}>
+          <h2 className={styles.sectionTitle}>Photos</h2>
+          <div className={styles.galleryGrid}>
+            {gallery.map((p) => (
+              <button key={p.id} className={styles.galleryPhoto} onClick={() => setLightbox(p)} aria-label="View photo">
+                <img src={p.url} alt={p.caption || r.title} loading="lazy" />
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+
       {more.length > 0 && (
         <section className={`${styles.more} no-print`}>
           <h2 className={styles.sectionTitle}>You might also like</h2>
@@ -281,6 +298,9 @@ export function RecipeDetailPage() {
       )}
 
       <input ref={fileRef} type="file" accept="image/*" hidden onChange={handlePhotoUpload} />
+      <Modal isOpen={!!lightbox} onClose={() => setLightbox(null)} title={lightbox?.caption || r.title} size="lg">
+        {lightbox && <img src={lightbox.url} alt={lightbox.caption || r.title} className={styles.lightboxImg} />}
+      </Modal>
       <PlanPicker recipe={r} isOpen={planOpen} onClose={() => setPlanOpen(false)} />
       <CollectionPicker recipeId={r.id} isOpen={collectionOpen} onClose={() => setCollectionOpen(false)} />
 

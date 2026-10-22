@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { CommandPalette } from './CommandPalette'
 import { LoginModal } from './LoginModal'
+import { PhotoPresetModal } from './PhotoPresetModal'
 import { useAuth } from '../../context/AuthContext'
 import { Brand } from './Brand'
 import { PlusIcon, SearchIcon, XIcon } from '../ui/Icons'
@@ -11,6 +12,7 @@ import styles from './Layout.module.css'
 export function Layout({ children }: { children: React.ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
+  const [presetOpen, setPresetOpen] = useState(false)
   const { isAdmin, signOut } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
@@ -18,11 +20,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   // While the add pop-up is open, the page behind it stays put
   const page = backgroundFor(location) ?? location
   const [params, setParams] = useSearchParams()
-  const query = page.pathname === '/' ? new URLSearchParams(page.search).get('q') ?? '' : ''
+  // The home grid and the admin's All recipes grid both filter by the top-bar search
+  const searchable = page.pathname === '/' || page.pathname === '/manage'
+  const query = searchable ? new URLSearchParams(page.search).get('q') ?? '' : ''
 
   // Search lives in the URL so the home page grid can read it
   function setQuery(q: string) {
-    if (location.pathname !== '/') {
+    if (location.pathname !== '/' && location.pathname !== '/manage') {
       navigate(q ? `/?q=${encodeURIComponent(q)}` : '/')
       return
     }
@@ -83,13 +87,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </main>
       <footer className={styles.footer}>
         {isAdmin ? (
-          <button className={styles.adminLink} onClick={signOut}>Sign out</button>
+          <>
+            <Link className={styles.adminLink} to="/manage">All recipes</Link>
+            <button className={styles.adminLink} onClick={() => setPresetOpen(true)}>Photo look</button>
+            <button className={styles.adminLink} onClick={signOut}>Sign out</button>
+          </>
         ) : (
           <button className={styles.adminLink} onClick={() => setLoginOpen(true)}>Admin</button>
         )}
       </footer>
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
       <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
+      {isAdmin && <PhotoPresetModal isOpen={presetOpen} onClose={() => setPresetOpen(false)} />}
     </div>
   )
 }

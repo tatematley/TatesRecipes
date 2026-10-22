@@ -23,6 +23,7 @@ create table if not exists recipes (
   created_by_tate boolean     not null default false,
   tates_tips    text          not null default '',
   is_favorite   boolean       not null default false,
+  is_public     boolean       not null default true,
   tags          text[]        not null default '{}',
   ingredients   jsonb         not null default '[]',
   instructions  jsonb         not null default '[]',
@@ -40,12 +41,16 @@ begin
 end;
 $$;
 
+-- Added later: whether a recipe shows on the public main page
+alter table recipes add column if not exists is_public boolean not null default true;
+
 drop trigger if exists recipes_updated_at on recipes;
 create trigger recipes_updated_at
   before update on recipes
   for each row execute function update_updated_at();
 
--- Row Level Security — anyone can read; only the signed-in admin can write.
+-- Row Level Security — anyone can read public recipes; the signed-in admin
+-- can read everything and is the only one who can write.
 -- Create the admin in Authentication → Users → Add user, and turn off
 -- "Allow new users to sign up" (Authentication → Sign In / Providers)
 -- so nobody else can make an account.
@@ -53,9 +58,10 @@ alter table recipes enable row level security;
 
 drop policy if exists "Allow all" on recipes;
 drop policy if exists "Anyone can read" on recipes;
+drop policy if exists "Anyone can read public recipes" on recipes;
 drop policy if exists "Admin can write" on recipes;
-create policy "Anyone can read" on recipes
-  for select using (true);
+create policy "Anyone can read public recipes" on recipes
+  for select using (is_public);
 create policy "Admin can write" on recipes
   for all to authenticated using (true) with check (true);
 

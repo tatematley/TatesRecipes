@@ -19,7 +19,7 @@ function withOrder(ings: Ingredient[]): Ingredient[] {
 }
 const daysAgo = (d: number) => new Date(Date.now() - d * 86_400_000).toISOString()
 
-type Seed = Omit<Recipe, 'id' | 'createdAt' | 'updatedAt' | 'photos' | 'heroImage'> & { age: number }
+type Seed = Omit<Recipe, 'id' | 'createdAt' | 'updatedAt' | 'photos' | 'heroImage' | 'isPublic'> & { age: number }
 
 const SEEDS: Seed[] = [
   {
@@ -264,6 +264,7 @@ export function buildDemoRecipes(): Recipe[] {
     id: `demo-recipe-${i + 1}`,
     heroImage: '',
     photos: [],
+    isPublic: true,
     createdAt: daysAgo(age),
     updatedAt: daysAgo(age),
   }))
