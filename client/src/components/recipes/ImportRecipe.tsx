@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { CameraIcon } from '../ui/Icons'
+import { authHeaders } from '../../lib/supabase'
 import styles from './ImportRecipe.module.css'
 
 interface ParsedRecipe {
@@ -69,7 +70,7 @@ export function ImportRecipe({ onImport, bare }: Props) {
 
       if (mode === 'photo') {
         if (images.length === 0) throw new Error('No photos selected')
-        const encoded = await Promise.all(images.map((img) => toBase64(img.file).then((data) => ({ data, mediaType: img.file.type }))))
+        const encoded = await Promise.all(images.map((img) => shrink(img.file).then((data) => ({ data, mediaType: 'image/jpeg' }))))
         body = { images: encoded }
       } else {
         if (!url.trim()) throw new Error('Enter a URL')
@@ -78,16 +79,18 @@ export function ImportRecipe({ onImport, bare }: Props) {
 
       const resp = await fetch('/api/parse-recipe', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await authHeaders()) },
         body: JSON.stringify(body),
       })
 
-      if (!resp.ok) {
-        const err = await resp.json()
-        throw new Error(err.error ?? 'Parse failed')
-      }
+      // An empty or HTML reply means the import service isn't running where the site is
+      const text = await resp.text()
+      let data: (ParsedRecipe & { error?: string }) | null = null
+      try { data = JSON.parse(text) } catch { /* not JSON */ }
+      if (!data) throw new Error('Recipe import isn’t available on this site yet.')
+      if (!resp.ok) throw new Error(data.error ?? 'Parse failed')
 
-      const parsed: ParsedRecipe = await resp.json()
+      const parsed: ParsedRecipe = data
       onImport(parsed)
       setSuccess(true)
     } catch (err) {
@@ -169,11 +172,13 @@ export function ImportRecipe({ onImport, bare }: Props) {
   )
 }
 
-function toBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve((reader.result as string).split(',')[1])
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
+/** The photo as base64 JPEG, at most 1600px on its longest side: plenty to read a recipe. */
+async function shrink(file: File): Promise<string> {
+  const img = await createImageBitmap(file)
+  const scale = Math.min(1, 1600 / Math.max(img.width, img.height))
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.round(img.width * scale)
+  canvas.height = Math.round(img.height * scale)
+  canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height)
+  return canvas.toDataURL('image/jpeg', 0.85).split(',')[1]
 }

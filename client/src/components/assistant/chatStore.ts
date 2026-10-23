@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import type { Recipe } from '../../types'
+import { authHeaders } from '../../lib/supabase'
 
 /**
  * Conversation state for the kitchen assistant. Lives outside React so a reply keeps
@@ -112,7 +113,7 @@ export async function sendMessage(text: string, recipes: Recipe[]) {
   try {
     const res = await fetch('/api/assistant', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...(await authHeaders()) },
       body: JSON.stringify({ messages: payload, recipes: summarizeRecipes(recipes) }),
       signal: controller.signal,
     })
